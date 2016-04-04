@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class StatDice{
 
-	
 	public static int rollDice(int amount){
 		int successes=0;
 		int result=0;
