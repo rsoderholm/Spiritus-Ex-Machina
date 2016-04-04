@@ -2,7 +2,7 @@ package dice;
 
 import java.util.Random;
 
-import spiritus.Dice;
+
 
 public class DifficulityDice extends Dice{
 	private int amount;
