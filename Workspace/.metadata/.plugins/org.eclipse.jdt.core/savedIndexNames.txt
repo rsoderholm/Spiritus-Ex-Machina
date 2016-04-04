@@ -1,5 +1,4 @@
 INDEX VERSION 1.127+C:\Users\ludwi\Desktop\Projekt2\Spiritus-Ex-Machina\Workspace\.metadata\.plugins\org.eclipse.jdt.core
-3836837791.index
 4210772659.index
 3449116704.index
 1755913921.index
@@ -13,7 +12,6 @@ INDEX VERSION 1.127+C:\Users\ludwi\Desktop\Projekt2\Spiritus-Ex-Machina\Workspac
 2265617865.index
 1492968368.index
 1063230161.index
-412498559.index
 882139543.index
 3383392487.index
 52205867.index
