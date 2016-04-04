@@ -1,0 +1,29 @@
+package gui.Navscreen;
+
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class Inventory {
+	private VBox layout1;
+	private Stage window;
+	private Scene scene;
+
+	public Inventory() {
+		window = new Stage();
+		layout1 = new VBox();
+		layout1.setAlignment(Pos.CENTER);
+		scene = new Scene(layout1);
+		scene.getStylesheets().add("StyleSheet.css");
+		
+		layout1.getChildren().addAll();
+		
+		window.setResizable(false);
+		window.setScene(scene);
+
+		window.setHeight(400);
+		window.setWidth(600);
+		window.show();
+	}
+}

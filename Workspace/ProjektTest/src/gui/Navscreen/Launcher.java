@@ -14,14 +14,13 @@ import javafx.stage.Stage;
 import javafx.scene.media.*;
 
 public class Launcher extends Application {
-	Stage window;
-	Scene scene;
-	ImageView iv1;
-	Image image;
-	private final String PATH = "files/Tales of the Future.mp3";
-	File f;
-	Media media;
-	MediaPlayer mplayer;
+	private Stage window;
+	private Scene scene;
+	private ImageView iv1;
+	private Image image;
+	private File f;
+	private Media media;
+	private MediaPlayer mplayer;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -53,7 +52,7 @@ public class Launcher extends Application {
 
 	private void playMedia() {
 
-		f = new File(PATH);
+		f = new File("files/Tales of the Future.mp3");
 		media = new Media(f.toURI().toString());
 		mplayer = new MediaPlayer(media);
 		mplayer.setAutoPlay(true);

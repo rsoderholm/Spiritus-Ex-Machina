@@ -4,7 +4,9 @@ import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -24,50 +26,51 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class JavaFxTest  {
+public class JavaFxTest {
 
-	VBox layout1;
-	VBox layout2;
-	Stage window;
-	Scene scene;
+	private VBox layout1;
+	private Stage window;
+	private Scene scene;
 
-	String dialogText1;
-	String dialogText2;
-	String dialogText3;
-	String dialogText4;
+	private String dialogText1;
+	private String dialogText2;
+	private String dialogText3;
+	private String dialogText4;
 
-	Text text;
-	Animation animation;
+	private Text text;
+	private Text statusText;
+	private Animation animation;
 
-	Button button1;
-	Button button2;
-	Button button3;
-	Button button4;
-	String eventText;
-	Rectangle2D bounds;
-	double width = Double.MAX_VALUE;
-	double height = Double.MAX_VALUE;
-	ImageView iv1;
-	Image image;
-
-
+	private Button buttoninv;
+	private Button button1;
+	private Button button2;
+	private Button button3;
+	private Button button4;
+	private String eventText;
+	private Rectangle2D bounds;
+	private double width = Double.MAX_VALUE;
+	private double height = Double.MAX_VALUE;
+	private ImageView iv1;
+	private Image image;
 
 	public JavaFxTest() {
+
 		window = new Stage();
 		layout1 = new VBox();
+		layout1.setAlignment(Pos.CENTER);
 		scene = new Scene(layout1);
 		scene.getStylesheets().add("StyleSheet.css");
-		
-		
 
 		addImage();
 		addtext();
 		addbutton();
-		layout1.getChildren().addAll(iv1, text, button1, button2, button3, button4);
-
+		status(100);
+		 inventory();
+		layout1.getChildren().addAll(iv1, text, button1, button2, button3, button4,statusText,buttoninv);
 		
 		window.setResizable(false);
 		window.setScene(scene);
+
 		window.setHeight(900);
 		window.setWidth(1200);
 		window.show();
@@ -138,17 +141,33 @@ public class JavaFxTest  {
 
 	public void setDialog(String dialog, int n) {
 		if (n == 1) {
-			dialog = dialogText1;
+			dialogText1 = dialog;
 		}
 		if (n == 2) {
-			dialog = dialogText2;
+			dialogText2 = dialog;
 		}
 		if (n == 3) {
-			dialog = dialogText3;
+			dialogText3 = dialog;
 		}
 		if (n == 4) {
-			dialog = dialogText4;
-			
+			dialogText4 = dialog;
+
 		}
+	}
+
+	public void inventory() {
+		buttoninv = new Button("Inventory");
+		buttoninv.setOnAction(e -> new Inventory() );
+		buttoninv.setMaxWidth(200);
+	}
+
+	public void status(int Nhp) {
+		String hp = "Healthpoints: ";
+		int nhp = Nhp;
+		statusText = new Text();
+		statusText.setFont(new Font(20));
+		statusText.setTextAlignment(TextAlignment.CENTER);
+		statusText.setFill(Color.WHITE);
+		statusText.setText(hp + nhp);
 	}
 }
