@@ -47,44 +47,32 @@ public class JavaFxTest {
 	private Button button3;
 	private Button button4;
 	private String eventText;
-
-	private double width = 1200;
+	private Rectangle2D bounds;
+	private double width = Double.MAX_VALUE;
 	private double height = Double.MAX_VALUE;
 	private ImageView iv1;
-	private ImageView iv2;
 	private Image image;
-
-	private Rectangle2D bounds;
-	private Screen screen;
-	private double widthScreen;
-	private double heightScreen;
 
 	public JavaFxTest() {
 
 		window = new Stage();
-		screen = Screen.getPrimary();
-		bounds = screen.getVisualBounds();
-		window.setWidth(bounds.getWidth());
-		window.setHeight(bounds.getHeight());
-		widthScreen = bounds.getWidth();
-		heightScreen = bounds.getHeight();
-
 		layout1 = new VBox();
 		layout1.setAlignment(Pos.CENTER);
-		scene = new Scene(layout1, widthScreen, heightScreen);
+		scene = new Scene(layout1);
 		scene.getStylesheets().add("StyleSheet.css");
 
-		addBackgroundImage();
 		addImage();
 		addtext();
 		addbutton();
 		status(100);
-		inventory();
-		layout1.getChildren().addAll(iv1, text, button1, button2, button3, button4, statusText, buttoninv);
-
+		 inventory();
+		layout1.getChildren().addAll(iv1, text, button1, button2, button3, button4,statusText,buttoninv);
+		
 		window.setResizable(false);
 		window.setScene(scene);
 
+		window.setHeight(900);
+		window.setWidth(1200);
 		window.show();
 	}
 
@@ -134,10 +122,6 @@ public class JavaFxTest {
 
 	}
 
-	public void addBackgroundImage() {
-
-	}
-
 	public void textanimation() {
 		animation = new Transition() {
 			{
@@ -173,7 +157,7 @@ public class JavaFxTest {
 
 	public void inventory() {
 		buttoninv = new Button("Inventory");
-		buttoninv.setOnAction(e -> new Inventory());
+		buttoninv.setOnAction(e -> new Inventory() );
 		buttoninv.setMaxWidth(200);
 	}
 
