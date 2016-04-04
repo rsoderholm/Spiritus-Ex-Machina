@@ -141,16 +141,16 @@ public class JavaFxTest {
 
 	public void setDialog(String dialog, int n) {
 		if (n == 1) {
-			button1.setText(dialogText1);
+			dialogText1 = dialog;
 		}
 		if (n == 2) {
-			button2.setText(dialogText2);
+			dialogText2 = dialog;
 		}
 		if (n == 3) {
-			button3.setText(dialogText3);
+			dialogText3 = dialog;
 		}
 		if (n == 4) {
-			button4.setText(dialogText4);
+			dialogText4 = dialog;
 
 		}
 	}
