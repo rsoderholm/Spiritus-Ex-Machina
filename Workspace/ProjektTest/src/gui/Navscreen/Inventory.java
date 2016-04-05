@@ -27,7 +27,7 @@ public class Inventory {
 	public void drawWindow() {
 		window = new Stage();
 		layout1 = new VBox();
-		layout1.setAlignment(Pos.CENTER);
+		layout1.setAlignment(Pos.TOP_LEFT);
 		scene = new Scene(layout1);
 		scene.getStylesheets().add("StyleSheet.css");
 
@@ -35,10 +35,12 @@ public class Inventory {
 
 		layout1.getChildren().addAll(inventoryText);
 
+		
+		window.setAlwaysOnTop(true);
 		window.setResizable(false);
 		window.setScene(scene);
-		window.setHeight(400);
-		window.setWidth(600);
+		window.setHeight(1000);
+		window.setWidth(300);
 		window.show();
 	}
 
@@ -55,4 +57,5 @@ public class Inventory {
 
 		inventoryText.setText(inv);
 	}
+	
 }
