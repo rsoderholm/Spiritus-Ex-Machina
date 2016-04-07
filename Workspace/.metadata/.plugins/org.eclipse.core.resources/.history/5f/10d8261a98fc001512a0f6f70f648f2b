@@ -209,14 +209,9 @@ public class JavaFxTest {
 		}
 	}
 	
-	public void setStatus( int nr){
-		statusText.setText("Healthpoints: " + nr);
+	public void setStatus(String hp, int nr){
+		statusText.setText(hp + " :" + nr);
 		textanimation();
-	}
-	public void setImage(String img){
-		image = new Image(img);
-		iv1.setImage(image);
-		iv1.setFitWidth(1200);
 	}
 	public void buttonHandler() {
 

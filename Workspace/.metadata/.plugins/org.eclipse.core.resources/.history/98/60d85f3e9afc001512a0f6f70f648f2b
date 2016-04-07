@@ -215,6 +215,7 @@ public class JavaFxTest {
 	}
 	public void setImage(String img){
 		image = new Image(img);
+		iv1 = new ImageView();
 		iv1.setImage(image);
 		iv1.setFitWidth(1200);
 	}

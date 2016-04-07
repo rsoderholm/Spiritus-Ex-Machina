@@ -177,7 +177,7 @@ public class JavaFxTest {
 				+ "next to the option. The more point you have of a certain attributes, the higher your chances of"
 				+ "success when using that attribute.]";
 
-		setDialog("Ambush! Run! Dodge the attack", 1);
+		setDialog("Ambush! Run! Dodge the attackThe smell is unbearable. A combination of rotting garbage, stale urine and the remains of rats and other animals have mixed together to form a smell that defies any attempt at ignore it.The smell is unbearable. A combination of rotting garbage, stale urine and the remains of rats and other animals have mixed together to form a smell that defies any attempt at ignore it.The smell is unbearable. A combination of rotting garbage, stale urine and the remains of rats and other animals have mixed together to form a smell that defies any attempt at ignore it.", 1);
 		setDialog("Pull out your gun and take aim at the possible attacker", 2);
 		setDialog("Confront however is in the shadows", 3);
 		setDialog("Attack them bare handed", 4);
@@ -212,11 +212,6 @@ public class JavaFxTest {
 	public void setStatus( int nr){
 		statusText.setText("Healthpoints: " + nr);
 		textanimation();
-	}
-	public void setImage(String img){
-		image = new Image(img);
-		iv1.setImage(image);
-		iv1.setFitWidth(1200);
 	}
 	public void buttonHandler() {
 

@@ -88,7 +88,7 @@ public class JavaFxTest {
 		
 		init();
 		buttonHandler();
-		
+		setStatus(95);
 		window.setResizable(false);
 		window.setScene(scene);
 		window.show();
@@ -210,13 +210,8 @@ public class JavaFxTest {
 	}
 	
 	public void setStatus( int nr){
-		statusText.setText("Healthpoints: " + nr);
+		statusText.setText("Healthpoints: "+nr);
 		textanimation();
-	}
-	public void setImage(String img){
-		image = new Image(img);
-		iv1.setImage(image);
-		iv1.setFitWidth(1200);
 	}
 	public void buttonHandler() {
 
