@@ -35,11 +35,12 @@ public class Inventory {
 
 		layout1.getChildren().addAll(inventoryText);
 
+		window.setX(10);
 		
 		window.setAlwaysOnTop(true);
 		window.setResizable(false);
 		window.setScene(scene);
-		window.setHeight(1000);
+		window.setHeight(700);
 		window.setWidth(300);
 		window.show();
 	}
