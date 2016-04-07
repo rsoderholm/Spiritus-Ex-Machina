@@ -2,7 +2,7 @@ package dice;
 
 import java.util.Random;
 
-public class StatDice{
+public final class StatDice{
 
 	public static int rollDice(int amount){
 		int successes=0;
