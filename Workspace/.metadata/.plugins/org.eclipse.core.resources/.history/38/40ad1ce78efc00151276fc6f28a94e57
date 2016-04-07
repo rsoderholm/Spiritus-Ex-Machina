@@ -41,7 +41,7 @@ public class JavaFxTest {
 	private String dialogText3 = "";
 	private String dialogText4 = "";
 
-	private Text Evtext;
+	private Text text;
 	private Text statusText;
 	private Animation animation;
 
@@ -87,7 +87,7 @@ public class JavaFxTest {
 		status(100);
 		inventory();
 
-		layout1.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, statusText, buttoninv, buttonattr);
+		layout1.getChildren().addAll(iv1, text, button1, button2, button3, button4, statusText, buttoninv, buttonattr);
 		initEventText();
 
 		window.setResizable(false);
@@ -117,13 +117,13 @@ public class JavaFxTest {
 
 	public void addtext() {
 
-		Evtext = new Text();
-		Evtext.setWrappingWidth(1200);
-		Evtext.setFont(new Font(20));
+		text = new Text();
+		text.setWrappingWidth(1200);
+		text.setFont(new Font(20));
 
-		Evtext.setTextAlignment(TextAlignment.JUSTIFY);
-		Evtext.setText(eventText);
-		Evtext.setFill(Color.WHITE);
+		text.setTextAlignment(TextAlignment.JUSTIFY);
+		text.setText(eventText);
+		text.setFill(Color.WHITE);
 
 		textanimation();
 	}
@@ -146,7 +146,7 @@ public class JavaFxTest {
 			protected void interpolate(double frac) {
 				final int length = eventText.length();
 				final int n = Math.round(length * (float) frac);
-				Evtext.setText(eventText.substring(0, n));
+				text.setText(eventText.substring(0, n));
 			}
 
 		};
@@ -195,7 +195,7 @@ public class JavaFxTest {
 	}
 
 	public void initEventText() {
-		eventText = "You take the stairs down to the subway station, trying to brace your self as much as possible for the stench. "
+		setEventText(eventText) = "You take the stairs down to the subway station, trying to brace your self as much as possible for the stench. "
 				+ "Gravel and bits of broken glass crunch under foot as you sidestep the small piles of detritus scatteredhaphazardly all over the station. "
 				+ "The smell is unbearable. A combination of rotting garbage, stale urine and the remains of rats and other animals have mixed together to form a smell that defies any attempt at ignore it. "
 				+ "You've almost reached the train when a sudden movement to the side catches you attention.." + "\n"
@@ -212,8 +212,7 @@ public class JavaFxTest {
 	
 	public void setEventText(String txt){
 		eventText = txt;
-		Evtext.setText(eventText);
-		textanimation();
+		
 	}
 
 

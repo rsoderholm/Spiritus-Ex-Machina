@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;text&apos; in &apos;gui.Navscreen.JavaFxTest&apos; to &apos;Evtext&apos;&#x0D;&#x0A;- Original project: &apos;ProjektTest&apos;&#x0D;&#x0A;- Original element: &apos;gui.Navscreen.JavaFxTest.text&apos;&#x0D;&#x0A;- Renamed element: &apos;gui.Navscreen.JavaFxTest.Evtext&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;text&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;gui.Navscreen{JavaFxTest.java[JavaFxTest^text" name="Evtext" references="true" setter="false" stamp="1460013184075" textual="false" version="1.0"/>
+</session>
