@@ -53,20 +53,18 @@ public class JavaFxTest {
 	private String eventText;
 
 	private double width = 1200;
-	private double height = Double.MAX_VALUE;
 	private ImageView iv1;
-	private ImageView iv2;
 	private Image image;
 
 	private Rectangle2D bounds;
 	private Screen screen;
 	private double widthScreen;
 	private double heightScreen;
-	
+
 	private Script script;
 
 	public JavaFxTest() {
-
+		script = new Script(this);
 		window = new Stage();
 		screen = Screen.getPrimary();
 		bounds = screen.getVisualBounds();
@@ -74,7 +72,6 @@ public class JavaFxTest {
 		window.setHeight(bounds.getHeight());
 		widthScreen = bounds.getWidth();
 		heightScreen = bounds.getHeight();
-		
 		layout1 = new VBox();
 		layout1.setAlignment(Pos.CENTER);
 		scene = new Scene(layout1, widthScreen, heightScreen);
@@ -83,35 +80,53 @@ public class JavaFxTest {
 		addImage();
 		addtext();
 		addbutton();
-		Attributes();
-		status(100);
-		inventory();
+		addAttributes();
+		addstatus();
+		addinventory();
 
 		layout1.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, statusText, buttoninv, buttonattr);
-		initEventText();
-
+		
+		init();
+		buttonHandler();
+		
 		window.setResizable(false);
 		window.setScene(scene);
 
 		window.show();
 	}
+	public void textanimation() {
+		animation = new Transition() {
+			{
 
+				setCycleDuration(Duration.millis(2000));
+			}
+
+			protected void interpolate(double frac) {
+				final int length = eventText.length();
+				final int n = Math.round(length * (float) frac);
+				Evtext.setText(eventText.substring(0, n));
+			}
+
+		};
+		animation.play();
+	}
 	public void addbutton() {
 		// Knappar
+
 		button1 = new Button(dialogText1);
-		button1.setOnAction(e -> script.test1());
+
 		button1.setMaxWidth(width);
 
 		button2 = new Button(dialogText2);
-		button2.setOnAction(e -> script.test2());
+
 		button2.setMaxWidth(width);
 
 		button3 = new Button(dialogText3);
-		button3.setOnAction(e -> script.test3());
+
 		button3.setMaxWidth(width);
 
 		button4 = new Button(dialogText4);
-		button4.setOnAction(e -> script.test4());
+
 		button4.setMaxWidth(width);
 	}
 
@@ -136,23 +151,51 @@ public class JavaFxTest {
 
 	}
 
-	public void textanimation() {
-		animation = new Transition() {
-			{
-
-				setCycleDuration(Duration.millis(2000));
-			}
-
-			protected void interpolate(double frac) {
-				final int length = eventText.length();
-				final int n = Math.round(length * (float) frac);
-				Evtext.setText(eventText.substring(0, n));
-			}
-
-		};
-		animation.play();
+	
+	public void addinventory() {
+		buttoninv = new Button("Inventory");
+		buttoninv.setMaxHeight(600);
+		buttoninv.setMaxWidth(200);
 	}
 
+	public void addAttributes() {
+		buttonattr = new Button("Attributes");
+		buttonattr.setMaxWidth(200);
+	}
+
+	public void addstatus() {
+		
+		statusText = new Text();
+		statusText.setFont(new Font(20));
+		statusText.setTextAlignment(TextAlignment.CENTER);
+		statusText.setFill(Color.WHITE);
+		statusText.setText("Healthpoints: " + 100);
+	}
+
+	public void init() {
+		eventText = "You take the stairs down to the subway station, trying to brace your self as much as possible for the stench. "
+				+ "Gravel and bits of broken glass crunch under foot as you sidestep the small piles of detritus scatteredhaphazardly all over the station. "
+				+ "The smell is unbearable. A combination of rotting garbage, stale urine and the remains of rats and other animals have mixed together to form a smell that defies any attempt at ignore it. "
+				+ "You've almost reached the train when a sudden movement to the side catches you attention.." + "\n"
+				+ "\n"
+				+ "[Pick a one of the playable options available to you. The attributes required to succeed are written"
+				+ "next to the option. The more point you have of a certain attributes, the higher your chances of"
+				+ "success when using that attribute.]";
+
+		setDialog("Ambush! Run! Dodge the attack", 1);
+		setDialog("Pull out your gun and take aim at the possible attacker", 2);
+		setDialog("Confront however is in the shadows", 3);
+		setDialog("Attack them bare handed", 4);
+		
+
+
+	}
+
+	public void setEventText(String txt) {
+		this.eventText = txt;
+		Evtext.setText(eventText);
+		textanimation();
+	}
 	public void setDialog(String dialog, int n) {
 
 		if (n == 1) {
@@ -170,52 +213,23 @@ public class JavaFxTest {
 
 		}
 	}
-
-	public void inventory() {
-		buttoninv = new Button("Inventory");
-		buttoninv.setOnAction(e -> new Inventory());
-		buttoninv.setMaxHeight(600);
-		buttoninv.setMaxWidth(200);
-	}
-
-	public void Attributes() {
-		buttonattr = new Button("Attributes");
-		buttonattr.setOnAction(e -> new Attributes());
-		buttonattr.setMaxWidth(200);
-	}
-
-	public void status(int Nhp) {
-		String hp = "Healthpoints: ";
-		int nhp = Nhp;
-		statusText = new Text();
-		statusText.setFont(new Font(20));
-		statusText.setTextAlignment(TextAlignment.CENTER);
-		statusText.setFill(Color.WHITE);
-		statusText.setText(hp + nhp);
-	}
-
-	public void initEventText() {
-		eventText = "You take the stairs down to the subway station, trying to brace your self as much as possible for the stench. "
-				+ "Gravel and bits of broken glass crunch under foot as you sidestep the small piles of detritus scatteredhaphazardly all over the station. "
-				+ "The smell is unbearable. A combination of rotting garbage, stale urine and the remains of rats and other animals have mixed together to form a smell that defies any attempt at ignore it. "
-				+ "You've almost reached the train when a sudden movement to the side catches you attention.." + "\n"
-				+ "\n"
-				+ "[Pick a one of the playable options available to you. The attributes required to succeed are written"
-				+ "next to the option. The more point you have of a certain attributes, the higher your chances of"
-				+ "success when using that attribute.]";
-
-		setDialog("Ambush! Run! Dodge the attack", 1);
-		setDialog("Pull out your gun and take aim at the possible attacker",2);
-		setDialog("Confront however is in the shadows",3);
-		setDialog("Attack them bare handed",4);
-	}
 	
-	public void setEventText(String txt){
-		eventText = txt;
-		Evtext.setText(eventText);
+	public void setStatus(String hp, int nr){
+		statusText.setText("hp: " + nr);
 		textanimation();
 	}
+	public void buttonHandler() {
 
+		button1.setOnAction(e -> script.test1());
 
+		button2.setOnAction(e -> script.test2());
 
+		button3.setOnAction(e -> script.test3());
+
+		button4.setOnAction(e -> script.test4());
+
+		buttonattr.setOnAction(e -> new Attributes());
+
+		buttoninv.setOnAction(e -> new Inventory());
+	}
 }

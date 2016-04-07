@@ -1,17 +1,19 @@
 package gui.Navscreen;
 
 public final class Script {
-	String eventText;
-	JavaFxTest GUI;
+	private String eventText;
+	private JavaFxTest GUI;
 	
 	
-	
+	public Script(JavaFxTest jft){
+		GUI = jft;
+	}
 	
 	public void test1() {
 		eventText = "Instincts take over and you immediately burst into motion, nearly escapes a blow from a shady figure."
 				+ "\n" + "They found me.....";
-		GUI.setEventText(eventText);
 		
+		GUI.setEventText(eventText);
 		GUI.setDialog("Dont look back and run as fast as you can towards the train",1);
 		GUI.setDialog("Unload a swarm of bullets at the direction of the shady figure",2);
 		GUI.setDialog("Try reasoning with the attacker",3);
@@ -22,8 +24,9 @@ public final class Script {
 
 	public void test2() {
 		eventText = "Your fast movement has given you the upper hand, the shaded figure tries to grab something underneath his coat.";
+
+			
 		GUI.setEventText(eventText);
-	
 		GUI.setDialog("Fire the gun mercilessly at the attacker, aiming for the head",1);
 		GUI.setDialog("Not sure what the intentions of the man are, you hesitate. ",2);
 		GUI.setDialog("Fire the gun, but with the intentions to disable the attacker not kill him.",3);

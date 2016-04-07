@@ -1,1 +1,5 @@
 1460013184075	Rename field 'text'
+1460013706871	Rename method 'initEventText'
+1460015743714	Rename method 'status'
+1460015752873	Rename method 'Attributes'
+1460015769623	Rename method 'inventory'
