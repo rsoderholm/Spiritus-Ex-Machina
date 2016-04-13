@@ -29,7 +29,7 @@ public class Launcher extends Application {
 	private Rectangle2D bounds;
 	private Screen screen;
 	private double widthScreen;
-	private double heightScreen;
+	private double rheightScreen;
 	
 	
 	public static void main(String[] args) {
@@ -46,7 +46,7 @@ public class Launcher extends Application {
 		window.setWidth(bounds.getWidth());
 		window.setHeight(bounds.getHeight());
 		widthScreen = bounds.getWidth();
-		heightScreen = bounds.getHeight();
+//		heightScreen = bounds.getHeight();
 		
 		
 		
