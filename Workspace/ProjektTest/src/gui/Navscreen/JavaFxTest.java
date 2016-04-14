@@ -91,9 +91,7 @@ public class JavaFxTest {
 
 		init();
 		buttonHandler();
-		if (widthScreen < 1600) {
-			width = 600;
-		}
+
 
 		if (widthScreen < 1600) {
 			button1.setStyle("-fx-font: 10 arial");

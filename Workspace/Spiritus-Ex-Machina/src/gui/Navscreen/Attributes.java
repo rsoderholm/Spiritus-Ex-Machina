@@ -19,7 +19,7 @@ public class Attributes {
 	private Text inventoryText;
 	private String inv;
 	ArrayList<String> inventory = new ArrayList<String>();
-	JavaFxTest main;
+	GameGUI main;
 	double width;
 
 	public Attributes() {
