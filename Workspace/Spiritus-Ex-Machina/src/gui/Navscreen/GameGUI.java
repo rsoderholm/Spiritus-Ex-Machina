@@ -16,8 +16,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -30,18 +32,31 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import character.Player;
 
 public class GameGUI {
 
+	private boolean show;
 	private Button buttonattr;
-	private VBox layout1;
+	private VBox left;
+	private VBox right;
+	private BorderPane pane;
 	private Stage window;
 	private Scene scene;
 
-	//	private String dialogText1 = "";
-	//	private String dialogText2 = "";
-	//	private String dialogText3 = "";
-	//	private String dialogText4 = "";
+	private int inte;
+	private int str;
+	private int pre;
+	private int wit;
+	private int dex;
+	private int mani;
+	private int res;
+	private int sta;
+	private int comp;
+	private TextArea InventroyTextArea;
+	private TextArea attributesTextArea;
+	private String attributes;
+
 
 	private Text Evtext;
 	private Text statusText;
@@ -59,33 +74,28 @@ public class GameGUI {
 	private Image image;
 
 	private Rectangle2D bounds;
-	private Screen screen;
 	private double widthScreen;
 	private double heightScreen;
 	private String altOne;
 	private String altTwo;
 	private String altThree;
-	private String altFour;	
+	private String altFour;
 	private Controller controller;
 
 	public GameGUI(Controller controller) {
-		this.controller=controller;
+		this.controller = controller;
 		window = new Stage();
-
+		setAttributes();
+		
 		bounds = Screen.getPrimary().getVisualBounds();
 		widthScreen = bounds.getWidth();
 		heightScreen = bounds.getHeight();
+		pane = new BorderPane();
 
 		if (widthScreen < 1600) {
 			width = 600;
-		}
-		else
+		} else
 			width = 1200;
-
-		layout1 = new VBox();
-		layout1.setAlignment(Pos.CENTER);
-		scene = new Scene(layout1, widthScreen, heightScreen);
-		scene.getStylesheets().add("StyleSheet.css");
 
 		addImage();
 		addtext();
@@ -93,12 +103,32 @@ public class GameGUI {
 		addAttributes();
 		addstatus();
 		addinventory();
+		addAttributeWindow();
+		addInventoryWindow();
 
-		layout1.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, statusText, buttoninv,
-				buttonattr);
+		left = new VBox();
+		left.getChildren().addAll(attributesTextArea);
+		left.setAlignment(Pos.CENTER);
+		left.setVisible(false);
+
+		right = new VBox();
+		right.getChildren().addAll(InventroyTextArea);
+		right.setAlignment(Pos.CENTER);
+		right.setVisible(false);
+
+		VBox center = new VBox();
+		center.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, statusText, buttoninv, buttonattr);
+		center.setAlignment(Pos.CENTER);
+		
+
+		pane.setCenter(center);
+		pane.setLeft(left);
+		pane.setRight(right);
+
+		scene = new Scene(pane, widthScreen, heightScreen);
+		scene.getStylesheets().add("StyleSheet.css");
 
 		buttonHandler();
-
 
 		if (widthScreen < 1600) {
 			button1.setStyle("-fx-font: 10 arial");
@@ -113,8 +143,10 @@ public class GameGUI {
 		}
 		window.setResizable(false);
 		window.setScene(scene);
+		window.setFullScreen(true);
 		window.show();
 	}
+
 	public void textanimation() {
 		animation = new Transition() {
 			{
@@ -131,6 +163,27 @@ public class GameGUI {
 		};
 		animation.play();
 	}
+
+	public void addAttributeWindow() {
+		attributesTextArea = new TextArea();
+		attributesTextArea.setPrefWidth(300);
+		attributesTextArea.setPrefHeight(700);
+
+		String attributes = "Intelligence: " + inte + "\n" + "Strength: " + str + "\n" + "Presence: " + pre + "\n"
+				+ "Wits: " + wit + "\n" + "Dexterity: " + dex + "\n" + "Manipulation: " + mani + "\n" + "Resolve: "
+				+ res + "\n" + "Stamina: " + sta + "\n" + "Composure: " + comp + "\n";
+		attributesTextArea.setText(attributes);
+	}
+	
+	public void addInventoryWindow() {
+		InventroyTextArea = new TextArea();
+		InventroyTextArea.setPrefWidth(300);
+		InventroyTextArea.setPrefHeight(700);
+
+		String inv = "healtpot x1";
+		InventroyTextArea.setText(inv);
+	}
+
 	public void addbutton() {
 		// Knappar
 
@@ -154,7 +207,7 @@ public class GameGUI {
 		Evtext.setFont(new Font(20));
 
 		Evtext.setTextAlignment(TextAlignment.JUSTIFY);
-		//		Evtext.setText(eventText);
+		// Evtext.setText(eventText);
 		Evtext.setFill(Color.WHITE);
 
 	}
@@ -166,7 +219,6 @@ public class GameGUI {
 		iv1.setFitWidth(width);
 
 	}
-
 
 	public void addinventory() {
 		buttoninv = new Button("Inventory");
@@ -185,17 +237,30 @@ public class GameGUI {
 		statusText.setFont(new Font(20));
 		statusText.setTextAlignment(TextAlignment.CENTER);
 		statusText.setFill(Color.WHITE);
-		statusText.setText("Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
+		statusText.setText(
+				"Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
 	}
 
-	public void changeHealth(){
-		statusText.setText("Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
+	public void changeHealth() {
+		statusText.setText(
+				"Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
 	}
+
 	public void init() {
 		controller.navigation("init");
 
+	}
 
-
+	public void setAttributes() {
+		inte = controller.getPlayer().getIntelligence();
+		str = controller.getPlayer().getStrength();
+		pre = controller.getPlayer().getPresence();
+		wit = controller.getPlayer().getWits();
+		dex = controller.getPlayer().getDexterity();
+		mani = controller.getPlayer().getManipulation();
+		res = controller.getPlayer().getResolve();
+		sta = controller.getPlayer().getStamina();
+		comp = controller.getPlayer().getComposure();
 	}
 
 	public void setEventText(String txt) {
@@ -203,9 +268,10 @@ public class GameGUI {
 		Evtext.setText(eventText);
 		textanimation();
 	}
+
 	public void setDialog(String dialog, int n, String navKey) {
-		if(dialog!=null)
-			switch(n){
+		if (dialog != null)
+			switch (n) {
 			case 1:
 				button1.setDisable(false);
 				button1.setText(dialog);
@@ -229,7 +295,7 @@ public class GameGUI {
 			}
 	}
 
-	public void disableButtons(){
+	public void disableButtons() {
 		button1.setText("");
 		button2.setText("");
 		button3.setText("");
@@ -240,14 +306,16 @@ public class GameGUI {
 		button4.setDisable(true);
 	}
 
-	public void setStatus( int nr){
+	public void setStatus(int nr) {
 		statusText.setText("Healthpoints: " + nr);
 		textanimation();
 	}
-	public void setImage(String img){
+
+	public void setImage(String img) {
 		image = new Image(img);
 		iv1.setImage(image);
 	}
+
 	public void buttonHandler() {
 
 		button1.setOnAction(e -> {
@@ -282,8 +350,8 @@ public class GameGUI {
 			}
 		});
 
-		buttonattr.setOnAction(e -> new Attributes());
+		buttonattr.setOnAction(e -> left.setVisible(true) );
 
-		buttoninv.setOnAction(e -> new Inventory());
+		buttoninv.setOnAction(e -> right.setVisible(true));
 	}
 }
