@@ -3,6 +3,7 @@ package gui.Navscreen;
 import java.io.File;
 import java.util.Scanner;
 
+import game.TextFileReader;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.application.Application;
@@ -62,6 +63,7 @@ public class JavaFxTest {
 	private double heightScreen;
 
 	private Script script;
+	private TextFileReader reader;
 
 	public JavaFxTest() {
 		script = new Script(this);

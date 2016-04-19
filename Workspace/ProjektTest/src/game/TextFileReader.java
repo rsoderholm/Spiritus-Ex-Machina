@@ -1,56 +1,33 @@
 package game;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.LineNumberReader;
+import java.util.ArrayList;
 
 public class TextFileReader {
-	Controller controller = new Controller();
-	private HashMap<String, String> navigation = new HashMap<String, String>();
 
-	private void storeScript() throws FileNotFoundException {
-		String line = " ";
-		String i = null;
+	private ArrayList<String> list = new ArrayList<>();
 
+	public void textReader(String filepath) {
 		try {
-			FileReader fr = new FileReader("files/testscript.txt");
-			BufferedReader br = new BufferedReader(fr);
+			LineNumberReader lr = new LineNumberReader(new FileReader(filepath));
+			String line = " ";
 
-			String str;
-			while ((str = br.readLine()) != null) {
-				navigation.put(line, i);
-			}
-			for (String id : navigation.keySet()) {
-				System.out.println(navigation.get(id));
+			while ((line = lr.readLine()) != null) {
+				list.add(line);
+				System.out.println(line);
 
 			}
-			br.close();
-
 		} catch (IOException e) {
-			System.out.print("File not found");
+			e.printStackTrace();
 		}
 	}
-}
-	// }
 
-//	public static void main(String[] args) throws FileNotFoundException {
-//		TextFileReader reader = new TextFileReader();
-//		reader.storeScript();
-//		// try {
-//
-//		// FileReader fr = new FileReader("files/testscript.txt");
-//		// BufferedReader br = new BufferedReader(fr);
-//		//
-//		// String str;
-//		// while((str = br.readLine()) != null) {
-//		//
-//		// }
-//		// br.close();
-//		// } catch (IOException e) {
-//		// System.out.print("File not found");
-//	}
-//}
-//// }
+	public static void main(String[] args) {
+		TextFileReader t = new TextFileReader();
+		t.textReader("files/testscript.txt");
+
+	}
+
+}
