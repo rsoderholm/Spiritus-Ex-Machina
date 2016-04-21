@@ -57,7 +57,6 @@ public class GameGUI {
 	private TextArea attributesTextArea;
 	private String attributes;
 
-
 	private Text Evtext;
 	private Text statusText;
 	private Animation animation;
@@ -86,7 +85,7 @@ public class GameGUI {
 		this.controller = controller;
 		window = new Stage();
 		setAttributes();
-		
+
 		bounds = Screen.getPrimary().getVisualBounds();
 		widthScreen = bounds.getWidth();
 		heightScreen = bounds.getHeight();
@@ -119,7 +118,6 @@ public class GameGUI {
 		VBox center = new VBox();
 		center.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, statusText, buttoninv, buttonattr);
 		center.setAlignment(Pos.CENTER);
-		
 
 		pane.setCenter(center);
 		pane.setLeft(left);
@@ -169,12 +167,12 @@ public class GameGUI {
 		attributesTextArea.setPrefWidth(300);
 		attributesTextArea.setPrefHeight(700);
 
-		String attributes = "Intelligence: " + inte + "\n" + "Strength: " + str + "\n" + "Presence: " + pre + "\n"
-				+ "Wits: " + wit + "\n" + "Dexterity: " + dex + "\n" + "Manipulation: " + mani + "\n" + "Resolve: "
-				+ res + "\n" + "Stamina: " + sta + "\n" + "Composure: " + comp + "\n";
+		attributes = "Intelligence: " + inte + "\n" + "Strength: " + str + "\n" + "Presence: " + pre + "\n" + "Wits: "
+				+ wit + "\n" + "Dexterity: " + dex + "\n" + "Manipulation: " + mani + "\n" + "Resolve: " + res + "\n"
+				+ "Stamina: " + sta + "\n" + "Composure: " + comp + "\n";
 		attributesTextArea.setText(attributes);
 	}
-	
+
 	public void addInventoryWindow() {
 		InventroyTextArea = new TextArea();
 		InventroyTextArea.setPrefWidth(300);
@@ -319,39 +317,57 @@ public class GameGUI {
 	public void buttonHandler() {
 
 		button1.setOnAction(e -> {
-			if(controller.getActiveCombat()==null)
+			if (controller.getActiveCombat() == null)
 				controller.navigation(altOne);
-			else{
+			else {
 				controller.getActiveCombat().performCharacterAction(altOne);
 			}
 		});
 
 		button2.setOnAction(e -> {
-			if(controller.getActiveCombat()==null)
+			if (controller.getActiveCombat() == null)
 				controller.navigation(altTwo);
-			else{
+			else {
 				controller.getActiveCombat().performCharacterAction(altTwo);
 			}
 		});
 
 		button3.setOnAction(e -> {
-			if(controller.getActiveCombat()==null)
+			if (controller.getActiveCombat() == null)
 				controller.navigation(altThree);
-			else{
+			else {
 				controller.getActiveCombat().performCharacterAction(altThree);
 			}
 		});
 
 		button4.setOnAction(e -> {
-			if(controller.getActiveCombat()==null)
+			if (controller.getActiveCombat() == null)
 				controller.navigation(altFour);
-			else{
+			else {
 				controller.getActiveCombat().performCharacterAction(altFour);
 			}
 		});
 
-		buttonattr.setOnAction(e -> left.setVisible(true) );
+		buttonattr.setOnAction(e -> {
+			if (show == false) {
+				show = true;
+				left.setVisible(show);
+			}
+			else if(show==true){
+				show = false;
+				left.setVisible(show);
+			}
+		});
 
-		buttoninv.setOnAction(e -> right.setVisible(true));
+		buttoninv.setOnAction(e -> {
+			if (show == false) {
+				show = true;
+				right.setVisible(show);
+			}
+			else if(show==true){
+				show = false;
+				right.setVisible(show);
+			}
+		});
 	}
 }

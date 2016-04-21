@@ -20,6 +20,13 @@
 }
 .text-area .content{
   -fx-background-color: #686868;
+
+}
+.text-area{
+	 -fx-font-family: "Helvetica";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 
