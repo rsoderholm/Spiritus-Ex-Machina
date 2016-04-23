@@ -36,7 +36,8 @@ import character.Player;
 
 public class GameGUI {
 
-	private boolean show;
+	private boolean showinv;
+	private boolean showattr;
 	private Button buttonattr;
 	private VBox left;
 	private VBox right;
@@ -349,24 +350,24 @@ public class GameGUI {
 		});
 
 		buttonattr.setOnAction(e -> {
-			if (show == false) {
-				show = true;
-				left.setVisible(show);
+			if (showattr == false) {
+				showattr = true;
+				left.setVisible(showattr);
 			}
-			else if(show==true){
-				show = false;
-				left.setVisible(show);
+			else if(showattr==true){
+				showattr = false;
+				left.setVisible(showattr);
 			}
 		});
 
 		buttoninv.setOnAction(e -> {
-			if (show == false) {
-				show = true;
-				right.setVisible(show);
+			if (showinv == false) {
+				showinv = true;
+				right.setVisible(showinv);
 			}
-			else if(show==true){
-				show = false;
-				right.setVisible(show);
+			else if(showinv==true){
+				showinv = false;
+				right.setVisible(showinv);
 			}
 		});
 	}
