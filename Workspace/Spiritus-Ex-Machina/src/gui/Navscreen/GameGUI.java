@@ -9,6 +9,7 @@ import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -21,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -39,25 +41,69 @@ public class GameGUI {
 	private boolean showinv;
 	private boolean showattr;
 	private Button buttonattr;
+	private GridPane gridAttribute;
 	private VBox left;
 	private VBox right;
 	private BorderPane pane;
 	private Stage window;
 	private Scene scene;
 
+	private Label labelint;
+	private ImageView ivint;
 	private int inte;
+	private String attributesInt;
+	private Image imageInt;
+
+	private Label labelstr;
+	private ImageView ivstr;
 	private int str;
+	private String attributesStr;
+	private Image imageStr;
+	
+	private Label labelpre;
+	private ImageView ivpre;
 	private int pre;
+	private String attributesPre;
+	private Image imagePre;
+
+	private Label labelwit;
+	private ImageView ivwit;
 	private int wit;
+	private String attributesWit;
+	private Image imageWit;
+	
+	private Label labeldex;
+	private ImageView ivdex;
 	private int dex;
+	private String attributesDex;
+	private Image imageDex;
+
+	private Label labelmani;
+	private ImageView ivmani;
 	private int mani;
+	private String attributesMani;
+	private Image imageMani;
+
+	private Label labelres;
+	private ImageView ivres;
 	private int res;
+	private String attributesRes;
+	private Image imageRes;
+
+	private Label labelsta;
+	private ImageView ivsta;
 	private int sta;
+	private String attributesSta;
+	private Image imageSta;
+
+	private Label labelcomp;
+	private ImageView ivcomp;
 	private int comp;
+	private String attributesComp;
+	private Image imageComp;
+
 	private TextArea InventroyTextArea;
 	private TextArea attributesTextArea;
-	private String attributes;
-
 	private Text Evtext;
 	private Text statusText;
 	private Animation animation;
@@ -107,7 +153,7 @@ public class GameGUI {
 		addInventoryWindow();
 
 		left = new VBox();
-		left.getChildren().addAll(attributesTextArea);
+		left.getChildren().addAll(gridAttribute);
 		left.setAlignment(Pos.CENTER);
 		left.setVisible(false);
 
@@ -164,14 +210,117 @@ public class GameGUI {
 	}
 
 	public void addAttributeWindow() {
-		attributesTextArea = new TextArea();
-		attributesTextArea.setPrefWidth(300);
-		attributesTextArea.setPrefHeight(700);
 
-		attributes = "Intelligence: " + inte + "\n" + "Strength: " + str + "\n" + "Presence: " + pre + "\n" + "Wits: "
-				+ wit + "\n" + "Dexterity: " + dex + "\n" + "Manipulation: " + mani + "\n" + "Resolve: " + res + "\n"
-				+ "Stamina: " + sta + "\n" + "Composure: " + comp + "\n";
-		attributesTextArea.setText(attributes);
+		gridAttribute = new GridPane();
+		gridAttribute.prefHeight(700);
+		gridAttribute.prefWidth(300);
+		gridAttribute.setHgap(0);
+		gridAttribute.setVgap(0);
+		gridAttribute.setPadding(new Insets(0, 10, 0, 10));
+		
+		// Intelligence
+		imageInt = new Image("int.png");
+		ivint = new ImageView();
+		ivint.setImage(imageInt);
+		ivint.setFitWidth(50);
+		ivint.setFitHeight(77);
+		attributesInt = "Intelligence: " + inte;
+		labelint = new Label(attributesInt, ivint);
+		labelint.setMinWidth(300);
+		
+		// Strength
+		imageStr = new Image("str.png");
+		ivstr = new ImageView();
+		ivstr.setImage(imageStr);
+		ivstr.setFitWidth(50);
+		ivstr.setFitHeight(78);
+		attributesStr = "Strength: " + str;
+		labelstr = new Label(attributesStr, ivstr);
+		labelstr.setMinWidth(300);
+		
+		// Presence
+		imagePre = new Image("pre.png");
+		ivpre = new ImageView();
+		ivpre.setImage(imagePre);
+		ivpre.setFitWidth(50);
+		ivpre.setFitHeight(77);
+		attributesPre = "Presence: " + pre;
+		labelpre = new Label(attributesPre, ivpre);
+		labelpre.setMinWidth(300);
+		
+		// Wits
+		imageWit = new Image("wit.png");
+		ivwit = new ImageView();
+		ivwit.setImage(imageWit);
+		ivwit.setFitWidth(50);
+		ivwit.setFitHeight(77);
+		attributesWit = "Wits: "+ wit;
+		labelwit = new Label(attributesWit, ivwit);
+		labelwit.setMinWidth(300);
+		
+		// Dexterity
+		imageDex = new Image("dex.png");
+		ivdex = new ImageView();
+		ivdex.setImage(imageDex);
+		ivdex.setFitWidth(50);
+		ivdex.setFitHeight(77);
+		attributesDex = "Dexterity: " + dex;
+		labeldex = new Label(attributesDex, ivdex);
+		labeldex.setMinWidth(300);
+		
+		// Manipulation
+		imageMani = new Image("mani.png");
+		ivmani = new ImageView();
+		ivmani.setImage(imageMani);
+		ivmani.setFitWidth(50);
+		ivmani.setFitHeight(77);
+		attributesMani = "Manipulation: " + mani;
+		labelmani = new Label(attributesMani, ivmani);
+		labelmani.setMinWidth(300);
+		
+		// Resolve
+		imageRes = new Image("res.png");
+		ivres = new ImageView();
+		ivres.setImage(imageRes);
+		ivres.setFitWidth(50);
+		ivres.setFitHeight(77);
+		attributesRes = "Resolve: " + res;
+		labelres = new Label(attributesRes, ivres);
+		labelres.setMinWidth(300);
+		
+		/// Stamina
+		imageSta = new Image("sta.png");
+		ivsta = new ImageView();
+		ivsta.setImage(imageSta);
+		ivsta.setFitWidth(50);
+		ivsta.setFitHeight(77);
+		attributesSta = "Stamina: " + sta ;
+		labelsta= new Label(attributesSta, ivsta);
+		labelsta.setMinWidth(300);
+		// // Composure
+		imageComp = new Image("comp.png");
+		ivcomp = new ImageView();
+		ivcomp.setImage(imageComp);
+		ivcomp.setFitWidth(50);
+		ivcomp.setFitHeight(79);
+		attributesComp = "Stamina: " + sta ;
+		labelcomp= new Label(attributesComp, ivcomp);
+		labelcomp.setMinWidth(300);
+
+
+	
+
+		//"Composure: " + comp 
+	
+		gridAttribute.add(labelstr, 1, 0);
+		gridAttribute.add(labelint, 1, 1);
+		gridAttribute.add(labelpre, 1, 2);
+		gridAttribute.add(labelwit, 1, 3);
+		gridAttribute.add(labeldex, 1, 4);
+		gridAttribute.add(labelmani, 1, 5);
+		gridAttribute.add(labelres, 1, 6);
+		gridAttribute.add(labelsta, 1, 7);
+		gridAttribute.add(labelcomp, 1, 8);
 	}
 
 	public void addInventoryWindow() {
@@ -353,8 +502,7 @@ public class GameGUI {
 			if (showattr == false) {
 				showattr = true;
 				left.setVisible(showattr);
-			}
-			else if(showattr==true){
+			} else if (showattr == true) {
 				showattr = false;
 				left.setVisible(showattr);
 			}
@@ -364,8 +512,7 @@ public class GameGUI {
 			if (showinv == false) {
 				showinv = true;
 				right.setVisible(showinv);
-			}
-			else if(showinv==true){
+			} else if (showinv == true) {
 				showinv = false;
 				right.setVisible(showinv);
 			}
