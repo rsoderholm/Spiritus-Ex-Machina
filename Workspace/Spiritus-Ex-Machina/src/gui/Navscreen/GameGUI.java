@@ -214,8 +214,8 @@ public class GameGUI {
 		gridAttribute = new GridPane();
 		gridAttribute.prefHeight(700);
 		gridAttribute.prefWidth(300);
-		gridAttribute.setHgap(0);
-		gridAttribute.setVgap(0);
+		gridAttribute.setHgap(1);
+		gridAttribute.setVgap(1);
 		gridAttribute.setPadding(new Insets(0, 10, 0, 10));
 		
 		// Intelligence
@@ -223,7 +223,7 @@ public class GameGUI {
 		ivint = new ImageView();
 		ivint.setImage(imageInt);
 		ivint.setFitWidth(50);
-		ivint.setFitHeight(77);
+		ivint.setFitHeight(70);
 		attributesInt = "Intelligence: " + inte;
 		labelint = new Label(attributesInt, ivint);
 		labelint.setMinWidth(300);
@@ -233,7 +233,7 @@ public class GameGUI {
 		ivstr = new ImageView();
 		ivstr.setImage(imageStr);
 		ivstr.setFitWidth(50);
-		ivstr.setFitHeight(78);
+		ivstr.setFitHeight(70);
 		attributesStr = "Strength: " + str;
 		labelstr = new Label(attributesStr, ivstr);
 		labelstr.setMinWidth(300);
@@ -243,7 +243,7 @@ public class GameGUI {
 		ivpre = new ImageView();
 		ivpre.setImage(imagePre);
 		ivpre.setFitWidth(50);
-		ivpre.setFitHeight(77);
+		ivpre.setFitHeight(70);
 		attributesPre = "Presence: " + pre;
 		labelpre = new Label(attributesPre, ivpre);
 		labelpre.setMinWidth(300);
@@ -253,7 +253,7 @@ public class GameGUI {
 		ivwit = new ImageView();
 		ivwit.setImage(imageWit);
 		ivwit.setFitWidth(50);
-		ivwit.setFitHeight(77);
+		ivwit.setFitHeight(70);
 		attributesWit = "Wits: "+ wit;
 		labelwit = new Label(attributesWit, ivwit);
 		labelwit.setMinWidth(300);
@@ -263,7 +263,7 @@ public class GameGUI {
 		ivdex = new ImageView();
 		ivdex.setImage(imageDex);
 		ivdex.setFitWidth(50);
-		ivdex.setFitHeight(77);
+		ivdex.setFitHeight(70);
 		attributesDex = "Dexterity: " + dex;
 		labeldex = new Label(attributesDex, ivdex);
 		labeldex.setMinWidth(300);
@@ -273,7 +273,7 @@ public class GameGUI {
 		ivmani = new ImageView();
 		ivmani.setImage(imageMani);
 		ivmani.setFitWidth(50);
-		ivmani.setFitHeight(77);
+		ivmani.setFitHeight(70);
 		attributesMani = "Manipulation: " + mani;
 		labelmani = new Label(attributesMani, ivmani);
 		labelmani.setMinWidth(300);
@@ -283,7 +283,7 @@ public class GameGUI {
 		ivres = new ImageView();
 		ivres.setImage(imageRes);
 		ivres.setFitWidth(50);
-		ivres.setFitHeight(77);
+		ivres.setFitHeight(70);
 		attributesRes = "Resolve: " + res;
 		labelres = new Label(attributesRes, ivres);
 		labelres.setMinWidth(300);
@@ -303,7 +303,7 @@ public class GameGUI {
 		ivcomp.setImage(imageComp);
 		ivcomp.setFitWidth(50);
 		ivcomp.setFitHeight(79);
-		attributesComp = "Stamina: " + sta ;
+		attributesComp = "composure: " + comp ;
 		labelcomp= new Label(attributesComp, ivcomp);
 		labelcomp.setMinWidth(300);
 
