@@ -392,12 +392,11 @@ public class GameGUI {
 		statusText.setText(
 				"Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
 
-		if ((float)0.66 >=(float) controller.getPlayer().getHealth()/(float)controller.getPlayer().getMaxhealth()) {
-			statusText.setFill(Color.ORANGE);
-		} 
-		if ((float)0.33 >= (float)controller.getPlayer().getHealth()/(float)controller.getPlayer().getMaxhealth()) {
-			statusText.setFill(Color.RED);
-		}
+//		if (7 >= controller.getPlayer().getHealth()) {
+//			statusText.setFill(Color.ORANGE);
+//		} else if (3 >= controller.getPlayer().getHealth()) {
+//			statusText.setFill(Color.RED);
+//		}
 
 	}
 
