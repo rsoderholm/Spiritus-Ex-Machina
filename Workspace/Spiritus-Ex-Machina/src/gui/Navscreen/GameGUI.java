@@ -41,13 +41,35 @@ public class GameGUI {
 	private boolean showinv;
 	private boolean showattr;
 	private Button buttonattr;
+	private GridPane gridInventory;
 	private GridPane gridAttribute;
 	private VBox left;
 	private VBox right;
 	private BorderPane pane;
 	private Stage window;
 	private Scene scene;
-
+	
+	private Label labelarmor;
+	private ImageView ivarmor;
+	private String attributesArmor;
+	private Image imageArmor;
+	
+	private Label labelgun;
+	private ImageView ivgun;
+	private String attributesGun;
+	private Image imageGun;
+	
+	private Label labelstim;
+	private ImageView ivstim;
+	private String attributesStim;
+	private Image imageStim;
+	
+	private Label labelmelee;
+	private ImageView ivmelee;
+	private String attributesMelee;
+	private Image imageMelee;
+	
+	
 	private Label labelint;
 	private ImageView ivint;
 	private int inte;
@@ -102,8 +124,7 @@ public class GameGUI {
 	private String attributesComp;
 	private Image imageComp;
 
-	private TextArea InventroyTextArea;
-	private TextArea attributesTextArea;
+	
 	private Text Evtext;
 	private Text statusText;
 	private Animation animation;
@@ -131,7 +152,7 @@ public class GameGUI {
 	public GameGUI(Controller controller) {
 		this.controller = controller;
 		window = new Stage();
-		setAttributes();
+	
 
 		bounds = Screen.getPrimary().getVisualBounds();
 		widthScreen = bounds.getWidth();
@@ -146,8 +167,8 @@ public class GameGUI {
 		addImage();
 		addtext();
 		addbutton();
-		addAttributes();
-		addstatus();
+		
+		addHealth();
 		addinventory();
 		addAttributeWindow();
 		addInventoryWindow();
@@ -158,7 +179,7 @@ public class GameGUI {
 		left.setVisible(false);
 
 		right = new VBox();
-		right.getChildren().addAll(InventroyTextArea);
+		right.getChildren().addAll(gridInventory);
 		right.setAlignment(Pos.CENTER);
 		right.setVisible(false);
 
@@ -210,12 +231,25 @@ public class GameGUI {
 	}
 
 	public void addAttributeWindow() {
-
+		
+		buttonattr = new Button("Attributes");
+		buttonattr.setMaxWidth(200);
+		
+		inte = controller.getPlayer().getIntelligence();
+		str = controller.getPlayer().getStrength();
+		pre = controller.getPlayer().getPresence();
+		wit = controller.getPlayer().getWits();
+		dex = controller.getPlayer().getDexterity();
+		mani = controller.getPlayer().getManipulation();
+		res = controller.getPlayer().getResolve();
+		sta = controller.getPlayer().getStamina();
+		comp = controller.getPlayer().getComposure();
+		
 		gridAttribute = new GridPane();
 		gridAttribute.prefHeight(700);
 		gridAttribute.prefWidth(300);
-		gridAttribute.setHgap(1);
-		gridAttribute.setVgap(1);
+		gridAttribute.setHgap(0);
+		gridAttribute.setVgap(0);
 		gridAttribute.setPadding(new Insets(0, 10, 0, 10));
 
 		// Intelligence
@@ -322,12 +356,53 @@ public class GameGUI {
 	}
 
 	public void addInventoryWindow() {
-		InventroyTextArea = new TextArea();
-		InventroyTextArea.setPrefWidth(300);
-		InventroyTextArea.setPrefHeight(700);
-
-		String inv = "healtpot x1";
-		InventroyTextArea.setText(inv);
+		gridInventory = new GridPane();
+		gridInventory.prefHeight(700);
+		gridInventory.prefWidth(300);
+		gridInventory.setHgap(0);
+		gridInventory.setVgap(0);
+		gridInventory.setPadding(new Insets(0, 10, 0, 10));
+		
+		imageArmor = new Image("armor.png");
+		ivarmor = new ImageView();
+		ivarmor.setImage(imageArmor);
+		ivarmor.setFitWidth(50);
+		ivarmor.setFitHeight(50);
+		attributesArmor = "Aegis Heavy Body Armor" ;
+		labelarmor = new Label(attributesArmor, ivarmor);
+		labelarmor.setMinWidth(300);
+		
+		imageGun = new Image("gun.png");
+		ivgun = new ImageView();
+		ivgun.setImage(imageGun);
+		ivgun.setFitWidth(50);
+		ivgun.setFitHeight(50);
+		attributesGun = "M-5 Phalanx " ;
+		labelgun = new Label(attributesGun, ivgun);
+		labelgun.setMinWidth(300);
+		
+		imageStim = new Image("stim.png");
+		ivstim = new ImageView();
+		ivstim.setImage(imageStim);
+		ivstim.setFitWidth(50);
+		ivstim.setFitHeight(50);
+		attributesStim = "Bio-gel: " + "x2";
+		labelstim = new Label(attributesStim, ivstim);
+		labelstim.setMinWidth(300);
+		
+		imageMelee = new Image("melee.png");
+		ivmelee = new ImageView();
+		ivmelee.setImage(imageMelee);
+		ivmelee.setFitWidth(50);
+		ivmelee.setFitHeight(50);
+		attributesMelee = "Titanium knife: ";
+		labelmelee = new Label(attributesMelee, ivmelee);
+		labelmelee.setMinWidth(300);
+		
+		gridInventory.add(labelarmor, 1, 0);
+		gridInventory.add(labelgun, 1, 1);
+		gridInventory.add(labelstim, 1, 2);
+		gridInventory.add(labelmelee, 1, 3);
 	}
 
 	public void addbutton() {
@@ -372,12 +447,9 @@ public class GameGUI {
 		buttoninv.setMaxWidth(200);
 	}
 
-	public void addAttributes() {
-		buttonattr = new Button("Attributes");
-		buttonattr.setMaxWidth(200);
-	}
 
-	public void addstatus() {
+
+	public void addHealth() {
 
 		statusText = new Text();
 		statusText.setFont(new Font(40));
@@ -416,6 +488,33 @@ public class GameGUI {
 		res = controller.getPlayer().getResolve();
 		sta = controller.getPlayer().getStamina();
 		comp = controller.getPlayer().getComposure();
+		
+		attributesInt = "Intelligence: " + inte;
+		labelint.setText(attributesInt);
+		
+		attributesStr = "Strength: " + str;
+		labelstr.setText(attributesStr);
+		
+		attributesPre = "Presence: " + pre;
+		labelpre.setText(attributesPre);
+		
+		attributesWit = "Wits: " + wit;
+		labelwit.setText(attributesWit);
+		
+		attributesDex = "Dexterity: " + dex;
+		labeldex.setText(attributesDex);
+		
+		attributesMani = "Manipulation: " + mani;
+		labelmani.setText(attributesMani);
+		
+		attributesRes = "Resolve: " + res;
+		labelres.setText(attributesRes);
+		
+		attributesSta = "Stamina: " + sta;
+		labelsta.setText(attributesMani);
+		
+		attributesComp = "composure: " + comp;
+		labelcomp.setText(attributesComp);
 	}
 
 	public void setEventText(String txt) {
@@ -461,11 +560,6 @@ public class GameGUI {
 		button4.setDisable(true);
 	}
 
-	public void setStatus(int nr) {
-		statusText.setText("Healthpoints: " + nr);
-		textanimation();
-	}
-
 	public void setImage(String img) {
 		image = new Image(img);
 		iv1.setImage(image);
@@ -509,9 +603,11 @@ public class GameGUI {
 			if (showattr == false) {
 				showattr = true;
 				left.setVisible(showattr);
+				setAttributes();
 			} else if (showattr == true) {
 				showattr = false;
 				left.setVisible(showattr);
+				setAttributes();
 			}
 		});
 
