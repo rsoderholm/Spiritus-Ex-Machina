@@ -3,11 +3,13 @@ package game;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class FileReader2 {
 	private ArrayList<String> list = new ArrayList<>();
 	String line = null;
+	private HashMap<String, String> map = new HashMap<>();
 
 	public void read(String filepath) throws IOException {
 		Scanner scanner = new Scanner(new File(filepath));
@@ -17,6 +19,7 @@ public class FileReader2 {
 				String[] tokens = scanner.nextLine().split("¤");
 				String last = tokens[tokens.length - 1];
 				System.out.println(last);
+				map.put("Choice1", last);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
