@@ -59,7 +59,7 @@ public class GameGUI {
 	private int str;
 	private String attributesStr;
 	private Image imageStr;
-	
+
 	private Label labelpre;
 	private ImageView ivpre;
 	private int pre;
@@ -71,7 +71,7 @@ public class GameGUI {
 	private int wit;
 	private String attributesWit;
 	private Image imageWit;
-	
+
 	private Label labeldex;
 	private ImageView ivdex;
 	private int dex;
@@ -163,7 +163,7 @@ public class GameGUI {
 		right.setVisible(false);
 
 		VBox center = new VBox();
-		center.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, statusText, buttoninv, buttonattr);
+		center.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, buttoninv, buttonattr);
 		center.setAlignment(Pos.CENTER);
 
 		pane.setCenter(center);
@@ -183,7 +183,7 @@ public class GameGUI {
 			buttoninv.setStyle("-fx-font: 10 arial");
 			buttonattr.setStyle("-fx-font: 10 arial");
 			Evtext.setFont(new Font(10));
-			statusText.setFont(new Font(10));
+
 			iv1.setFitHeight(200);
 		}
 		window.setResizable(false);
@@ -217,101 +217,98 @@ public class GameGUI {
 		gridAttribute.setHgap(1);
 		gridAttribute.setVgap(1);
 		gridAttribute.setPadding(new Insets(0, 10, 0, 10));
-		
+
 		// Intelligence
 		imageInt = new Image("int.png");
 		ivint = new ImageView();
 		ivint.setImage(imageInt);
 		ivint.setFitWidth(50);
-		ivint.setFitHeight(70);
+		ivint.setFitHeight(50);
 		attributesInt = "Intelligence: " + inte;
 		labelint = new Label(attributesInt, ivint);
 		labelint.setMinWidth(300);
-		
+
 		// Strength
 		imageStr = new Image("str.png");
 		ivstr = new ImageView();
 		ivstr.setImage(imageStr);
 		ivstr.setFitWidth(50);
-		ivstr.setFitHeight(70);
+		ivstr.setFitHeight(50);
 		attributesStr = "Strength: " + str;
 		labelstr = new Label(attributesStr, ivstr);
 		labelstr.setMinWidth(300);
-		
+
 		// Presence
 		imagePre = new Image("pre.png");
 		ivpre = new ImageView();
 		ivpre.setImage(imagePre);
 		ivpre.setFitWidth(50);
-		ivpre.setFitHeight(70);
+		ivpre.setFitHeight(50);
 		attributesPre = "Presence: " + pre;
 		labelpre = new Label(attributesPre, ivpre);
 		labelpre.setMinWidth(300);
-		
+
 		// Wits
 		imageWit = new Image("wit.png");
 		ivwit = new ImageView();
 		ivwit.setImage(imageWit);
 		ivwit.setFitWidth(50);
-		ivwit.setFitHeight(70);
-		attributesWit = "Wits: "+ wit;
+		ivwit.setFitHeight(50);
+		attributesWit = "Wits: " + wit;
 		labelwit = new Label(attributesWit, ivwit);
 		labelwit.setMinWidth(300);
-		
+
 		// Dexterity
 		imageDex = new Image("dex.png");
 		ivdex = new ImageView();
 		ivdex.setImage(imageDex);
 		ivdex.setFitWidth(50);
-		ivdex.setFitHeight(70);
+		ivdex.setFitHeight(50);
 		attributesDex = "Dexterity: " + dex;
 		labeldex = new Label(attributesDex, ivdex);
 		labeldex.setMinWidth(300);
-		
+
 		// Manipulation
 		imageMani = new Image("mani.png");
 		ivmani = new ImageView();
 		ivmani.setImage(imageMani);
 		ivmani.setFitWidth(50);
-		ivmani.setFitHeight(70);
+		ivmani.setFitHeight(50);
 		attributesMani = "Manipulation: " + mani;
 		labelmani = new Label(attributesMani, ivmani);
 		labelmani.setMinWidth(300);
-		
+
 		// Resolve
 		imageRes = new Image("res.png");
 		ivres = new ImageView();
 		ivres.setImage(imageRes);
 		ivres.setFitWidth(50);
-		ivres.setFitHeight(70);
+		ivres.setFitHeight(50);
 		attributesRes = "Resolve: " + res;
 		labelres = new Label(attributesRes, ivres);
 		labelres.setMinWidth(300);
-		
+
 		/// Stamina
 		imageSta = new Image("sta.png");
 		ivsta = new ImageView();
 		ivsta.setImage(imageSta);
 		ivsta.setFitWidth(50);
-		ivsta.setFitHeight(77);
-		attributesSta = "Stamina: " + sta ;
-		labelsta= new Label(attributesSta, ivsta);
+		ivsta.setFitHeight(50);
+		attributesSta = "Stamina: " + sta;
+		labelsta = new Label(attributesSta, ivsta);
 		labelsta.setMinWidth(300);
 		// // Composure
 		imageComp = new Image("comp.png");
 		ivcomp = new ImageView();
 		ivcomp.setImage(imageComp);
 		ivcomp.setFitWidth(50);
-		ivcomp.setFitHeight(79);
-		attributesComp = "composure: " + comp ;
-		labelcomp= new Label(attributesComp, ivcomp);
+		ivcomp.setFitHeight(50);
+		attributesComp = "composure: " + comp;
+		labelcomp = new Label(attributesComp, ivcomp);
 		labelcomp.setMinWidth(300);
 
+		// "Composure: " + comp
 
-	
-
-		//"Composure: " + comp 
-	
 		gridAttribute.add(labelstr, 1, 0);
 		gridAttribute.add(labelint, 1, 1);
 		gridAttribute.add(labelpre, 1, 2);
@@ -321,6 +318,7 @@ public class GameGUI {
 		gridAttribute.add(labelres, 1, 6);
 		gridAttribute.add(labelsta, 1, 7);
 		gridAttribute.add(labelcomp, 1, 8);
+		gridAttribute.add(statusText, 1, 9);
 	}
 
 	public void addInventoryWindow() {
@@ -382,9 +380,10 @@ public class GameGUI {
 	public void addstatus() {
 
 		statusText = new Text();
-		statusText.setFont(new Font(20));
+		statusText.setFont(new Font(40));
 		statusText.setTextAlignment(TextAlignment.CENTER);
-		statusText.setFill(Color.WHITE);
+		statusText.setFill(Color.GREEN);
+		statusText.setWrappingWidth(300);
 		statusText.setText(
 				"Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
 	}
@@ -392,6 +391,13 @@ public class GameGUI {
 	public void changeHealth() {
 		statusText.setText(
 				"Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
+
+		if (7 >= controller.getPlayer().getHealth()) {
+			statusText.setFill(Color.ORANGE);
+		} else if (3 >= controller.getPlayer().getHealth()) {
+			statusText.setFill(Color.RED);
+		}
+
 	}
 
 	public void init() {
