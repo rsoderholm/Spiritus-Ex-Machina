@@ -67,10 +67,12 @@ public class Launcher extends Application {
 		window.setFullScreen(true);
 		window.show();
 		window.sizeToScene();
-		window.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-			new Controller();
-			window.close();
-		});
+//		window.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+//
+//		});	
+		window.close();
+		new Controller();
+
 	}
 
 	public void playMedia() {

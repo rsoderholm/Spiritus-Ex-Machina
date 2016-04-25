@@ -58,7 +58,6 @@ public class JavaFxTest {
 	private Image image;
 
 	private Rectangle2D bounds;
-	private Screen screen;
 	private double widthScreen;
 	private double heightScreen;
 
@@ -68,12 +67,15 @@ public class JavaFxTest {
 	public JavaFxTest() {
 		script = new Script(this);
 		window = new Stage();
-		screen = Screen.getPrimary();
-		bounds = screen.getVisualBounds();
-		window.setWidth(bounds.getWidth());
-		window.setHeight(bounds.getHeight());
+
+		bounds = Screen.getPrimary().getVisualBounds();
 		widthScreen = bounds.getWidth();
 		heightScreen = bounds.getHeight();
+
+		if (widthScreen < 1600) {
+			width = 600;
+		}
+
 		layout1 = new VBox();
 		layout1.setAlignment(Pos.CENTER);
 		scene = new Scene(layout1, widthScreen, heightScreen);
@@ -86,15 +88,29 @@ public class JavaFxTest {
 		addstatus();
 		addinventory();
 
-		layout1.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, statusText, buttoninv, buttonattr);
-		
+		layout1.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, statusText, buttoninv,
+				buttonattr);
+
 		init();
 		buttonHandler();
-		
+
+
+		if (widthScreen < 1600) {
+			button1.setStyle("-fx-font: 10 arial");
+			button2.setStyle("-fx-font: 10 arial");
+			button3.setStyle("-fx-font: 10 arial");
+			button4.setStyle("-fx-font: 10 arial");
+			buttoninv.setStyle("-fx-font: 10 arial");
+			buttonattr.setStyle("-fx-font: 10 arial");
+			Evtext.setFont(new Font(10));
+			statusText.setFont(new Font(10));
+			iv1.setFitHeight(200);
+		}
 		window.setResizable(false);
 		window.setScene(scene);
 		window.show();
 	}
+
 	public void textanimation() {
 		animation = new Transition() {
 			{
@@ -111,6 +127,7 @@ public class JavaFxTest {
 		};
 		animation.play();
 	}
+
 	public void addbutton() {
 		// Knappar
 
@@ -144,11 +161,10 @@ public class JavaFxTest {
 		image = new Image("JWET8.jpg");
 		iv1 = new ImageView();
 		iv1.setImage(image);
-		iv1.setFitWidth(1200);
+		iv1.setFitWidth(width);
 
 	}
 
-	
 	public void addinventory() {
 		buttoninv = new Button("Inventory");
 		buttoninv.setMaxHeight(600);
@@ -161,7 +177,7 @@ public class JavaFxTest {
 	}
 
 	public void addstatus() {
-		
+
 		statusText = new Text();
 		statusText.setFont(new Font(20));
 		statusText.setTextAlignment(TextAlignment.CENTER);
@@ -183,8 +199,6 @@ public class JavaFxTest {
 		setDialog("Pull out your gun and take aim at the possible attacker", 2);
 		setDialog("Confront however is in the shadows", 3);
 		setDialog("Attack them bare handed", 4);
-		
-
 
 	}
 
@@ -193,6 +207,7 @@ public class JavaFxTest {
 		Evtext.setText(eventText);
 		textanimation();
 	}
+
 	public void setDialog(String dialog, int n) {
 
 		if (n == 1) {
@@ -210,16 +225,18 @@ public class JavaFxTest {
 
 		}
 	}
-	
-	public void setStatus( int nr){
+
+	public void setStatus(int nr) {
 		statusText.setText("Healthpoints: " + nr);
 		textanimation();
 	}
-	public void setImage(String img){
+
+	public void setImage(String img) {
 		image = new Image(img);
 		iv1.setImage(image);
 		iv1.setFitWidth(1200);
 	}
+
 	public void buttonHandler() {
 
 		button1.setOnAction(e -> script.test1());
