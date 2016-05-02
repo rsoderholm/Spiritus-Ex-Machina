@@ -12,9 +12,13 @@ public final class Script {
 
 	public Script(Controller controller) throws IOException{
 		this.controller = controller;
-		controller.addNavigation("init", () -> {
+		controller.addNavigation("c1-1-0", () -> {
 			try{	
-				this.init();
+				this.init("c1-1-0");
+			}catch(IOException e){}});
+		controller.addNavigation("c1-1-1", () -> {
+			try{	
+				this.init("c1-1-1");
 			}catch(IOException e){}});
 		controller.addNavigation("ett", () -> this.test1());
 		controller.addNavigation("tva", () -> this.test2());
@@ -25,8 +29,8 @@ public final class Script {
 
 	}
 
-	private void init() throws IOException {
-		currentDialog = controller.getFileReader().read("files/"+ controller +".txt");
+	private void init(String nav) throws IOException {
+		currentDialog = controller.getFileReader().read("files/"+ nav +".txt");
 		//		getCurrentDialog()[0]="You take the stairs down to the subway station, trying to brace your self as much as possible for the stench. "
 		//				+ "Gravel and bits of broken glass crunch under foot as you sidestep the small piles of detritus scatteredhaphazardly all over the station. "
 		//				+ "The smell is unbearable. A combination of rotting garbage, stale urine and the remains of rats and other animals have mixed together to form a smell that defies any attempt at ignore it. "

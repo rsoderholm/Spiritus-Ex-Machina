@@ -37,10 +37,10 @@ public class TextFileReader {
 		return splitParagraph;
 	}
 
-	public static void main(String[] args) throws IOException {
-		TextFileReader reader = new TextFileReader();
-		// reader.readText("files/testscript.txt");
-		reader.read("files/testscript.txt");
-	}
+//	public static void main(String[] args) throws IOException {
+//		TextFileReader reader = new TextFileReader();
+//		// reader.readText("files/testscript.txt");
+//		reader.read("files/testscript.txt");
+//	}
 
 }

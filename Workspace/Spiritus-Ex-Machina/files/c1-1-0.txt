@@ -1,0 +1,5 @@
+﻿The crime scene is about a block from the subway station. You round a corner and spot a pair of
+uniformed police officers at the entrance to an ally. It seems the police have already cordond off
+the area.#
+Continue.#
+normal¤c1-1-1#

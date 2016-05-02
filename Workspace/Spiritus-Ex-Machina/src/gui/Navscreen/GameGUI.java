@@ -209,7 +209,7 @@ public class GameGUI {
 		}
 		window.setResizable(false);
 		window.setScene(scene);
-		window.setFullScreen(true);
+//		window.setFullScreen(true);
 		window.show();
 	}
 
@@ -474,7 +474,7 @@ public class GameGUI {
 	}
 
 	public void init() {
-		controller.navigation("init");
+		controller.navigation("c1-1-0");
 
 	}
 

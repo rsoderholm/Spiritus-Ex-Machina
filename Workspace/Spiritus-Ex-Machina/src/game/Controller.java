@@ -22,8 +22,7 @@ public class Controller {
 	private HashMap<String, Runnable> navigation = new HashMap<>();
 	private HashMap<String, String[]> navMap = new HashMap<>();
 	private Script script;
-	private TextFileReader fileReader;
-
+	private FileTranslator translator;
 
 	/**
 	 * Startup for the controller class
@@ -32,31 +31,32 @@ public class Controller {
 	public Controller() throws IOException{
 		setPlayer(new Player());
 		setNpc(new Npc());
-		script = new Script(this);
-		setFileReader(new TextFileReader());
+//		script = new Script(this);
+		translator = new FileTranslator(this);
 		GUI = new GameGUI(this);
 		GUI.init();
 
 	}
-	
+
 	/**
 	 * 
 	 * @param player
 	 * @param npc
+	 * @throws IOException 
 	 */
-	public Controller(Player player){
-		setPlayer(player);
-		setNpc(new Npc());
-		try {
-			script = new Script(this);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		GUI = new GameGUI(this);
-		GUI.init();
+//	public Controller(Player player) throws IOException{
+//		setPlayer(player);
+//		setNpc(new Npc());
+//			script = new Script(this);
+//		GUI = new GameGUI(this);
+//		GUI.init();
+//	}
+	public HashMap<String, String[]> getConversationNavigation(){
+		return navMap;
 	}
-
+	public HashMap<String, Runnable> getNavigation(){
+		return navigation;
+	}
 	public Player getPlayer() {
 		return player;
 	}
@@ -142,16 +142,6 @@ public class Controller {
 		getGUI().disableButtons();
 		getGUI().setDialog("End combat", 1, victoryKey);
 	}
-
-
-	public TextFileReader getFileReader() {
-		return fileReader;
-	}
-
-	public void setFileReader(TextFileReader fileReader) {
-		this.fileReader = fileReader;
-	}
-
 
 	/**
 	 * Interior class for handling all combat situation.
@@ -310,11 +300,11 @@ public class Controller {
 			return false;
 		}
 	}
-	
+
 	public class AbilityTester{
-		
+
 		public AbilityTester(){
-			
+
 		}
 	}
 }
