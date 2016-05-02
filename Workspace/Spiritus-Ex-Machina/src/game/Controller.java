@@ -23,6 +23,9 @@ public class Controller {
 	private Script script;
 
 
+	/**
+	 * Startup for the controller class
+	 */
 	public Controller(){
 		setPlayer(new Player());
 		setNpc(new Npc());
@@ -31,11 +34,18 @@ public class Controller {
 		GUI.init();
 
 	}
-	public Controller(Player player, Npc npc){
+	
+	/**
+	 * 
+	 * @param player
+	 * @param npc
+	 */
+	public Controller(Player player){
 		setPlayer(player);
-		setNpc(npc);
+		setNpc(new Npc());
 		script = new Script(this);
-		GUI=new GameGUI(this);
+		GUI = new GameGUI(this);
+		GUI.init();
 	}
 
 	public Player getPlayer() {
@@ -113,9 +123,9 @@ public class Controller {
 	}
 
 	/**
-	 * When 
-	 * @param victoryKey
-	 * @param event
+	 * When the player is victorius
+	 * @param victoryKey the next conversation
+	 * @param event what the event text label will say
 	 */
 	public void victorius(String victoryKey, String event){
 		setActiveCombat(null);
@@ -280,6 +290,13 @@ public class Controller {
 			if(chara.getHealth()<=0)
 				return true;
 			return false;
+		}
+	}
+	
+	public class AbilityTester{
+		
+		public AbilityTester(){
+			
 		}
 	}
 }
