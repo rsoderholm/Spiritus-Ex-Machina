@@ -18,18 +18,18 @@ import java.util.Spliterator;
  */
 
 public class TextFileReader {
-	String line = null;
-	private HashMap<String, String> map = new HashMap<>();
 
 	public String[] read(String filepath) throws IOException {
 		String[] splitParagraph = null;
 		try {
-			Scanner scanner = new Scanner(new File(filepath));
+			Scanner scanner1 = new Scanner(new File(filepath));
 			String line = "";
-			while (scanner.hasNextLine()) {
-				line += scanner.nextLine();
+			while (scanner1.hasNextLine()) {
+				line += scanner1.nextLine();
 			}
 			splitParagraph = line.split("#");
+			scanner1.close();
+			scanner1=null;
 			for (int i = 0; i < splitParagraph.length; i++) {
 				System.out.println(splitParagraph[i]);
 			}
@@ -47,16 +47,16 @@ public class TextFileReader {
 //=======
 	public String[] readChapters(String filepath) throws IOException {
 		String[] splitChapter = null;
-
 		try {
-			Scanner scanner = new Scanner(new File(filepath));
+			Scanner scanner2 = new Scanner(new File(filepath));
 			String line = "";
 
-			while (scanner.hasNextLine()) {
-				line += scanner.nextLine();
+			while (scanner2.hasNextLine()) {
+				line += scanner2.nextLine();
 			}
 			splitChapter = line.split("#");
-
+			scanner2.close();
+			scanner2=null;
 			for (int i = 0; i < splitChapter.length; i++) {
 				System.out.println(splitChapter[i]);
 			}

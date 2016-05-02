@@ -23,6 +23,7 @@ public class Controller {
 	private HashMap<String, String[]> navMap = new HashMap<>();
 	private Script script;
 	private FileTranslator translator;
+	private String[] currentChapter;
 
 	/**
 	 * Startup for the controller class
@@ -31,28 +32,26 @@ public class Controller {
 	public Controller() throws IOException{
 		setPlayer(new Player());
 		setNpc(new Npc());
-//		script = new Script(this);
+		//		script = new Script(this);
 		translator = new FileTranslator(this);
 		GUI = new GameGUI(this);
-		translator.addToNav("c1-1-0");
-		translator.addToNav("c1-1-1");
+				setCurrentChapter(translator.readChapter("chapter1"));
+				for (int i = 1; i < currentChapter.length; i++) {
+					translator.addToNav(currentChapter[i]);
+				}
 		GUI.init();
 
 	}
 
-	/**
-	 * 
-	 * @param player
-	 * @param npc
-	 * @throws IOException 
-	 */
-//	public Controller(Player player) throws IOException{
-//		setPlayer(player);
-//		setNpc(new Npc());
-//			script = new Script(this);
-//		GUI = new GameGUI(this);
-//		GUI.init();
-//	}
+	public String[] getCurrentChapter() {
+		return currentChapter;
+	}
+
+	public void setCurrentChapter(String[] currentChapter) {
+		this.currentChapter = currentChapter;
+	}
+
+
 	public HashMap<String, String[]> getConversationNavigation(){
 		return navMap;
 	}
