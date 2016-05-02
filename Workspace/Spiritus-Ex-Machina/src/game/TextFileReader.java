@@ -22,7 +22,7 @@ public class TextFileReader {
 	private HashMap<String, String> map = new HashMap<>();
 
 	public String[] read(String filepath) throws IOException {
-		String[] splitParagraph = null; 
+		String[] splitParagraph = null;
 		try {
 			Scanner scanner = new Scanner(new File(filepath));
 			String line = "";
@@ -33,14 +33,45 @@ public class TextFileReader {
 			for (int i = 0; i < splitParagraph.length; i++) {
 				System.out.println(splitParagraph[i]);
 			}
-		}catch (Exception ex) {}
+		} catch (Exception ex) {
+		}
 		return splitParagraph;
 	}
 
+<<<<<<< HEAD
 //	public static void main(String[] args) throws IOException {
 //		TextFileReader reader = new TextFileReader();
 //		// reader.readText("files/testscript.txt");
 //		reader.read("files/testscript.txt");
 //	}
+=======
+	public String[] readChapters(String filepath) throws IOException {
+		String[] splitChapter = null;
+
+		try {
+			Scanner scanner = new Scanner(new File(filepath));
+			String line = "";
+
+			while (scanner.hasNextLine()) {
+				line += scanner.nextLine();
+			}
+			splitChapter = line.split("#");
+
+			for (int i = 0; i < splitChapter.length; i++) {
+				System.out.println(splitChapter[i]);
+			}
+		} catch (Exception ex) {
+		}
+		return splitChapter;
+
+	}
+
+	public static void main(String[] args) throws IOException {
+		TextFileReader reader = new TextFileReader();
+		// reader.readText("files/testscript.txt");
+		reader.read("files/testscript.txt");
+		reader.readChapters("files/Chapters.txt");
+	}
+>>>>>>> origin/master
 
 }
