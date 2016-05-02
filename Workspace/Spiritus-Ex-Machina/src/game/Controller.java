@@ -34,6 +34,11 @@ public class Controller {
 //		script = new Script(this);
 		translator = new FileTranslator(this);
 		GUI = new GameGUI(this);
+		try {
+			translator.readChapter("chapter1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		GUI.init();
 
 	}
