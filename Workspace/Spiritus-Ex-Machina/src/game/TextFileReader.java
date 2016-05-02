@@ -19,45 +19,37 @@ import java.util.Spliterator;
 
 public class TextFileReader {
 	String line = null;
-//	private HashMap<String, String> map = new HashMap<>();
+	private HashMap<String, String> map = new HashMap<>();
 
 	public String[] read(String filepath) throws IOException {
 		String[] splitParagraph = null;
-		String lineTemp;
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(filepath));
+			Scanner scanner = new Scanner(new File(filepath));
 			String line = "";
-			lineTemp = reader.readLine();
-			while (lineTemp!=null) {
-				line += lineTemp;
-				lineTemp = reader.readLine();
+			while (scanner.hasNextLine()) {
+				line += scanner.nextLine();
 			}
-			reader.close();
 			splitParagraph = line.split("#");
 			for (int i = 0; i < splitParagraph.length; i++) {
 				System.out.println(splitParagraph[i]);
 			}
-
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
-		
 		return splitParagraph;
 	}
 
-//<<<<<<< HEAD
-////	public static void main(String[] args) throws IOException {
-////		TextFileReader reader = new TextFileReader();
-////		// reader.readText("files/testscript.txt");
-////		reader.read("files/testscript.txt");
-////	}
-//=======
+<<<<<<< HEAD
+//	public static void main(String[] args) throws IOException {
+//		TextFileReader reader = new TextFileReader();
+//		// reader.readText("files/testscript.txt");
+//		reader.read("files/testscript.txt");
+//	}
+=======
 	public String[] readChapters(String filepath) throws IOException {
 		String[] splitChapter = null;
-		File file = new File(filepath);
+
 		try {
-			System.out.println("Attempting to read from file in: "+file.getCanonicalPath());
-			Scanner scanner = new Scanner(file);
+			Scanner scanner = new Scanner(new File(filepath));
 			String line = "";
 
 			while (scanner.hasNextLine()) {
@@ -74,12 +66,12 @@ public class TextFileReader {
 
 	}
 
-//	public static void main(String[] args) throws IOException {
-//		TextFileReader reader = new TextFileReader();
-//		// reader.readText("files/testscript.txt");
-//		reader.read("files/testscript.txt");
-//		reader.readChapters("files/Chapters.txt");
-//	}
-//>>>>>>> origin/master
+	public static void main(String[] args) throws IOException {
+		TextFileReader reader = new TextFileReader();
+		// reader.readText("files/testscript.txt");
+		reader.read("files/testscript.txt");
+		reader.readChapters("files/Chapters.txt");
+	}
+>>>>>>> origin/master
 
 }
