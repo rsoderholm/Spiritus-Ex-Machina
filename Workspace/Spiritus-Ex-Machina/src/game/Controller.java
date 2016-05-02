@@ -34,6 +34,8 @@ public class Controller {
 //		script = new Script(this);
 		translator = new FileTranslator(this);
 		GUI = new GameGUI(this);
+		translator.addToNav("c1-1-0");
+		translator.addToNav("c1-1-1");
 		GUI.init();
 
 	}

@@ -38,13 +38,13 @@ public class TextFileReader {
 		return splitParagraph;
 	}
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //	public static void main(String[] args) throws IOException {
 //		TextFileReader reader = new TextFileReader();
 //		// reader.readText("files/testscript.txt");
 //		reader.read("files/testscript.txt");
 //	}
-=======
+//=======
 	public String[] readChapters(String filepath) throws IOException {
 		String[] splitChapter = null;
 
@@ -72,6 +72,6 @@ public class TextFileReader {
 		reader.read("files/testscript.txt");
 		reader.readChapters("files/Chapters.txt");
 	}
->>>>>>> origin/master
+//>>>>>>> origin/master
 
 }

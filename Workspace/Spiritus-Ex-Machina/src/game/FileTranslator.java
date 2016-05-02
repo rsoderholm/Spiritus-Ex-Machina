@@ -9,12 +9,6 @@ public class FileTranslator {
 	public FileTranslator(Controller controller){
 		this.controller = controller;
 		fileReader = new TextFileReader();
-		try {
-			readChapter("chapter1");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public void readChapter(String chapter) throws IOException{
