@@ -2,16 +2,16 @@ package character;
 
 public abstract class Character {
 
-	private int intelligence;
-	private int strength;
-	private int presence;
-	private int wits;
-	private int dexterity;
-	private int manipulation;
-	private int resolve;
-	private int stamina;
-	private int composure;
-	private int health;
+	protected int intelligence;
+	protected int strength;
+	protected int presence;
+	protected int wits;
+	protected int dexterity;
+	protected int manipulation;
+	protected int resolve;
+	protected int stamina;
+	protected int composure;
+	protected int health;
 	
 	public Character(){
 		setIntelligence(2);
@@ -25,7 +25,18 @@ public abstract class Character {
 		setComposure(2);
 		setHealth((strength + stamina + resolve)*2);
 	}
-	
+	public Character(int[] stats){
+		setIntelligence(stats[0]);
+		setStrength(stats[1]);
+		setPresence(stats[2]);
+		setWits(stats[3]);
+		setDexterity(stats[4]);
+		setManipulation(stats[5]);
+		setResolve(stats[6]);
+		setStamina(stats[7]);
+		setComposure(stats[8]);
+		setHealth((strength + stamina + resolve)*2);
+	}
 	public int getIntelligence() {
 		return intelligence;
 	}

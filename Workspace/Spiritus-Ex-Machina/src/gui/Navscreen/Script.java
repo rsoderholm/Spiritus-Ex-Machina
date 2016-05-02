@@ -38,20 +38,9 @@ public final class Script {
 		getCurrentDialog()[6]="tre";
 		getCurrentDialog()[7]="Attack them bare handed";
 		getCurrentDialog()[8]="fyra";
-		controller.setupDialog();
+		controller.setupDialog(getCurrentDialog());
 	}
-	public void combatScreen(){
-		getCurrentDialog()[0]="Combat is initiated!!!";
-		getCurrentDialog()[1]="Hand to hand";
-		getCurrentDialog()[2]="h2h";
-		getCurrentDialog()[3]="Ranged";
-		getCurrentDialog()[4]="ranged";
-		getCurrentDialog()[5]=null;
-		getCurrentDialog()[6]=null;
-		getCurrentDialog()[7]=null;
-		getCurrentDialog()[8]=null;
-		controller.getActiveCombat().setupCombatDialog();
-	}
+	
 
 	public void test1() {
 		eventText = "Instincts take over and you immediately burst into motion, nearly escapes a blow from a shady figure."

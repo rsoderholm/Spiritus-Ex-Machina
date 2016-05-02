@@ -4,6 +4,11 @@ import java.util.Random;
 
 public final class StatDice{
 
+	/**
+	 * Class that represents the D10 dice in the game 
+	 * @param amount how many dices to be rolled
+	 * @return the number of successes from the rolls
+	 */
 	public static int rollDice(int amount){
 		int successes=0;
 		int result=0;
