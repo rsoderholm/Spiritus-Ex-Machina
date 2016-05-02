@@ -5,6 +5,7 @@ import character.Player;
 import gui.Navscreen.GameGUI;
 import gui.Navscreen.Script;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import character.Character;
@@ -21,15 +22,18 @@ public class Controller {
 	private HashMap<String, Runnable> navigation = new HashMap<>();
 	private HashMap<String, String[]> navMap = new HashMap<>();
 	private Script script;
+	private TextFileReader fileReader;
 
 
 	/**
 	 * Startup for the controller class
+	 * @throws IOException 
 	 */
-	public Controller(){
+	public Controller() throws IOException{
 		setPlayer(new Player());
 		setNpc(new Npc());
 		script = new Script(this);
+		setFileReader(new TextFileReader());
 		GUI = new GameGUI(this);
 		GUI.init();
 
@@ -43,7 +47,12 @@ public class Controller {
 	public Controller(Player player){
 		setPlayer(player);
 		setNpc(new Npc());
-		script = new Script(this);
+		try {
+			script = new Script(this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		GUI = new GameGUI(this);
 		GUI.init();
 	}
@@ -132,6 +141,15 @@ public class Controller {
 		getGUI().setEventText(event);
 		getGUI().disableButtons();
 		getGUI().setDialog("End combat", 1, victoryKey);
+	}
+
+
+	public TextFileReader getFileReader() {
+		return fileReader;
+	}
+
+	public void setFileReader(TextFileReader fileReader) {
+		this.fileReader = fileReader;
 	}
 
 

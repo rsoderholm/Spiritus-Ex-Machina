@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Spliterator;
 
 /**
  * 
@@ -20,27 +21,20 @@ public class TextFileReader {
 	String line = null;
 	private HashMap<String, String> map = new HashMap<>();
 
-	public void read(String filepath) throws IOException {
-
+	public String[] read(String filepath) throws IOException {
+		String[] splitParagraph = null; 
 		try {
-
 			Scanner scanner = new Scanner(new File(filepath));
 			String line = "";
 			while (scanner.hasNextLine()) {
 				line += scanner.nextLine();
 			}
-			String[] splitParagraph = line.split("#");
+			splitParagraph = line.split("#");
 			for (int i = 0; i < splitParagraph.length; i++) {
 				System.out.println(splitParagraph[i]);
 			}
-
-		}
-
-		catch (Exception ex) {
-			System.out.println("Problem");
-
-		}
-
+		}catch (Exception ex) {}
+		return splitParagraph;
 	}
 
 	public static void main(String[] args) throws IOException {

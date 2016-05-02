@@ -463,7 +463,7 @@ public class GameGUI {
 	public void changeHealth() {
 		statusText.setText(
 				"Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
-
+		statusText.setFill(Color.GREEN);
 		if ((float)0.66 >=(float) controller.getPlayer().getHealth()/(float)controller.getPlayer().getMaxhealth()) {
 			statusText.setFill(Color.ORANGE);
 		} 
