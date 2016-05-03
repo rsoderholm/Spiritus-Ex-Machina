@@ -473,11 +473,6 @@ public class GameGUI {
 
 	}
 
-	public void init() {
-		controller.navigation("c1-1-0");
-
-	}
-
 	public void setAttributes() {
 		inte = controller.getPlayer().getIntelligence();
 		str = controller.getPlayer().getStrength();

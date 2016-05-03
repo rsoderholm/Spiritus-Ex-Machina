@@ -20,7 +20,7 @@ public class Controller {
 	private CombatSituation activeCombat;
 	private GameGUI GUI;
 	private HashMap<String, Runnable> navigation = new HashMap<>();
-	private HashMap<String, String[]> navMap = new HashMap<>();
+//	private HashMap<String, String[]> navMap = new HashMap<>();
 	private Script script;
 	private FileTranslator translator;
 	private String[] currentChapter;
@@ -32,15 +32,18 @@ public class Controller {
 	public Controller() throws IOException{
 		setPlayer(new Player());
 		setNpc(new Npc());
-		//		script = new Script(this);
 		translator = new FileTranslator(this);
 		GUI = new GameGUI(this);
-				setCurrentChapter(translator.readChapter("chapter1"));
-				for (int i = 1; i < currentChapter.length; i++) {
-					translator.addToNav(currentChapter[i]);
-				}
-		GUI.init();
+		setCurrentChapter(translator.readChapter("chapter1"));
+		changeChapter();
+		
+	}
 
+	private void changeChapter() {
+		for (int i = 1; i < currentChapter.length; i++) {
+			translator.addToNav(currentChapter[i]);
+		}
+		navigation(currentChapter[1]);
 	}
 
 	public String[] getCurrentChapter() {
@@ -52,9 +55,9 @@ public class Controller {
 	}
 
 
-	public HashMap<String, String[]> getConversationNavigation(){
-		return navMap;
-	}
+//	public HashMap<String, String[]> getConversationNavigation(){
+//		return navMap;
+//	}
 	public HashMap<String, Runnable> getNavigation(){
 		return navigation;
 	}
@@ -115,8 +118,12 @@ public class Controller {
 	 * @param key the keyword
 	 * @param value what method to be runned
 	 */
-	public void addNavigation(String key, Runnable value){
-		navigation.put(key, value);
+	public void addNavigation(String key, String[] value){
+		navigation.put(key, () -> setupDialog(value));
+	}
+	
+	public void addCombat(String key, String value){
+		navigation.put(key, () -> startCombat(value));
 	}
 
 	/**
@@ -143,10 +150,17 @@ public class Controller {
 		getGUI().disableButtons();
 		getGUI().setDialog("End combat", 1, victoryKey);
 	}
+	
+	public void abilityCheck(String success, String failure, String ability1, String ability2){
+		if(StatDice.rollDice(player.retrieveStats(ability1, ability2))>0)
+				navigation.get(success).run();
+		else
+			navigation.get(failure).run();
+	}
 
 	/**
 	 * Interior class for handling all combat situation.
-	 * @author bjorsven
+	 * @author Björn Svensson
 	 *
 	 */
 	public class CombatSituation{
@@ -157,7 +171,7 @@ public class Controller {
 
 		/**
 		 * constructor for combats with specific actions and 
-		 * @param victoryKey the key for 
+		 * @param victoryKey the key for next 
 		 */
 		public CombatSituation(String victoryKey){
 			this.victoryKey=victoryKey;
@@ -299,13 +313,6 @@ public class Controller {
 			if(chara.getHealth()<=0)
 				return true;
 			return false;
-		}
-	}
-
-	public class AbilityTester{
-
-		public AbilityTester(){
-
 		}
 	}
 }
