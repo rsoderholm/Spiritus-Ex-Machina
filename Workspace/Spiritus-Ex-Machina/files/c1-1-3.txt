@@ -1,0 +1,4 @@
+The other officer casts a quick glance around the area. As if to make sure you're really alone. When his eyes settle back on you again you can almost taste the tension in the air.#
+Remain silent#
+Try talking to them#
+ability¤c1-1-4#¤failure¤cmp¤pre
