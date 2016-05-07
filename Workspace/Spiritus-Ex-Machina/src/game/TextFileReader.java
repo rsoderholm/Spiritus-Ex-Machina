@@ -30,9 +30,9 @@ public class TextFileReader {
 			splitParagraph = line.split("#");
 			scanner1.close();
 			scanner1=null;
-			for (int i = 0; i < splitParagraph.length; i++) {
-				System.out.println(splitParagraph[i]);
-			}
+//			for (int i = 0; i < splitParagraph.length; i++) {
+//				System.out.println(splitParagraph[i]);
+//			}
 		} catch (Exception ex) {
 		}
 		return splitParagraph;
@@ -57,21 +57,21 @@ public class TextFileReader {
 			splitChapter = line.split("#");
 			scanner2.close();
 			scanner2=null;
-			for (int i = 0; i < splitChapter.length; i++) {
-				System.out.println(splitChapter[i]);
-			}
+//			for (int i = 0; i < splitChapter.length; i++) {
+//				System.out.println(splitChapter[i]);
+//			}
 		} catch (Exception ex) {
 		}
 		return splitChapter;
 
 	}
 
-	public static void main(String[] args) throws IOException {
-		TextFileReader reader = new TextFileReader();
-		// reader.readText("files/testscript.txt");
-		reader.read("files/testscript.txt");
-		reader.readChapters("files/Chapters.txt");
-	}
+//	public static void main(String[] args) throws IOException {
+//		TextFileReader reader = new TextFileReader();
+//		// reader.readText("files/testscript.txt");
+//		reader.read("files/testscript.txt");
+//		reader.readChapters("files/Chapters.txt");
+//	}
 //>>>>>>> origin/master
 
 }

@@ -20,10 +20,11 @@ public class Controller {
 	private CombatSituation activeCombat;
 	private GameGUI GUI;
 	private HashMap<String, Runnable> navigation = new HashMap<>();
-//	private HashMap<String, String[]> navMap = new HashMap<>();
-	private Script script;
+	private HashMap<String, String[]> navMap = new HashMap<>();
 	private FileTranslator translator;
 	private String[] currentChapter;
+	private String firstConversation;
+	private String victoryKey;
 
 	/**
 	 * Startup for the controller class
@@ -36,14 +37,19 @@ public class Controller {
 		GUI = new GameGUI(this);
 		setCurrentChapter(translator.readChapter("chapter1"));
 		changeChapter();
-		
+		startNewChapter();
+	}
+
+	private void startNewChapter() {
+		navigation.get(firstConversation).run();
 	}
 
 	private void changeChapter() {
-		for (int i = 1; i < currentChapter.length; i++) {
+
+		for (int i = 0; i < currentChapter.length; i++) {
 			translator.addToNav(currentChapter[i]);
 		}
-		navigation(currentChapter[1]);
+		firstConversation = currentChapter[1];
 	}
 
 	public String[] getCurrentChapter() {
@@ -55,9 +61,9 @@ public class Controller {
 	}
 
 
-//	public HashMap<String, String[]> getConversationNavigation(){
-//		return navMap;
-//	}
+	public HashMap<String, String[]> getConversationNavigation(){
+		return navMap;
+	}
 	public HashMap<String, Runnable> getNavigation(){
 		return navigation;
 	}
@@ -82,6 +88,9 @@ public class Controller {
 	public void setActiveCombat(CombatSituation activeCombat) {
 		this.activeCombat = activeCombat;
 	}
+	public void setVictoryKey(String key){
+		this.victoryKey=key;
+	}
 
 	/**
 	 * Initiation of a combat situation
@@ -91,6 +100,9 @@ public class Controller {
 		setActiveCombat(new CombatSituation(nextConversation));
 	}
 
+	public void addConversations(String navKey, String[] dialog){
+		navMap.put(navKey, dialog);
+	}
 	/**
 	 * Sorts and updates the texts in the GUI class
 	 * @param dialog The array with the different texts and keywords
@@ -110,6 +122,7 @@ public class Controller {
 	 * @param navKey the keyword for the hashMap
 	 */
 	public void navigation(String navKey){
+		System.out.println("intended navigation: " + navKey);
 		navigation.get(navKey).run();
 	}
 
@@ -118,14 +131,17 @@ public class Controller {
 	 * @param key the keyword
 	 * @param value what method to be runned
 	 */
-	public void addNavigation(String key, String[] value){
-		navigation.put(key, () -> setupDialog(value));
+	public void addNavigation(String key){
+		navigation.put(key, () -> setupDialog(navMap.get(key)));
 	}
 	
-	public void addCombat(String key, String value){
-		navigation.put(key, () -> startCombat(value));
+	public void addCombat(String key, String nextConversation){
+		navigation.put(key, () -> startCombat(nextConversation));
 	}
 
+	public void addAbilityCheck(String key, String success, String failure, String ability1, String ability2){
+		navigation.put(key, () -> abilityCheck(success, failure, ability1, ability2));
+	}
 	/**
 	 * End of the game. A player never wants to be 
 	 * here, ever.
@@ -151,11 +167,11 @@ public class Controller {
 		getGUI().setDialog("End combat", 1, victoryKey);
 	}
 	
-	public void abilityCheck(String success, String failure, String ability1, String ability2){
+	public void abilityCheck(String successNav, String failureNav, String ability1, String ability2){
 		if(StatDice.rollDice(player.retrieveStats(ability1, ability2))>0)
-				navigation.get(success).run();
+				navigation(successNav);
 		else
-			navigation.get(failure).run();
+			navigation(failureNav);
 	}
 
 	/**
@@ -166,7 +182,6 @@ public class Controller {
 	public class CombatSituation{
 
 		private HashMap<String,Runnable> actions = new HashMap<>();
-		private String victoryKey;
 		private String eventText = "Combat is initiated!!!";
 
 		/**
@@ -174,7 +189,7 @@ public class Controller {
 		 * @param victoryKey the key for next 
 		 */
 		public CombatSituation(String victoryKey){
-			this.victoryKey=victoryKey;
+			setVictoryKey(victoryKey);
 			actions.put("h2h", () -> this.playerAction(1));
 			actions.put("ranged", () -> this.playerAction(2));
 			actions.put("heal", ()-> this.playerAction(3));

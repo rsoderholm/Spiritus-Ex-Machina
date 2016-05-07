@@ -549,6 +549,10 @@ public class GameGUI {
 		button2.setText("");
 		button3.setText("");
 		button4.setText("");
+		altOne=null;
+		altTwo=null;
+		altThree=null;
+		altFour=null;
 		button1.setDisable(true);
 		button2.setDisable(true);
 		button3.setDisable(true);

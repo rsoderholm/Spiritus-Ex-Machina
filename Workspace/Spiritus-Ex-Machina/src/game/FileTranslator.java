@@ -5,69 +5,59 @@ import java.io.IOException;
 public class FileTranslator {
 	private Controller controller;
 	private TextFileReader fileReader;
-	private String[] currentChapter;
+	//	private String[] currentChapter;
 
 	/**
 	 * Contructor for the translator.
-	 * @param controller connects the controller class with this.
+	 * 
+	 * @param controller
+	 *            connects the controller class with this.
 	 */
-	public FileTranslator(Controller controller){
+	public FileTranslator(Controller controller) {
 		this.controller = controller;
 		fileReader = new TextFileReader();
 	}
 
 	/**
 	 * 
-	 * @param chapter which chapter to be read.
+	 * @param chapter
+	 *            which chapter to be read.
 	 * @return the chapter as a String[]
 	 * @throws IOException
 	 */
-	public String[] readChapter(String chapter) throws IOException{
-		currentChapter = fileReader.readChapters("files/"+chapter+".txt");
-		return currentChapter;
+	public String[] readChapter(String chapter) throws IOException {
+		return fileReader.readChapters("files/" + chapter + ".txt");
+		//		return currentChapter;
 	}
 
 	/**
 	 * Method to fill the navigation hashMap from a file
-	 * @param nav the name of the specific file.
+	 * 
+	 * @param nav
+	 *            the name of the specific file.
 	 */
-	public void addToNav(String nav){
+	public void addToNav(String nav) {
 		String[] navigation = null;
 		try {
-			navigation = fileReader.read("files/"+nav+".txt");
-		} catch (Exception e) {}
-		if(navigation[0]!="chapter"){
-			for (int i = 2; i < navigation.length; i+=2) {
-				String[] secondSplit = navigation[i].split("¤");
-				if(navigation[i]!=null){
-					switch(secondSplit[0]){
-					case "normal":
-						navigation[i]=secondSplit[1];
-						String[] nextNavi = navigation.clone();
-						controller.addNavigation(nav, nextNavi);
-						break;
-					case "combat":
-						controller.addCombat(nav,secondSplit[1]);
-						break;
-//					case "ability":
-//						controller.getNavigation().put(navigation[i], () -> 
-//						AbilityCheck(
-//								secondSplit[1],
-//								secondSplit[2],
-//								secondSplit[3],
-//								secondSplit[4]));
-//						break;
-					case "chapter":
-						break;
-					}
-				}
-			}		
-//			controller.getConversationNavigation().put(nav, navigation);
+			navigation = fileReader.read("files/" + nav + ".txt");
+		} catch (Exception e) {
 		}
-		else{	
-			controller.setCurrentChapter(navigation);
+		char where = Character.toLowerCase(nav.charAt(nav.length()-1));
+		switch (where) {
+		case 'c':
+			controller.addCombat(nav, navigation[0]);
+			break;
+		case 'a':
+			controller.addAbilityCheck(nav, navigation[0], navigation[1], navigation[2], navigation[3]);
+			break;
+		case 'n':
+			controller.addConversations(nav, navigation);
+			controller.addNavigation(nav);
+			break;
+		default:
+			System.out.println("something went wrong!");
+			break;
 		}
 
-	}			
+	}
 }
-
