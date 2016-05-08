@@ -1,9 +1,9 @@
 "S.. sorry to keep you waiting, sir. You're cleared to enter".. quickly stepping out of your way, he continues.. "The Captain sent word that he wants to talk to you before you leave the crime scene. That's why it took a bit longer than usual to verify  your ID and clearance level."#
-Talk to me about what?#
+"Talk to me about what?"#
 c1-1-0n#
-I’ll give him a call later.#
+"I’ll give him a call later."#
 c1-1-0n#
-Like I give a shit.#
+"Like I give a shit."#
 c1-1-6c#
 Ignore them and keep walking.#
 c1-1-0n

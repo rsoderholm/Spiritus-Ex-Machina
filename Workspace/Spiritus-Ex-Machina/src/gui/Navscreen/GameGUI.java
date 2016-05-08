@@ -209,7 +209,7 @@ public class GameGUI {
 		}
 		window.setResizable(false);
 		window.setScene(scene);
-//		window.setFullScreen(true);
+		window.setFullScreen(true);
 		window.show();
 	}
 
@@ -567,35 +567,19 @@ public class GameGUI {
 	public void buttonHandler() {
 
 		button1.setOnAction(e -> {
-			if (controller.getActiveCombat() == null)
 				controller.navigation(altOne);
-			else {
-				controller.getActiveCombat().performCharacterAction(altOne);
-			}
 		});
 
 		button2.setOnAction(e -> {
-			if (controller.getActiveCombat() == null)
 				controller.navigation(altTwo);
-			else {
-				controller.getActiveCombat().performCharacterAction(altTwo);
-			}
 		});
 
 		button3.setOnAction(e -> {
-			if (controller.getActiveCombat() == null)
 				controller.navigation(altThree);
-			else {
-				controller.getActiveCombat().performCharacterAction(altThree);
-			}
 		});
 
 		button4.setOnAction(e -> {
-			if (controller.getActiveCombat() == null)
 				controller.navigation(altFour);
-			else {
-				controller.getActiveCombat().performCharacterAction(altFour);
-			}
 		});
 
 		buttonattr.setOnAction(e -> {

@@ -96,10 +96,11 @@ public class Controller {
 	 * Initiation of a combat situation
 	 * @param nextConversation The next conversation after combat is resolved
 	 */
-	public void startCombat(String nextConversation){
-		setActiveCombat(new CombatSituation(nextConversation));
+	public void startCombat(String[] dialogues){
+		setActiveCombat(new CombatSituation(dialogues));
 	}
 
+	
 	public void addConversations(String navKey, String[] dialog){
 		navMap.put(navKey, dialog);
 	}
@@ -113,7 +114,9 @@ public class Controller {
 		for (int i = 1; i < dialog.length; i+=2) {
 			try{
 				getGUI().setDialog(dialog[i], i, dialog[i+1]);
-			}catch(NullPointerException e){};
+			}catch(NullPointerException e){
+				System.out.println("Här är en nullpointer!!!");
+			};
 		}
 	}
 
@@ -122,10 +125,16 @@ public class Controller {
 	 * @param navKey the keyword for the hashMap
 	 */
 	public void navigation(String navKey){
-		System.out.println("intended navigation: " + navKey);
-		navigation.get(navKey).run();
+		if(activeCombat!=null){
+			activeCombat.actions.get(navKey).run();
+		}
+		else
+				navigation.get(navKey).run();
 	}
 
+	public void navigationControl(String navKey, String[] navigation){
+
+	}
 	/**
 	 * Addition to the hashMap
 	 * @param key the keyword
@@ -134,13 +143,13 @@ public class Controller {
 	public void addNavigation(String key){
 		navigation.put(key, () -> setupDialog(navMap.get(key)));
 	}
-	
-	public void addCombat(String key, String nextConversation){
-		navigation.put(key, () -> startCombat(nextConversation));
+
+	public void addCombat(String key){
+		navigation.put(key, () -> startCombat(navMap.get(key)));
 	}
 
-	public void addAbilityCheck(String key, String success, String failure, String ability1, String ability2){
-		navigation.put(key, () -> abilityCheck(success, failure, ability1, ability2));
+	public void addAbilityCheck(String key){
+		navigation.put(key, () -> abilityCheck(navMap.get(key)));
 	}
 	/**
 	 * End of the game. A player never wants to be 
@@ -161,19 +170,23 @@ public class Controller {
 	 * @param event what the event text label will say
 	 */
 	public void victorius(String victoryKey, String event){
+		String[] victory = {event, "End Combat", victoryKey};
 		setActiveCombat(null);
-		getGUI().setEventText(event);
-		getGUI().disableButtons();
-		getGUI().setDialog("End combat", 1, victoryKey);
-	}
-	
-	public void abilityCheck(String successNav, String failureNav, String ability1, String ability2){
-		if(StatDice.rollDice(player.retrieveStats(ability1, ability2))>0)
-				navigation(successNav);
-		else
-			navigation(failureNav);
+		setupDialog(victory);
 	}
 
+	public void abilityCheck(String[] stringArray){
+		if(StatDice.rollDice(player.retrieveStats(stringArray[3], stringArray[4]))>3){
+//			String[] success = {"Test was Successful!", "Continue", stringArray[1]};
+//			setupDialog(success);
+			navigation(stringArray[1]);
+		}
+		else{
+//			String[] failure = {"Test was unsuccessful!", "Continue", stringArray[2]};
+//			setupDialog(failure);
+			navigation(stringArray[2]);
+		}
+	}
 	/**
 	 * Interior class for handling all combat situation.
 	 * @author Björn Svensson
@@ -181,15 +194,15 @@ public class Controller {
 	 */
 	public class CombatSituation{
 
-		private HashMap<String,Runnable> actions = new HashMap<>();
+		protected HashMap<String,Runnable> actions = new HashMap<>();
 		private String eventText = "Combat is initiated!!!";
 
 		/**
 		 * constructor for combats with specific actions and 
 		 * @param victoryKey the key for next 
 		 */
-		public CombatSituation(String victoryKey){
-			setVictoryKey(victoryKey);
+		public CombatSituation(String[] dialogues){
+			setVictoryKey(dialogues[1]);
 			actions.put("h2h", () -> this.playerAction(1));
 			actions.put("ranged", () -> this.playerAction(2));
 			actions.put("heal", ()-> this.playerAction(3));

@@ -39,23 +39,24 @@ public class FileTranslator {
 	public void addToNav(String nav) {
 		String[] navigation = null;
 		try {
-			navigation = fileReader.read("files/" + nav + ".txt");
+			navigation = new TextFileReader().read("files/" + nav + ".txt");
 		} catch (Exception e) {
 		}
 		char where = Character.toLowerCase(nav.charAt(nav.length()-1));
 		switch (where) {
 		case 'c':
-			controller.addCombat(nav, navigation[0]);
+			controller.addConversations(nav, navigation);
+			controller.addCombat(nav);
 			break;
 		case 'a':
-			controller.addAbilityCheck(nav, navigation[0], navigation[1], navigation[2], navigation[3]);
+			controller.addConversations(nav, navigation);
+			controller.addAbilityCheck(nav);
 			break;
 		case 'n':
 			controller.addConversations(nav, navigation);
 			controller.addNavigation(nav);
 			break;
 		default:
-			System.out.println("something went wrong!");
 			break;
 		}
 
