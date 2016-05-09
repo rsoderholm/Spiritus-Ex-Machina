@@ -1,11 +1,11 @@
 /*
  * AttributeGUI
  * 
- * Version information
+ * V.1
  *
  * 03/05/2016
  * 
- * Hassan Alhasani
+ *  Author:Hassan Alhasani
  */
 package gui.Navscreen;
 
@@ -256,7 +256,7 @@ public class AttributeGUI {
 	}
 
 	public void setPlayerValues() {
-		stats = new int[9]; 
+		stats = new int[9];
 		stats[0] = values1;
 		stats[1] = values2;
 		stats[2] = values3;

@@ -1,41 +1,41 @@
+/*
+ * GameGui
+ * V2.0
+ * Date: 20160428 
+ * Author: Ludwig Ninn 
+ */
 package gui.Navscreen;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Scanner;
 
 import game.Controller;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
-import javafx.application.Application;
-import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import character.Player;
 
+/**
+ * 
+ * Class GameGui is the graphical user interface. Communicates with the
+ * Controller class for graphical updates the will represent the state of the
+ * game.
+ *
+ */
 public class GameGUI {
 
 	private boolean showinv;
@@ -43,103 +43,84 @@ public class GameGUI {
 	private Button buttonattr;
 	private GridPane gridInventory;
 	private GridPane gridAttribute;
-	private VBox left;
-	private VBox right;
+	private VBox vbLeft;
+	private VBox vbRight;
 	private BorderPane pane;
 	private Stage window;
 	private Scene scene;
-	
-	private Label labelarmor;
-	private ImageView ivarmor;
+	private Label labelArmor;
+	private ImageView ivArmor;
 	private String attributesArmor;
 	private Image imageArmor;
-	
-	private Label labelgun;
-	private ImageView ivgun;
+	private Label labelGun;
+	private ImageView ivGun;
 	private String attributesGun;
 	private Image imageGun;
-	
-	private Label labelstim;
-	private ImageView ivstim;
-	private String attributesStim;
-	private Image imageStim;
-	
-	private Label labelmelee;
-	private ImageView ivmelee;
+	private Label labelBioGel;
+	private ImageView ivBioGel;
+	private String attributesBioGel;
+	private Image imageBioGel;
+	private Label labelMelee;
+	private ImageView ivMelee;
 	private String attributesMelee;
 	private Image imageMelee;
-	
-	
-	private Label labelint;
-	private ImageView ivint;
+	private Label labelInt;
+	private ImageView ivInt;
 	private int inte;
 	private String attributesInt;
 	private Image imageInt;
-
-	private Label labelstr;
-	private ImageView ivstr;
+	private Label labelStr;
+	private ImageView ivStr;
 	private int str;
 	private String attributesStr;
 	private Image imageStr;
-
-	private Label labelpre;
-	private ImageView ivpre;
+	private Label labelPre;
+	private ImageView ivPre;
 	private int pre;
 	private String attributesPre;
 	private Image imagePre;
-
-	private Label labelwit;
-	private ImageView ivwit;
+	private Label labelWit;
+	private ImageView ivWit;
 	private int wit;
 	private String attributesWit;
 	private Image imageWit;
-
-	private Label labeldex;
-	private ImageView ivdex;
+	private Label labelDex;
+	private ImageView ivDex;
 	private int dex;
 	private String attributesDex;
 	private Image imageDex;
-
-	private Label labelmani;
-	private ImageView ivmani;
+	private Label labelMani;
+	private ImageView ivMani;
 	private int mani;
 	private String attributesMani;
 	private Image imageMani;
-
-	private Label labelres;
-	private ImageView ivres;
+	private Label labelRes;
+	private ImageView ivRes;
 	private int res;
 	private String attributesRes;
 	private Image imageRes;
-
-	private Label labelsta;
-	private ImageView ivsta;
+	private Label labelSta;
+	private ImageView ivSta;
 	private int sta;
 	private String attributesSta;
 	private Image imageSta;
-
-	private Label labelcomp;
-	private ImageView ivcomp;
+	private Label labelComp;
+	private ImageView ivComp;
 	private int comp;
 	private String attributesComp;
 	private Image imageComp;
-
-	
 	private Text Evtext;
 	private Text statusText;
 	private Animation animation;
-
-	private Button buttoninv;
+	private Button buttonInv;
 	private Button button1;
 	private Button button2;
 	private Button button3;
 	private Button button4;
 	private String eventText;
-
 	private double width;
 	private ImageView iv1;
 	private Image image;
-
 	private Rectangle2D bounds;
 	private double widthScreen;
 	private double heightScreen;
@@ -152,68 +133,23 @@ public class GameGUI {
 	public GameGUI(Controller controller) {
 		this.controller = controller;
 		window = new Stage();
-	
-
-		bounds = Screen.getPrimary().getVisualBounds();
-		widthScreen = bounds.getWidth();
-		heightScreen = bounds.getHeight();
-		pane = new BorderPane();
-
-		if (widthScreen < 1600) {
-			width = 600;
-		} else
-			width = 1200;
-
+		checkScreenBounds();
 		addImage();
-		addtext();
-		addbutton();
-		
+		addText();
+		addButton();
 		addHealth();
-		addinventory();
+		addinventoryButton();
 		addAttributeWindow();
 		addInventoryWindow();
+		addMainWindow();
 
-		left = new VBox();
-		left.getChildren().addAll(gridAttribute);
-		left.setAlignment(Pos.CENTER);
-		left.setVisible(false);
-
-		right = new VBox();
-		right.getChildren().addAll(gridInventory);
-		right.setAlignment(Pos.CENTER);
-		right.setVisible(false);
-
-		VBox center = new VBox();
-		center.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, buttoninv, buttonattr);
-		center.setAlignment(Pos.CENTER);
-
-		pane.setCenter(center);
-		pane.setLeft(left);
-		pane.setRight(right);
-
-		scene = new Scene(pane, widthScreen, heightScreen);
-		scene.getStylesheets().add("StyleSheet.css");
-
-		buttonHandler();
-
-		if (widthScreen < 1600) {
-			button1.setStyle("-fx-font: 12 arial");
-			button2.setStyle("-fx-font: 12 arial");
-			button3.setStyle("-fx-font: 12 arial");
-			button4.setStyle("-fx-font: 12 arial");
-			buttoninv.setStyle("-fx-font: 12 arial");
-			buttonattr.setStyle("-fx-font: 12 arial");
-			Evtext.setFont(new Font(12));
-
-			iv1.setFitHeight(200);
-		}
-		window.setResizable(false);
-		window.setScene(scene);
-		window.setFullScreen(true);
-		window.show();
 	}
 
-	public void textanimation() {
+	/**
+	 * TextAnimation pauses the text in a cycle so it seems that the text is
+	 * being typed in.
+	 */
+	public void textAnimation() {
 		animation = new Transition() {
 			{
 
@@ -230,11 +166,79 @@ public class GameGUI {
 		animation.play();
 	}
 
+	/**
+	 * CheckScreenBounds checks the width och height of the screen to determine
+	 * if is under 1600 px wish if it is, the screen is decreased to fit the
+	 * size.
+	 */
+	public void checkScreenBounds() {
+		bounds = Screen.getPrimary().getVisualBounds();
+		widthScreen = bounds.getWidth();
+		heightScreen = bounds.getHeight();
+		pane = new BorderPane();
+
+		if (widthScreen < 1600) {
+			width = 600;
+		} else
+			width = 1200;
+	}
+
+	/**
+	 * AddMainWindow renders the main node of the game from the other nodes.
+	 * Also reduces the size of game graphics if the screenbound is less then
+	 * 1600px.
+	 */
+	public void addMainWindow() {
+
+		vbLeft = new VBox();
+		vbLeft.getChildren().addAll(gridAttribute);
+		vbLeft.setAlignment(Pos.CENTER);
+		vbLeft.setVisible(false);
+
+		vbRight = new VBox();
+		vbRight.getChildren().addAll(gridInventory);
+		vbRight.setAlignment(Pos.CENTER);
+		vbRight.setVisible(false);
+
+		VBox center = new VBox();
+		center.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, buttonInv, buttonattr);
+		center.setAlignment(Pos.CENTER);
+
+		pane.setCenter(center);
+		pane.setLeft(vbLeft);
+		pane.setRight(vbRight);
+
+		scene = new Scene(pane, widthScreen, heightScreen);
+		scene.getStylesheets().add("StyleSheet.css");
+
+		buttonHandler();
+
+		if (widthScreen < 1600) {
+			button1.setStyle("-fx-font: 12 arial");
+			button2.setStyle("-fx-font: 12 arial");
+			button3.setStyle("-fx-font: 12 arial");
+			button4.setStyle("-fx-font: 12 arial");
+			buttonInv.setStyle("-fx-font: 12 arial");
+			buttonattr.setStyle("-fx-font: 12 arial");
+			Evtext.setFont(new Font(12));
+
+			iv1.setFitHeight(200);
+		}
+		window.setResizable(false);
+		window.setScene(scene);
+		window.setFullScreen(true);
+		window.show();
+	}
+
+	/**
+	 * AddAttriuteWindow renders the attributeWindow with the players currents
+	 * stats.
+	 */
 	public void addAttributeWindow() {
-		
+
 		buttonattr = new Button("Attributes");
 		buttonattr.setMaxWidth(200);
-		
+
 		inte = controller.getPlayer().getIntelligence();
 		str = controller.getPlayer().getStrength();
 		pre = controller.getPlayer().getPresence();
@@ -244,7 +248,7 @@ public class GameGUI {
 		res = controller.getPlayer().getResolve();
 		sta = controller.getPlayer().getStamina();
 		comp = controller.getPlayer().getComposure();
-		
+
 		gridAttribute = new GridPane();
 		gridAttribute.prefHeight(700);
 		gridAttribute.prefWidth(300);
@@ -254,107 +258,110 @@ public class GameGUI {
 
 		// Intelligence
 		imageInt = new Image("int.png");
-		ivint = new ImageView();
-		ivint.setImage(imageInt);
-		ivint.setFitWidth(50);
-		ivint.setFitHeight(50);
+		ivInt = new ImageView();
+		ivInt.setImage(imageInt);
+		ivInt.setFitWidth(50);
+		ivInt.setFitHeight(50);
 		attributesInt = "Intelligence: " + inte;
-		labelint = new Label(attributesInt, ivint);
-		labelint.setMinWidth(300);
+		labelInt = new Label(attributesInt, ivInt);
+		labelInt.setMinWidth(300);
 
 		// Strength
 		imageStr = new Image("str.png");
-		ivstr = new ImageView();
-		ivstr.setImage(imageStr);
-		ivstr.setFitWidth(50);
-		ivstr.setFitHeight(50);
+		ivStr = new ImageView();
+		ivStr.setImage(imageStr);
+		ivStr.setFitWidth(50);
+		ivStr.setFitHeight(50);
 		attributesStr = "Strength: " + str;
-		labelstr = new Label(attributesStr, ivstr);
-		labelstr.setMinWidth(300);
+		labelStr = new Label(attributesStr, ivStr);
+		labelStr.setMinWidth(300);
 
 		// Presence
 		imagePre = new Image("pre.png");
-		ivpre = new ImageView();
-		ivpre.setImage(imagePre);
-		ivpre.setFitWidth(50);
-		ivpre.setFitHeight(50);
+		ivPre = new ImageView();
+		ivPre.setImage(imagePre);
+		ivPre.setFitWidth(50);
+		ivPre.setFitHeight(50);
 		attributesPre = "Presence: " + pre;
-		labelpre = new Label(attributesPre, ivpre);
-		labelpre.setMinWidth(300);
+		labelPre = new Label(attributesPre, ivPre);
+		labelPre.setMinWidth(300);
 
 		// Wits
 		imageWit = new Image("wit.png");
-		ivwit = new ImageView();
-		ivwit.setImage(imageWit);
-		ivwit.setFitWidth(50);
-		ivwit.setFitHeight(50);
+		ivWit = new ImageView();
+		ivWit.setImage(imageWit);
+		ivWit.setFitWidth(50);
+		ivWit.setFitHeight(50);
 		attributesWit = "Wits: " + wit;
-		labelwit = new Label(attributesWit, ivwit);
-		labelwit.setMinWidth(300);
+		labelWit = new Label(attributesWit, ivWit);
+		labelWit.setMinWidth(300);
 
 		// Dexterity
 		imageDex = new Image("dex.png");
-		ivdex = new ImageView();
-		ivdex.setImage(imageDex);
-		ivdex.setFitWidth(50);
-		ivdex.setFitHeight(50);
+		ivDex = new ImageView();
+		ivDex.setImage(imageDex);
+		ivDex.setFitWidth(50);
+		ivDex.setFitHeight(50);
 		attributesDex = "Dexterity: " + dex;
-		labeldex = new Label(attributesDex, ivdex);
-		labeldex.setMinWidth(300);
+		labelDex = new Label(attributesDex, ivDex);
+		labelDex.setMinWidth(300);
 
 		// Manipulation
 		imageMani = new Image("mani.png");
-		ivmani = new ImageView();
-		ivmani.setImage(imageMani);
-		ivmani.setFitWidth(50);
-		ivmani.setFitHeight(50);
+		ivMani = new ImageView();
+		ivMani.setImage(imageMani);
+		ivMani.setFitWidth(50);
+		ivMani.setFitHeight(50);
 		attributesMani = "Manipulation: " + mani;
-		labelmani = new Label(attributesMani, ivmani);
-		labelmani.setMinWidth(300);
+		labelMani = new Label(attributesMani, ivMani);
+		labelMani.setMinWidth(300);
 
 		// Resolve
 		imageRes = new Image("res.png");
-		ivres = new ImageView();
-		ivres.setImage(imageRes);
-		ivres.setFitWidth(50);
-		ivres.setFitHeight(50);
+		ivRes = new ImageView();
+		ivRes.setImage(imageRes);
+		ivRes.setFitWidth(50);
+		ivRes.setFitHeight(50);
 		attributesRes = "Resolve: " + res;
-		labelres = new Label(attributesRes, ivres);
-		labelres.setMinWidth(300);
+		labelRes = new Label(attributesRes, ivRes);
+		labelRes.setMinWidth(300);
 
 		/// Stamina
 		imageSta = new Image("sta.png");
-		ivsta = new ImageView();
-		ivsta.setImage(imageSta);
-		ivsta.setFitWidth(50);
-		ivsta.setFitHeight(50);
+		ivSta = new ImageView();
+		ivSta.setImage(imageSta);
+		ivSta.setFitWidth(50);
+		ivSta.setFitHeight(50);
 		attributesSta = "Stamina: " + sta;
-		labelsta = new Label(attributesSta, ivsta);
-		labelsta.setMinWidth(300);
+		labelSta = new Label(attributesSta, ivSta);
+		labelSta.setMinWidth(300);
 		// // Composure
 		imageComp = new Image("comp.png");
-		ivcomp = new ImageView();
-		ivcomp.setImage(imageComp);
-		ivcomp.setFitWidth(50);
-		ivcomp.setFitHeight(50);
+		ivComp = new ImageView();
+		ivComp.setImage(imageComp);
+		ivComp.setFitWidth(50);
+		ivComp.setFitHeight(50);
 		attributesComp = "Composure: " + comp;
-		labelcomp = new Label(attributesComp, ivcomp);
-		labelcomp.setMinWidth(300);
+		labelComp = new Label(attributesComp, ivComp);
+		labelComp.setMinWidth(300);
 
 		// "Composure: " + comp
 
-		gridAttribute.add(labelstr, 1, 0);
-		gridAttribute.add(labelint, 1, 1);
-		gridAttribute.add(labelpre, 1, 2);
-		gridAttribute.add(labelwit, 1, 3);
-		gridAttribute.add(labeldex, 1, 4);
-		gridAttribute.add(labelmani, 1, 5);
-		gridAttribute.add(labelres, 1, 6);
-		gridAttribute.add(labelsta, 1, 7);
-		gridAttribute.add(labelcomp, 1, 8);
+		gridAttribute.add(labelStr, 1, 0);
+		gridAttribute.add(labelInt, 1, 1);
+		gridAttribute.add(labelPre, 1, 2);
+		gridAttribute.add(labelWit, 1, 3);
+		gridAttribute.add(labelDex, 1, 4);
+		gridAttribute.add(labelMani, 1, 5);
+		gridAttribute.add(labelRes, 1, 6);
+		gridAttribute.add(labelSta, 1, 7);
+		gridAttribute.add(labelComp, 1, 8);
 		gridAttribute.add(statusText, 1, 9);
 	}
 
+	/**
+	 * AddInventoryWindow renders the current inventory choosen by the player.
+	 */
 	public void addInventoryWindow() {
 		gridInventory = new GridPane();
 		gridInventory.prefHeight(700);
@@ -362,50 +369,54 @@ public class GameGUI {
 		gridInventory.setHgap(0);
 		gridInventory.setVgap(0);
 		gridInventory.setPadding(new Insets(0, 10, 0, 10));
-		
+
 		imageArmor = new Image("armor.png");
-		ivarmor = new ImageView();
-		ivarmor.setImage(imageArmor);
-		ivarmor.setFitWidth(50);
-		ivarmor.setFitHeight(50);
-		attributesArmor = "Aegis Heavy Body Armor" ;
-		labelarmor = new Label(attributesArmor, ivarmor);
-		labelarmor.setMinWidth(300);
-		
+		ivArmor = new ImageView();
+		ivArmor.setImage(imageArmor);
+		ivArmor.setFitWidth(50);
+		ivArmor.setFitHeight(50);
+		attributesArmor = "Aegis Heavy Body Armor";
+		labelArmor = new Label(attributesArmor, ivArmor);
+		labelArmor.setMinWidth(300);
+
 		imageGun = new Image("gun.png");
-		ivgun = new ImageView();
-		ivgun.setImage(imageGun);
-		ivgun.setFitWidth(50);
-		ivgun.setFitHeight(50);
-		attributesGun = "M-5 Phalanx " ;
-		labelgun = new Label(attributesGun, ivgun);
-		labelgun.setMinWidth(300);
-		
-		imageStim = new Image("stim.png");
-		ivstim = new ImageView();
-		ivstim.setImage(imageStim);
-		ivstim.setFitWidth(50);
-		ivstim.setFitHeight(50);
-		attributesStim = "Bio-gel: " + controller.getPlayer().getMedGel();
-		labelstim = new Label(attributesStim, ivstim);
-		labelstim.setMinWidth(300);
-		
+		ivGun = new ImageView();
+		ivGun.setImage(imageGun);
+		ivGun.setFitWidth(50);
+		ivGun.setFitHeight(50);
+		attributesGun = "M-5 Phalanx ";
+		labelGun = new Label(attributesGun, ivGun);
+		labelGun.setMinWidth(300);
+
+		imageBioGel = new Image("stim.png");
+		ivBioGel = new ImageView();
+		ivBioGel.setImage(imageBioGel);
+		ivBioGel.setFitWidth(50);
+		ivBioGel.setFitHeight(50);
+		attributesBioGel = "Bio-gel: " + controller.getPlayer().getMedGel();
+		labelBioGel = new Label(attributesBioGel, ivBioGel);
+		labelBioGel.setMinWidth(300);
+
 		imageMelee = new Image("melee.png");
-		ivmelee = new ImageView();
-		ivmelee.setImage(imageMelee);
-		ivmelee.setFitWidth(50);
-		ivmelee.setFitHeight(50);
+		ivMelee = new ImageView();
+		ivMelee.setImage(imageMelee);
+		ivMelee.setFitWidth(50);
+		ivMelee.setFitHeight(50);
 		attributesMelee = "Titanium knife: ";
-		labelmelee = new Label(attributesMelee, ivmelee);
-		labelmelee.setMinWidth(300);
-		
-		gridInventory.add(labelarmor, 1, 0);
-		gridInventory.add(labelgun, 1, 1);
-		gridInventory.add(labelstim, 1, 2);
-		gridInventory.add(labelmelee, 1, 3);
+		labelMelee = new Label(attributesMelee, ivMelee);
+		labelMelee.setMinWidth(300);
+
+		gridInventory.add(labelArmor, 1, 0);
+		gridInventory.add(labelGun, 1, 1);
+		gridInventory.add(labelBioGel, 1, 2);
+		gridInventory.add(labelMelee, 1, 3);
 	}
 
-	public void addbutton() {
+	/**
+	 * AddButton initiates the dialogbuttons and sets there size after the
+	 * current pixel size.
+	 */
+	public void addButton() {
 		// Knappar
 
 		button1 = new Button("");
@@ -421,7 +432,10 @@ public class GameGUI {
 		button4.setMaxWidth(width);
 	}
 
-	public void addtext() {
+	/**
+	 * AddText is responsible for the rendering of the eventText.
+	 */
+	public void addText() {
 
 		Evtext = new Text();
 		Evtext.setWrappingWidth(width);
@@ -433,6 +447,9 @@ public class GameGUI {
 
 	}
 
+	/**
+	 * AddImage initiates the image for the eventImage.
+	 */
 	public void addImage() {
 		image = new Image("JWET8.jpg");
 		iv1 = new ImageView();
@@ -441,14 +458,18 @@ public class GameGUI {
 
 	}
 
-	public void addinventory() {
-		buttoninv = new Button("Inventory");
-		buttoninv.setMaxHeight(600);
-		buttoninv.setMaxWidth(200);
+	/**
+	 * AddInventoryButton initiates inventory button.
+	 */
+	public void addinventoryButton() {
+		buttonInv = new Button("Inventory");
+		buttonInv.setMaxHeight(600);
+		buttonInv.setMaxWidth(200);
 	}
 
-
-
+	/**
+	 * AddHealth renders the health of the player to the screen.
+	 */
 	public void addHealth() {
 
 		statusText = new Text();
@@ -460,19 +481,35 @@ public class GameGUI {
 				"Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
 	}
 
+	/**
+	 * ChangesHealth changes the health when the player takes damage. It also
+	 * scales with colors when the player reaches lower health points.
+	 */
 	public void changeHealth() {
 		statusText.setText(
 				"Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
 		statusText.setFill(Color.GREEN);
-		if ((float)0.66 >=(float) controller.getPlayer().getHealth()/(float)controller.getPlayer().getMaxhealth()) {
+		if ((float) 0.66 >= (float) controller.getPlayer().getHealth()
+				/ (float) controller.getPlayer().getMaxhealth()) {
 			statusText.setFill(Color.ORANGE);
-		} 
-		if ((float)0.33 >= (float)controller.getPlayer().getHealth()/(float)controller.getPlayer().getMaxhealth()) {
+		}
+		if ((float) 0.33 >= (float) controller.getPlayer().getHealth()
+				/ (float) controller.getPlayer().getMaxhealth()) {
 			statusText.setFill(Color.RED);
 		}
 
 	}
 
+	/**
+	 * SetMedGels updates the Bio-gel count.
+	 */
+	public void setMedGels() {
+		labelBioGel.setText("Bio-gel: " + controller.getPlayer().getMedGel());
+	}
+
+	/**
+	 * SetAttributes updates the Attributes.
+	 */
 	public void setAttributes() {
 		inte = controller.getPlayer().getIntelligence();
 		str = controller.getPlayer().getStrength();
@@ -483,41 +520,57 @@ public class GameGUI {
 		res = controller.getPlayer().getResolve();
 		sta = controller.getPlayer().getStamina();
 		comp = controller.getPlayer().getComposure();
-		
+
 		attributesInt = "Intelligence: " + inte;
-		labelint.setText(attributesInt);
-		
+		labelInt.setText(attributesInt);
+
 		attributesStr = "Strength: " + str;
-		labelstr.setText(attributesStr);
-		
+		labelStr.setText(attributesStr);
+
 		attributesPre = "Presence: " + pre;
-		labelpre.setText(attributesPre);
-		
+		labelPre.setText(attributesPre);
+
 		attributesWit = "Wits: " + wit;
-		labelwit.setText(attributesWit);
-		
+		labelWit.setText(attributesWit);
+
 		attributesDex = "Dexterity: " + dex;
-		labeldex.setText(attributesDex);
-		
+		labelDex.setText(attributesDex);
+
 		attributesMani = "Manipulation: " + mani;
-		labelmani.setText(attributesMani);
-		
+		labelMani.setText(attributesMani);
+
 		attributesRes = "Resolve: " + res;
-		labelres.setText(attributesRes);
-		
+		labelRes.setText(attributesRes);
+
 		attributesSta = "Stamina: " + sta;
-		labelsta.setText(attributesMani);
-		
+		labelSta.setText(attributesMani);
+
 		attributesComp = "composure: " + comp;
-		labelcomp.setText(attributesComp);
+		labelComp.setText(attributesComp);
 	}
 
+	/**
+	 * SetEventText updates the eventtext and animtes it in.
+	 * 
+	 * @param txt
+	 *            Next eventText.
+	 */
 	public void setEventText(String txt) {
 		this.eventText = txt;
 		Evtext.setText(eventText);
-		textanimation();
+		textAnimation();
 	}
 
+	/**
+	 * SetDialog updates the dialog buttons.
+	 * 
+	 * @param dialog
+	 *            The text on the dialog.
+	 * @param n
+	 *            The dialog choices.
+	 * @param navKey
+	 *            The next dialog text.
+	 */
 	public void setDialog(String dialog, int n, String navKey) {
 		if (dialog != null)
 			switch (n) {
@@ -544,63 +597,73 @@ public class GameGUI {
 			}
 	}
 
+	/**
+	 * SetImage updates the current EventImage.
+	 */
+	public void setImage(String img) {
+		image = new Image(img);
+		iv1.setImage(image);
+	}
+
+	/**
+	 * DiableButtons hides the buttons.
+	 */
 	public void disableButtons() {
 		button1.setText("");
 		button2.setText("");
 		button3.setText("");
 		button4.setText("");
-		altOne=null;
-		altTwo=null;
-		altThree=null;
-		altFour=null;
+		altOne = null;
+		altTwo = null;
+		altThree = null;
+		altFour = null;
 		button1.setDisable(true);
 		button2.setDisable(true);
 		button3.setDisable(true);
 		button4.setDisable(true);
 	}
 
-	public void setImage(String img) {
-		image = new Image(img);
-		iv1.setImage(image);
-	}
-
+	/**
+	 * ButtonHandler works as the brige between the controller class and sends
+	 * the next dialog order for the controller.
+	 */
 	public void buttonHandler() {
 
 		button1.setOnAction(e -> {
-				controller.navigation(altOne);
+			controller.navigation(altOne);
 		});
 
 		button2.setOnAction(e -> {
-				controller.navigation(altTwo);
+			controller.navigation(altTwo);
 		});
 
 		button3.setOnAction(e -> {
-				controller.navigation(altThree);
+			controller.navigation(altThree);
 		});
 
 		button4.setOnAction(e -> {
-				controller.navigation(altFour);
+			controller.navigation(altFour);
 		});
 
 		buttonattr.setOnAction(e -> {
 			if (showattr == false) {
 				showattr = true;
-				left.setVisible(showattr);
+				vbLeft.setVisible(showattr);
 				setAttributes();
 			} else if (showattr == true) {
 				showattr = false;
-				left.setVisible(showattr);
+				vbLeft.setVisible(showattr);
 				setAttributes();
 			}
 		});
 
-		buttoninv.setOnAction(e -> {
+		buttonInv.setOnAction(e -> {
 			if (showinv == false) {
 				showinv = true;
-				right.setVisible(showinv);
+				vbRight.setVisible(showinv);
 			} else if (showinv == true) {
 				showinv = false;
-				right.setVisible(showinv);
+				vbRight.setVisible(showinv);
 			}
 		});
 	}

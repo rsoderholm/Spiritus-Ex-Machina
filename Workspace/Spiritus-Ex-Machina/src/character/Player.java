@@ -7,15 +7,16 @@ public class Player extends Character {
 	private HashMap<String, Integer> statsRef = new HashMap<>();
 	private int maxhealth;
 	private int MedGel = 3;
-	public Player(int itemChoice, int[] playerStats){
-		//		super();
+
+	public Player(int itemChoice, int[] playerStats) {
+		// super();
 
 		setStats(playerStats);
 		setMaxhealth(getHealth());
 		addMapKeys();
 	}
 
-	private void addMapKeys(){
+	private void addMapKeys() {
 		statsRef.put("int", getIntelligence());
 		statsRef.put("str", getStrength());
 		statsRef.put("pre", getPresence());
@@ -26,6 +27,7 @@ public class Player extends Character {
 		statsRef.put("sta", getStamina());
 		statsRef.put("cmp", getComposure());
 	}
+
 	private void setStats(int[] stats) {
 		setIntelligence(stats[0]);
 		setStrength(stats[1]);
@@ -36,15 +38,17 @@ public class Player extends Character {
 		setResolve(stats[6]);
 		setStamina(stats[7]);
 		setComposure(stats[8]);
-		setHealth((strength + stamina + resolve)*2);
+		setHealth((strength + stamina + resolve) * 2);
 	}
 
-	public int retrieveStats(String ability1, String ability2){
-		return statsRef.get(ability1)+statsRef.get(ability2);
+	public int retrieveStats(String ability1, String ability2) {
+		return statsRef.get(ability1) + statsRef.get(ability2);
 	}
+
 	public int getMaxhealth() {
 		return maxhealth;
 	}
+
 	public void setMaxhealth(int maxhealth) {
 		this.maxhealth = maxhealth;
 	}

@@ -12,8 +12,8 @@ public abstract class Character {
 	protected int stamina;
 	protected int composure;
 	protected int health;
-	
-	public Character(){
+
+	public Character() {
 		setIntelligence(2);
 		setStrength(2);
 		setPresence(2);
@@ -23,9 +23,10 @@ public abstract class Character {
 		setResolve(2);
 		setStamina(2);
 		setComposure(2);
-		setHealth((strength + stamina + resolve)*2);
+		setHealth((strength + stamina + resolve) * 2);
 	}
-	public Character(int[] stats){
+
+	public Character(int[] stats) {
 		setIntelligence(stats[0]);
 		setStrength(stats[1]);
 		setPresence(stats[2]);
@@ -35,53 +36,69 @@ public abstract class Character {
 		setResolve(stats[6]);
 		setStamina(stats[7]);
 		setComposure(stats[8]);
-		setHealth((strength + stamina + resolve)*2);
+		setHealth((strength + stamina + resolve) * 2);
 	}
+
 	public int getIntelligence() {
 		return intelligence;
 	}
+
 	public void setIntelligence(int intelligence) {
 		this.intelligence = intelligence;
 	}
+
 	public int getStrength() {
 		return strength;
 	}
+
 	public void setStrength(int strength) {
 		this.strength = strength;
 	}
+
 	public int getWits() {
 		return wits;
 	}
+
 	public void setWits(int wits) {
 		this.wits = wits;
 	}
+
 	public int getDexterity() {
 		return dexterity;
 	}
+
 	public void setDexterity(int dexterity) {
 		this.dexterity = dexterity;
 	}
+
 	public int getManipulation() {
 		return manipulation;
 	}
+
 	public void setManipulation(int manipulation) {
 		this.manipulation = manipulation;
 	}
+
 	public int getResolve() {
 		return resolve;
 	}
+
 	public void setResolve(int resolve) {
 		this.resolve = resolve;
 	}
+
 	public int getStamina() {
 		return stamina;
 	}
+
 	public void setStamina(int stamina) {
 		this.stamina = stamina;
 	}
+
 	public int getComposure() {
 		return composure;
 	}
+
 	public void setComposure(int composure) {
 		this.composure = composure;
 	}
