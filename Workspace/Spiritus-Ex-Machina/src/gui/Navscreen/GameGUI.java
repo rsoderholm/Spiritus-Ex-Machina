@@ -337,7 +337,7 @@ public class GameGUI {
 		ivcomp.setImage(imageComp);
 		ivcomp.setFitWidth(50);
 		ivcomp.setFitHeight(50);
-		attributesComp = "composure: " + comp;
+		attributesComp = "Composure: " + comp;
 		labelcomp = new Label(attributesComp, ivcomp);
 		labelcomp.setMinWidth(300);
 

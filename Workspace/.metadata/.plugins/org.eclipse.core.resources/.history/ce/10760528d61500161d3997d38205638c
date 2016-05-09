@@ -1,0 +1,33 @@
+.root{
+  -fx-background-image: url("s.jpg");
+    -fx-background-size: cover;
+}
+
+.button{
+ -fx-background-color: 
+        linear-gradient(#686868 0.0%, #232723 25.0%, #373837 75.0%, #757575 100.0%),
+        linear-gradient(#020b02, #3a3a3a),
+        linear-gradient(#9d9e9d 0.0%, #6b6a6b 20.0%, #343534 80.0%, #242424 100.0%),
+        linear-gradient(#8a8a8a 0.0%, #6b6a6b 20.0%, #343534 80.0%, #262626 100.0%),
+        linear-gradient(#777777 0.0%, #606060 50.0%, #505250 51.0%, #2a2b2a 100.0%);
+    -fx-background-insets: 0.0,1.0,4.0,5.0,6.0;
+    -fx-background-radius: 9.0,8.0,5.0,4.0,3.0;
+    -fx-padding: 15.0 30.0 15.0 30.0;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(255.0,255.0,255.0,0.2) , 1.0, 0.0 , 0.0 , 1.0);
+}
+
+.label {
+    -fx-background-color: BLACK;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 15.0px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white	;
+}
+
+
+
+
