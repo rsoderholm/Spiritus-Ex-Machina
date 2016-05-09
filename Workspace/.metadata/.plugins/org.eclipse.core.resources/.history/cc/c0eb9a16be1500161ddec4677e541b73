@@ -1,5 +1,5 @@
 .root{
-    -fx-background-image: url("http://i.imgur.com/9XcDKOu.jpg");
+    -fx-background-image: url("https://cdn0.vox-cdn.com/uploads/chorus_asset/file/2761906/aab633c96768860066d5f451a6b0de69_large.1375138313.jpg");
     -fx-background-size: cover;
 }
 
