@@ -3,7 +3,6 @@ package game;
 import character.Npc;
 import character.Player;
 import gui.Navscreen.GameGUI;
-import gui.Navscreen.Script;
 
 import java.io.IOException;
 import java.util.HashMap;

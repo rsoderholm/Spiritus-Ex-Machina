@@ -197,13 +197,13 @@ public class GameGUI {
 		buttonHandler();
 
 		if (widthScreen < 1600) {
-			button1.setStyle("-fx-font: 10 arial");
-			button2.setStyle("-fx-font: 10 arial");
-			button3.setStyle("-fx-font: 10 arial");
-			button4.setStyle("-fx-font: 10 arial");
-			buttoninv.setStyle("-fx-font: 10 arial");
-			buttonattr.setStyle("-fx-font: 10 arial");
-			Evtext.setFont(new Font(10));
+			button1.setStyle("-fx-font: 12 arial");
+			button2.setStyle("-fx-font: 12 arial");
+			button3.setStyle("-fx-font: 12 arial");
+			button4.setStyle("-fx-font: 12 arial");
+			buttoninv.setStyle("-fx-font: 12 arial");
+			buttonattr.setStyle("-fx-font: 12 arial");
+			Evtext.setFont(new Font(12));
 
 			iv1.setFitHeight(200);
 		}
