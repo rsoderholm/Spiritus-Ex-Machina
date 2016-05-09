@@ -56,19 +56,19 @@ public class ItemGUI {
 		button1.setOnAction(e -> {
 			inventoryValue = 1;
 			window.close();
-			new AttributeGUI();		
+			new AttributeGUI(1);		
 		});
 
 		button2.setOnAction(e -> {
 			inventoryValue = 2;
 			window.close();
-			new AttributeGUI();	
+			new AttributeGUI(2);	
 		});
 
 		button3.setOnAction(e -> {
 			inventoryValue = 3;
 			window.close();
-			new AttributeGUI();	
+			new AttributeGUI(3);	
 		});
 	}
 

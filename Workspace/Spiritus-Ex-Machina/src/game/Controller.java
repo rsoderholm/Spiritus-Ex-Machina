@@ -29,8 +29,8 @@ public class Controller {
 	 * Startup for the controller class
 	 * @throws IOException 
 	 */
-	public Controller() throws IOException{
-		setPlayer(new Player());
+	public Controller(int itemChoice, int[] playerStats) throws IOException{
+		setPlayer(new Player(itemChoice, playerStats));
 		setNpc(new Npc());
 		translator = new FileTranslator(this);
 		GUI = new GameGUI(this);
@@ -242,8 +242,14 @@ public class Controller {
 			combatDialogues[2]="h2h";
 			combatDialogues[3]="[DEX + CMP] Ranged attack";
 			combatDialogues[4]="ranged";
+			if(getPlayer().getMedGel()>0){
 			combatDialogues[5]="[Consume Med-gel] Heal your wounds. ";
 			combatDialogues[6]="heal";
+			}
+			else{
+				combatDialogues[5]=null;
+				combatDialogues[6]=null;
+			}
 			combatDialogues[7]=null;
 			combatDialogues[8]=null;
 			setupCombatDialog(combatDialogues);
@@ -266,6 +272,7 @@ public class Controller {
 				result=StatDice.rollDice(getPlayer().getComposure()+getPlayer().getDexterity()-getNpc().getStamina());
 				break;
 			case 3:
+				getPlayer().setMedGel(getPlayer().getMedGel()-1);
 				eventText += "You mended your wounds";
 				getPlayer().setHealth(getPlayer().getMaxhealth());
 				getGUI().changeHealth();

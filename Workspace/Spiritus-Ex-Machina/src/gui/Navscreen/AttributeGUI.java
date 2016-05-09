@@ -65,10 +65,11 @@ public class AttributeGUI {
 	private int sta;
 	private int comp;
 	private int[] stats;
+	private int itemChoice;
 
-	public AttributeGUI() {
+	public AttributeGUI(int itemChoice) {
 		window = new Stage();
-
+		this.itemChoice = itemChoice;
 		initValues();
 		topPane();
 		leftPane();
@@ -513,7 +514,7 @@ public class AttributeGUI {
 			window.close();
 			setPlayerValues();
 			try {
-				new Controller();
+				new Controller(itemChoice, stats);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

@@ -386,7 +386,7 @@ public class GameGUI {
 		ivstim.setImage(imageStim);
 		ivstim.setFitWidth(50);
 		ivstim.setFitHeight(50);
-		attributesStim = "Bio-gel: " + "x2";
+		attributesStim = "Bio-gel: " + controller.getPlayer().getMedGel();
 		labelstim = new Label(attributesStim, ivstim);
 		labelstim.setMinWidth(300);
 		

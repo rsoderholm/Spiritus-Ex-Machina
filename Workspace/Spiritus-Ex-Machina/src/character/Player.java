@@ -6,15 +6,11 @@ import java.util.Random;
 public class Player extends Character {
 	private HashMap<String, Integer> statsRef = new HashMap<>();
 	private int maxhealth;
-	public Player(){
+	private int MedGel = 3;
+	public Player(int itemChoice, int[] playerStats){
 		//		super();
 
-		int[] stats = new int[9];
-		Random random = new Random();
-		for (int i = 0; i < 9; i++) {
-			stats[i] = random.nextInt(3)+2;
-		}
-		setRandomStats(stats);
+		setStats(playerStats);
 		setMaxhealth(getHealth());
 		addMapKeys();
 	}
@@ -30,7 +26,7 @@ public class Player extends Character {
 		statsRef.put("sta", getStamina());
 		statsRef.put("cmp", getComposure());
 	}
-	private void setRandomStats(int[] stats) {
+	private void setStats(int[] stats) {
 		setIntelligence(stats[0]);
 		setStrength(stats[1]);
 		setPresence(stats[2]);
@@ -51,5 +47,13 @@ public class Player extends Character {
 	}
 	public void setMaxhealth(int maxhealth) {
 		this.maxhealth = maxhealth;
+	}
+
+	public int getMedGel() {
+		return MedGel;
+	}
+
+	public void setMedGel(int nbrOfMedGel) {
+		this.MedGel = nbrOfMedGel;
 	}
 }
