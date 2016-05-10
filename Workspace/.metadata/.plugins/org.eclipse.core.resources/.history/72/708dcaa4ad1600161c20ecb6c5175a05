@@ -1,19 +1,23 @@
 /*
  * AttributeGUI
  * 
- * Version information
+ * V.1
  *
  * 03/05/2016
  * 
- * Hassan Alhasani
+ *  Author:Hassan Alhasani
  */
 package gui.Navscreen;
 
+import game.Controller;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -33,78 +38,33 @@ public class AttributeGUI {
 	private VBox leftMenu;
 	private VBox centerMenu;
 	private VBox rightMenu;
-	private BorderPane borderPane;
+
 
 	private Stage window;
 	private Scene scene;
 
-	
 	private Text head;
-	private String 
-	valueRemaining, 
-	value1, 
-	value2, 
-	value3, 
-	value4, 
-	value5, 
-	value6, 
-	value7, 
-	value8, 
-	value9;
+	private String valueRemaining, valueInt, valueStr, valuePre, valueWit, valueDex, valueMan, valueRes, valueSta,
+			valueCmp;
 
-	private int 
-	valuesRemaining, 
-	values1, 
-	values2, 
-	values3, 
-	values4, 
-	values5, 
-	values6, 
-	values7, 
-	values8, 
-	values9;
+	private int valuesRemaining, values1, values2, values3, values4, values5, values6, values7, values8, values9;
 
-	private Label 
-	lblIntValue, 
-	lblStrValue, 
-	lblPreValue, 
-	lblWtsValue, 
-	lblDexValue, 
-	lblManValue, 
-	lblResValue,
-	lblStaValue, 
-	lblCmpValue,
-	lblPower,
-	lblFinesse, 
-	lblResistance;
-	
-	private Label  
-	label2, 
-	label3, 
-	label4, 
-	label5, 
-	label6, 
-	label7, 
-	label8, 
-	label9, 
-	label11;
-	
-	private	Button 
-	btnIntPlus, btnIntMinus, 
-	btnStrPlus, btnStrMinus, 
-	btnPrePlus, btnPreMinus, 
-	btnWtsPlus, btnWtsMinus,
-	btnDexPlus, btnDexMinus, 
-	btnManPlus, btnManMinus, 
-	btnResPlus, btnResMinus, 
-	btnStaPlus, btnStaMinus,
-	btnComPlus, btnComMinus, 
-	done;
+	private Label lblIntValue, lblStrValue, lblPreValue, lblWtsValue, lblDexValue, lblManValue, lblResValue,
+			lblStaValue, lblCmpValue, lblPower, lblFinesse, lblResistance;
 
+	private Label labelInt, labelStr, labelPrs, labelWit, labelDex, labeMani, labelRes, label9, labelCmp;
 
-	public AttributeGUI()  {
+	private Button btnIntPlus, btnIntMinus, btnStrPlus, btnStrMinus, btnPrePlus, btnPreMinus, btnWtsPlus, btnWtsMinus,
+			btnDexPlus, btnDexMinus, btnManPlus, btnManMinus, btnResPlus, btnResMinus, btnStaPlus, btnStaMinus,
+			btnComPlus, btnComMinus, done;
+
+	private int[] stats;
+	private int itemChoice;
+	private HBox mainlayout;
+
+	public AttributeGUI(int itemChoice) {
 		window = new Stage();
-
+		this.itemChoice = itemChoice;
 		initValues();
 		topPane();
 		leftPane();
@@ -113,7 +73,7 @@ public class AttributeGUI {
 		bottomPane();
 		mainLayotBorderPane();
 
-		scene = new Scene(borderPane);
+		scene = new Scene(mainlayout);
 		scene.getStylesheets().add("StyleSheet2.css");
 		window.setScene(scene);
 		window.setTitle("Deus ex Machina");
@@ -130,48 +90,48 @@ public class AttributeGUI {
 		switch (choose) {
 		case 1:
 			values1++;
-			value1 = "" + values1;
-			lblIntValue.setText(value1);
+			valueInt = "" + values1;
+			lblIntValue.setText(valueInt);
 			break;
 		case 2:
 			values2++;
-			value2 = "" + values2;
-			lblStrValue.setText(value2);
+			valueStr = "" + values2;
+			lblStrValue.setText(valueStr);
 			break;
 		case 3:
 			values3++;
-			value3 = "" + values3;
-			lblPreValue.setText(value3);
+			valuePre = "" + values3;
+			lblPreValue.setText(valuePre);
 			break;
 		case 4:
 			values4++;
-			value4 = "" + values4;
-			lblWtsValue.setText(value4);
+			valueWit = "" + values4;
+			lblWtsValue.setText(valueWit);
 			break;
 		case 5:
 			values5++;
-			value5 = "" + values5;
-			lblDexValue.setText(value5);
+			valueDex = "" + values5;
+			lblDexValue.setText(valueDex);
 			break;
 		case 6:
 			values6++;
-			value6 = "" + values6;
-			lblManValue.setText(value6);
+			valueMan = "" + values6;
+			lblManValue.setText(valueMan);
 			break;
 		case 7:
 			values7++;
-			value7 = "" + values7;
-			lblResValue.setText(value7);
+			valueRes = "" + values7;
+			lblResValue.setText(valueRes);
 			break;
 		case 8:
 			values8++;
-			value8 = "" + values8;
-			lblStaValue.setText(value8);
+			valueSta = "" + values8;
+			lblStaValue.setText(valueSta);
 			break;
 		case 9:
 			values9++;
-			value9 = "" + values9;
-			lblCmpValue.setText(value9);
+			valueCmp = "" + values9;
+			lblCmpValue.setText(valueCmp);
 			break;
 		case 10:
 			valuesRemaining++;
@@ -190,48 +150,48 @@ public class AttributeGUI {
 		switch (choose) {
 		case 1:
 			values1--;
-			value1 = "" + values1;
-			lblIntValue.setText(value1);
+			valueInt = "" + values1;
+			lblIntValue.setText(valueInt);
 			break;
 		case 2:
 			values2--;
-			value2 = "" + values2;
-			lblStrValue.setText(value2);
+			valueStr = "" + values2;
+			lblStrValue.setText(valueStr);
 			break;
 		case 3:
 			values3--;
-			value3 = "" + values3;
-			lblPreValue.setText(value3);
+			valuePre = "" + values3;
+			lblPreValue.setText(valuePre);
 			break;
 		case 4:
 			values4--;
-			value4 = "" + values4;
-			lblWtsValue.setText(value4);
+			valueWit = "" + values4;
+			lblWtsValue.setText(valueWit);
 			break;
 		case 5:
 			values5--;
-			value5 = "" + values5;
-			lblDexValue.setText(value5);
+			valueDex = "" + values5;
+			lblDexValue.setText(valueDex);
 			break;
 		case 6:
 			values6--;
-			value6 = "" + values6;
-			lblManValue.setText(value6);
+			valueMan = "" + values6;
+			lblManValue.setText(valueMan);
 			break;
 		case 7:
 			values7--;
-			value7 = "" + values7;
-			lblResValue.setText(value7);
+			valueRes = "" + values7;
+			lblResValue.setText(valueRes);
 			break;
 		case 8:
 			values8--;
-			value8 = "" + values8;
-			lblStaValue.setText(value8);
+			valueSta = "" + values8;
+			lblStaValue.setText(valueSta);
 			break;
 		case 9:
 			values9--;
-			value9 = "" + values9;
-			lblCmpValue.setText(value9);
+			valueCmp = "" + values9;
+			lblCmpValue.setText(valueCmp);
 			break;
 		case 10:
 			valuesRemaining--;
@@ -245,12 +205,10 @@ public class AttributeGUI {
 	 * Sets all BordePanes
 	 */
 	public void mainLayotBorderPane() {
-		borderPane = new BorderPane();
-		borderPane.setTop(topPane);
-		borderPane.setCenter(centerMenu);
-		borderPane.setLeft(leftMenu);
-		borderPane.setRight(rightMenu);
-		borderPane.setBottom(bottomPane);
+
+		mainlayout = new HBox(10);
+		mainlayout.getChildren().addAll(topPane, centerMenu, leftMenu, rightMenu, bottomPane);
+		mainlayout.setAlignment(Pos.CENTER);
 	}
 
 	/**
@@ -258,36 +216,50 @@ public class AttributeGUI {
 	 */
 	public void initValues() {
 		valuesRemaining = 9;
-		values1 = 1;
-		values2 = 1;
-		values3 = 1;
-		values4 = 1;
-		values5 = 1;
-		values6 = 1;
-		values7 = 1;
-		values8 = 1;
-		values9 = 1;
+		values1 = 2;
+		values2 = 2;
+		values3 = 2;
+		values4 = 2;
+		values5 = 2;
+		values6 = 2;
+		values7 = 2;
+		values8 = 2;
+		values9 = 2;
 
 		valueRemaining = "" + valuesRemaining;
-		value1 = "" + values1;
-		value2 = "" + values2;
-		value3 = "" + values3;
-		value4 = "" + values4;
-		value5 = "" + values5;
-		value6 = "" + values6;
-		value7 = "" + values7;
-		value8 = "" + values8;
-		value9 = "" + values9;
+		valueInt = "" + values1;
+		valueStr = "" + values2;
+		valuePre = "" + values3;
+		valueWit = "" + values4;
+		valueDex = "" + values5;
+		valueMan = "" + values6;
+		valueRes = "" + values7;
+		valueSta = "" + values8;
+		valueCmp = "" + values9;
 
-		lblIntValue = new Label(value1);
-		lblStrValue = new Label(value2);
-		lblPreValue = new Label(value3);
-		lblWtsValue = new Label(value4);
-		lblDexValue = new Label(value5);
-		lblManValue = new Label(value6);
-		lblResValue = new Label(value7);
-		lblStaValue = new Label(value8);
-		lblCmpValue = new Label(value9);
+		lblIntValue = new Label(valueInt);
+		lblStrValue = new Label(valueStr);
+		lblPreValue = new Label(valuePre);
+		lblWtsValue = new Label(valueWit);
+		lblDexValue = new Label(valueDex);
+		lblManValue = new Label(valueMan);
+		lblResValue = new Label(valueRes);
+		lblStaValue = new Label(valueSta);
+		lblCmpValue = new Label(valueCmp);
+	}
+
+	public void setPlayerValues() {
+		stats = new int[9];
+		stats[0] = values1;
+		stats[1] = values2;
+		stats[2] = values3;
+		stats[3] = values4;
+		stats[4] = values5;
+		stats[5] = values6;
+		stats[6] = values7;
+		stats[7] = values8;
+		stats[8] = values9;
+
 	}
 
 	/**
@@ -316,12 +288,13 @@ public class AttributeGUI {
 		lblPower = new Label("Power attributes");
 
 		// INT
-		label2 = new Label("Intelligence (Int)");
+		labelInt = new Label("Intelligence (Int)");
 		btnIntPlus = new Button("+");
 		btnIntPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values1 < 5)) {
 				setPosValue(1);
 				setNegValue(10);
+				CheckContinue();
 			}
 		});
 		btnIntMinus = new Button("-");
@@ -329,17 +302,19 @@ public class AttributeGUI {
 			if ((values1 > 1)) {
 				setNegValue(1);
 				setPosValue(10);
+				CheckContinue();
 			}
 		});
 
 		// STR
-		label3 = new Label("Strength (Str)");
+		labelStr = new Label("Strength (Str)");
 
 		btnStrPlus = new Button("+");
 		btnStrPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values2 < 5)) {
 				setPosValue(2);
 				setNegValue(10);
+				CheckContinue();
 			}
 		});
 		btnStrMinus = new Button("-");
@@ -347,16 +322,18 @@ public class AttributeGUI {
 			if ((values2 > 1)) {
 				setNegValue(2);
 				setPosValue(10);
+				CheckContinue();
 			}
 		});
 
 		// PRE
-		label4 = new Label("Presence (Prs)");
+		labelPrs = new Label("Presence (Prs)");
 		btnPrePlus = new Button("+");
 		btnPrePlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values3 < 5)) {
 				setPosValue(3);
 				setNegValue(10);
+				CheckContinue();
 			}
 		});
 		btnPreMinus = new Button("-");
@@ -364,11 +341,17 @@ public class AttributeGUI {
 			if ((values3 > 1)) {
 				setNegValue(3);
 				setPosValue(10);
+				CheckContinue();
 			}
 		});
-
-		leftMenu.getChildren().addAll(lblPower, label2, btnIntPlus, lblIntValue, btnIntMinus, label3, btnStrPlus,
-				lblStrValue, btnStrMinus, label4, btnPrePlus, lblPreValue, btnPreMinus);
+	    DropShadow dropShadow = new DropShadow();
+        dropShadow.setColor(Color.DODGERBLUE);
+        dropShadow.setRadius(25);
+        dropShadow.setSpread(0.25);
+        dropShadow.setBlurType(BlurType.GAUSSIAN);
+        labelPrs.setEffect(dropShadow);
+		leftMenu.getChildren().addAll(lblPower, labelInt, btnIntPlus, lblIntValue, btnIntMinus, labelStr, btnStrPlus,
+				lblStrValue, btnStrMinus, labelPrs, btnPrePlus, lblPreValue, btnPreMinus);
 		leftMenu.setAlignment(Pos.CENTER);
 	}
 
@@ -380,12 +363,13 @@ public class AttributeGUI {
 		lblResistance = new Label("Resistance attributes");
 
 		// RES
-		label8 = new Label("Resolve (Res)");
+		labelRes = new Label("Resolve (Res)");
 		btnResPlus = new Button("+");
 		btnResPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values7 < 5)) {
 				setPosValue(7);
 				setNegValue(10);
+				CheckContinue();
 			}
 		});
 		btnResMinus = new Button("-");
@@ -393,6 +377,8 @@ public class AttributeGUI {
 			if ((values7 > 1)) {
 				setNegValue(7);
 				setPosValue(10);
+				CheckContinue();
+
 			}
 		});
 
@@ -403,6 +389,7 @@ public class AttributeGUI {
 			if ((valuesRemaining > 0) && (values8 < 5)) {
 				setPosValue(8);
 				setNegValue(10);
+				CheckContinue();
 			}
 		});
 		btnStaMinus = new Button("-");
@@ -410,16 +397,18 @@ public class AttributeGUI {
 			if ((values8 > 1)) {
 				setNegValue(8);
 				setPosValue(10);
+				CheckContinue();
 			}
 		});
 
 		// COM
-		label11 = new Label("Composure (Cmp)");
+		labelCmp = new Label("Composure (Cmp)");
 		btnComPlus = new Button("+");
 		btnComPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values9 < 5)) {
 				setPosValue(9);
 				setNegValue(10);
+				CheckContinue();
 			}
 		});
 		btnComMinus = new Button("-");
@@ -427,11 +416,12 @@ public class AttributeGUI {
 			if ((values9 > 1)) {
 				setNegValue(9);
 				setPosValue(10);
+				CheckContinue();
 			}
 		});
 
-		rightMenu.getChildren().addAll(lblResistance, label8, btnResPlus, lblResValue, btnResMinus, label9, btnStaPlus,
-				lblStaValue, btnStaMinus, label11, btnComPlus, lblCmpValue, btnComMinus);
+		rightMenu.getChildren().addAll(lblResistance, labelRes, btnResPlus, lblResValue, btnResMinus, label9,
+				btnStaPlus, lblStaValue, btnStaMinus, labelCmp, btnComPlus, lblCmpValue, btnComMinus);
 		rightMenu.setAlignment(Pos.CENTER);
 	}
 
@@ -443,12 +433,13 @@ public class AttributeGUI {
 		lblFinesse = new Label("Finesse attributes");
 
 		// WTS
-		label5 = new Label("Wits (Wts)");
+		labelWit = new Label("Wits (Wts)");
 		btnWtsPlus = new Button("+");
 		btnWtsPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values4 < 5)) {
 				setPosValue(4);
 				setNegValue(10);
+				CheckContinue();
 			}
 		});
 		btnWtsMinus = new Button("-");
@@ -456,16 +447,18 @@ public class AttributeGUI {
 			if ((values4 > 1)) {
 				setNegValue(4);
 				setPosValue(10);
+				CheckContinue();
 			}
 		});
 
 		// DEX
-		label6 = new Label("Dexterity (Dex)");
+		labelDex = new Label("Dexterity (Dex)");
 		btnDexPlus = new Button("+");
 		btnDexPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values5 < 5)) {
 				setPosValue(5);
 				setNegValue(10);
+				CheckContinue();
 			}
 		});
 		btnDexMinus = new Button("-");
@@ -473,16 +466,18 @@ public class AttributeGUI {
 			if ((values5 > 1)) {
 				setNegValue(5);
 				setPosValue(10);
+				CheckContinue();
 			}
 		});
 
 		// MAN
-		label7 = new Label("Manipulation (Man)");
+		labeMani = new Label("Manipulation (Man)");
 		btnManPlus = new Button("+");
 		btnManPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values6 < 5)) {
 				setPosValue(6);
 				setNegValue(10);
+				CheckContinue();
 			}
 		});
 		btnManMinus = new Button("-");
@@ -490,11 +485,12 @@ public class AttributeGUI {
 			if ((values6 > 1)) {
 				setNegValue(6);
 				setPosValue(10);
+				CheckContinue();
 			}
 		});
 
-		centerMenu.getChildren().addAll(lblFinesse, label5, btnWtsPlus, lblWtsValue, btnWtsMinus, label6, btnDexPlus,
-				lblDexValue, btnDexMinus, label7, btnManPlus, lblManValue, btnManMinus);
+		centerMenu.getChildren().addAll(lblFinesse, labelWit, btnWtsPlus, lblWtsValue, btnWtsMinus, labelDex,
+				btnDexPlus, lblDexValue, btnDexMinus, labeMani, btnManPlus, lblManValue, btnManMinus);
 		centerMenu.setAlignment(Pos.CENTER);
 	}
 
@@ -511,12 +507,29 @@ public class AttributeGUI {
 		 */
 		bottomPane = new HBox();
 		done = new Button("Done");
-		// done.setOnAction(scene2 - Tillbaka till spelet);
 		done.setPrefWidth(200);
 		done.setOnAction(e -> {
+			window.close();
+			setPlayerValues();
+			try {
+				new Controller(itemChoice, stats);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			;
 
 		});
 		bottomPane.getChildren().add(done);
 		bottomPane.setAlignment(Pos.CENTER);
+		done.setVisible(false);
+	}
+
+	public void CheckContinue() {
+		if (0 == valuesRemaining) {
+			done.setVisible(true);
+		}
+		if (valuesRemaining > 0) {
+			done.setVisible(false);
+		}
 	}
 }

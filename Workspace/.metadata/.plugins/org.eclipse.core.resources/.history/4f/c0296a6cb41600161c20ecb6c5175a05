@@ -1,0 +1,536 @@
+/*
+ * AttributeGUI
+ * 
+ * V.1
+ *
+ * 03/05/2016
+ * 
+ *  Author:Hassan Alhasani
+ */
+package gui.Navscreen;
+
+import game.Controller;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+
+/**
+ * This comment should contain any class-wide or interface-wide information.
+ * 
+ */
+public class AttributeGUI {
+	private HBox bottomPane;
+	private HBox topPane;
+	private VBox leftMenu;
+	private VBox centerMenu;
+	private VBox rightMenu;
+
+
+	private Stage window;
+	private Scene scene;
+
+	private Text head;
+	private String valueRemaining, valueInt, valueStr, valuePre, valueWit, valueDex, valueMan, valueRes, valueSta,
+			valueCmp;
+
+	private int valuesRemaining, values1, values2, values3, values4, values5, values6, values7, values8, values9;
+
+	private Label lblIntValue, lblStrValue, lblPreValue, lblWtsValue, lblDexValue, lblManValue, lblResValue,
+			lblStaValue, lblCmpValue, lblPower, lblFinesse, lblResistance;
+
+	private Label labelInt, labelStr, labelPrs, labelWit, labelDex, labeMani, labelRes, label9, labelCmp;
+
+	private Button btnIntPlus, btnIntMinus, btnStrPlus, btnStrMinus, btnPrePlus, btnPreMinus, btnWtsPlus, btnWtsMinus,
+			btnDexPlus, btnDexMinus, btnManPlus, btnManMinus, btnResPlus, btnResMinus, btnStaPlus, btnStaMinus,
+			btnComPlus, btnComMinus, done;
+
+	private int[] stats;
+	private int itemChoice;
+	private HBox mainlayout;
+
+	public AttributeGUI(int itemChoice) {
+		window = new Stage();
+		this.itemChoice = itemChoice;
+		initValues();
+		topPane();
+		leftPane();
+		centerPane();
+		rightPane();
+		bottomPane();
+		mainLayotBorderPane();
+
+		scene = new Scene(mainlayout);
+		scene.getStylesheets().add("StyleSheet2.css");
+		window.setScene(scene);
+		window.setTitle("Deus ex Machina");
+		window.setFullScreen(true);
+		window.show();
+	}
+
+	/**
+	 * 
+	 * @param choose
+	 */
+	public void setPosValue(int choose) {
+
+		switch (choose) {
+		case 1:
+			values1++;
+			valueInt = "" + values1;
+			lblIntValue.setText(valueInt);
+			break;
+		case 2:
+			values2++;
+			valueStr = "" + values2;
+			lblStrValue.setText(valueStr);
+			break;
+		case 3:
+			values3++;
+			valuePre = "" + values3;
+			lblPreValue.setText(valuePre);
+			break;
+		case 4:
+			values4++;
+			valueWit = "" + values4;
+			lblWtsValue.setText(valueWit);
+			break;
+		case 5:
+			values5++;
+			valueDex = "" + values5;
+			lblDexValue.setText(valueDex);
+			break;
+		case 6:
+			values6++;
+			valueMan = "" + values6;
+			lblManValue.setText(valueMan);
+			break;
+		case 7:
+			values7++;
+			valueRes = "" + values7;
+			lblResValue.setText(valueRes);
+			break;
+		case 8:
+			values8++;
+			valueSta = "" + values8;
+			lblStaValue.setText(valueSta);
+			break;
+		case 9:
+			values9++;
+			valueCmp = "" + values9;
+			lblCmpValue.setText(valueCmp);
+			break;
+		case 10:
+			valuesRemaining++;
+			valueRemaining = "" + valuesRemaining;
+			head.setText("Attributes remaining: " + valueRemaining);
+			break;
+		}
+	}
+
+	/**
+	 * 
+	 * @param choose
+	 */
+	public void setNegValue(int choose) {
+
+		switch (choose) {
+		case 1:
+			values1--;
+			valueInt = "" + values1;
+			lblIntValue.setText(valueInt);
+			break;
+		case 2:
+			values2--;
+			valueStr = "" + values2;
+			lblStrValue.setText(valueStr);
+			break;
+		case 3:
+			values3--;
+			valuePre = "" + values3;
+			lblPreValue.setText(valuePre);
+			break;
+		case 4:
+			values4--;
+			valueWit = "" + values4;
+			lblWtsValue.setText(valueWit);
+			break;
+		case 5:
+			values5--;
+			valueDex = "" + values5;
+			lblDexValue.setText(valueDex);
+			break;
+		case 6:
+			values6--;
+			valueMan = "" + values6;
+			lblManValue.setText(valueMan);
+			break;
+		case 7:
+			values7--;
+			valueRes = "" + values7;
+			lblResValue.setText(valueRes);
+			break;
+		case 8:
+			values8--;
+			valueSta = "" + values8;
+			lblStaValue.setText(valueSta);
+			break;
+		case 9:
+			values9--;
+			valueCmp = "" + values9;
+			lblCmpValue.setText(valueCmp);
+			break;
+		case 10:
+			valuesRemaining--;
+			valueRemaining = "" + valuesRemaining;
+			head.setText("Attributes remaining: " + valueRemaining);
+			break;
+		}
+	}
+
+	/**
+	 * Sets all BordePanes
+	 */
+	public void mainLayotBorderPane() {
+
+		mainlayout = new HBox(10);
+		mainlayout.getChildren().addAll(topPane, centerMenu, leftMenu, rightMenu, bottomPane);
+		mainlayout.setAlignment(Pos.CENTER);
+	}
+
+	/**
+	 * Initates values
+	 */
+	public void initValues() {
+		valuesRemaining = 9;
+		values1 = 2;
+		values2 = 2;
+		values3 = 2;
+		values4 = 2;
+		values5 = 2;
+		values6 = 2;
+		values7 = 2;
+		values8 = 2;
+		values9 = 2;
+
+		valueRemaining = "" + valuesRemaining;
+		valueInt = "" + values1;
+		valueStr = "" + values2;
+		valuePre = "" + values3;
+		valueWit = "" + values4;
+		valueDex = "" + values5;
+		valueMan = "" + values6;
+		valueRes = "" + values7;
+		valueSta = "" + values8;
+		valueCmp = "" + values9;
+
+		lblIntValue = new Label(valueInt);
+		lblStrValue = new Label(valueStr);
+		lblPreValue = new Label(valuePre);
+		lblWtsValue = new Label(valueWit);
+		lblDexValue = new Label(valueDex);
+		lblManValue = new Label(valueMan);
+		lblResValue = new Label(valueRes);
+		lblStaValue = new Label(valueSta);
+		lblCmpValue = new Label(valueCmp);
+	}
+
+	public void setPlayerValues() {
+		stats = new int[9];
+		stats[0] = values1;
+		stats[1] = values2;
+		stats[2] = values3;
+		stats[3] = values4;
+		stats[4] = values5;
+		stats[5] = values6;
+		stats[6] = values7;
+		stats[7] = values8;
+		stats[8] = values9;
+
+	}
+
+	/**
+	 * Top pane - "Attributes remaining"
+	 */
+	public void topPane() {
+		// Top pane - "Attributes remaining"
+		topPane = new HBox();
+		head = new Text();
+
+		head.setFont(new Font(65));
+		head.setFill(Color.CYAN);
+		head.setText("Attributes remaining: " + valueRemaining);
+		head.setTextAlignment(TextAlignment.JUSTIFY);
+		topPane.getChildren().addAll(head);
+
+		topPane.setAlignment(Pos.CENTER);
+	    DropShadow dropShadow = new DropShadow();
+        dropShadow.setColor(Color.DODGERBLUE);
+        dropShadow.setRadius(25);
+        dropShadow.setSpread(0.25);
+        dropShadow.setBlurType(BlurType.GAUSSIAN);
+        head.setEffect(dropShadow);
+	}
+
+	/**
+	 * Left Pane - Power attributes
+	 */
+	public void leftPane() {
+		leftMenu = new VBox(15);
+		lblPower = new Label("Power attributes");
+
+		// INT
+		labelInt = new Label("Intelligence (Int)");
+		btnIntPlus = new Button("+");
+		btnIntPlus.setOnAction(e -> {
+			if ((valuesRemaining > 0) && (values1 < 5)) {
+				setPosValue(1);
+				setNegValue(10);
+				CheckContinue();
+			}
+		});
+		btnIntMinus = new Button("-");
+		btnIntMinus.setOnAction(e -> {
+			if ((values1 > 1)) {
+				setNegValue(1);
+				setPosValue(10);
+				CheckContinue();
+			}
+		});
+
+		// STR
+		labelStr = new Label("Strength (Str)");
+
+		btnStrPlus = new Button("+");
+		btnStrPlus.setOnAction(e -> {
+			if ((valuesRemaining > 0) && (values2 < 5)) {
+				setPosValue(2);
+				setNegValue(10);
+				CheckContinue();
+			}
+		});
+		btnStrMinus = new Button("-");
+		btnStrMinus.setOnAction(e -> {
+			if ((values2 > 1)) {
+				setNegValue(2);
+				setPosValue(10);
+				CheckContinue();
+			}
+		});
+
+		// PRE
+		labelPrs = new Label("Presence (Prs)");
+		btnPrePlus = new Button("+");
+		btnPrePlus.setOnAction(e -> {
+			if ((valuesRemaining > 0) && (values3 < 5)) {
+				setPosValue(3);
+				setNegValue(10);
+				CheckContinue();
+			}
+		});
+		btnPreMinus = new Button("-");
+		btnPreMinus.setOnAction(e -> {
+			if ((values3 > 1)) {
+				setNegValue(3);
+				setPosValue(10);
+				CheckContinue();
+			}
+		});
+
+		leftMenu.getChildren().addAll(lblPower, labelInt, btnIntPlus, lblIntValue, btnIntMinus, labelStr, btnStrPlus,
+				lblStrValue, btnStrMinus, labelPrs, btnPrePlus, lblPreValue, btnPreMinus);
+		leftMenu.setAlignment(Pos.CENTER);
+	}
+
+	/**
+	 * Right pane - Resistance attributes
+	 */
+	public void rightPane() {
+		rightMenu = new VBox(15);
+		lblResistance = new Label("Resistance attributes");
+
+		// RES
+		labelRes = new Label("Resolve (Res)");
+		btnResPlus = new Button("+");
+		btnResPlus.setOnAction(e -> {
+			if ((valuesRemaining > 0) && (values7 < 5)) {
+				setPosValue(7);
+				setNegValue(10);
+				CheckContinue();
+			}
+		});
+		btnResMinus = new Button("-");
+		btnResMinus.setOnAction(e -> {
+			if ((values7 > 1)) {
+				setNegValue(7);
+				setPosValue(10);
+				CheckContinue();
+
+			}
+		});
+
+		// STA
+		label9 = new Label("Stamina (Sta)");
+		btnStaPlus = new Button("+");
+		btnStaPlus.setOnAction(e -> {
+			if ((valuesRemaining > 0) && (values8 < 5)) {
+				setPosValue(8);
+				setNegValue(10);
+				CheckContinue();
+			}
+		});
+		btnStaMinus = new Button("-");
+		btnStaMinus.setOnAction(e -> {
+			if ((values8 > 1)) {
+				setNegValue(8);
+				setPosValue(10);
+				CheckContinue();
+			}
+		});
+
+		// COM
+		labelCmp = new Label("Composure (Cmp)");
+		btnComPlus = new Button("+");
+		btnComPlus.setOnAction(e -> {
+			if ((valuesRemaining > 0) && (values9 < 5)) {
+				setPosValue(9);
+				setNegValue(10);
+				CheckContinue();
+			}
+		});
+		btnComMinus = new Button("-");
+		btnComMinus.setOnAction(e -> {
+			if ((values9 > 1)) {
+				setNegValue(9);
+				setPosValue(10);
+				CheckContinue();
+			}
+		});
+
+		rightMenu.getChildren().addAll(lblResistance, labelRes, btnResPlus, lblResValue, btnResMinus, label9,
+				btnStaPlus, lblStaValue, btnStaMinus, labelCmp, btnComPlus, lblCmpValue, btnComMinus);
+		rightMenu.setAlignment(Pos.CENTER);
+	}
+
+	/**
+	 * Center pane - Finesse attributes
+	 */
+	public void centerPane() {
+		centerMenu = new VBox(15);
+		lblFinesse = new Label("Finesse attributes");
+
+		// WTS
+		labelWit = new Label("Wits (Wts)");
+		btnWtsPlus = new Button("+");
+		btnWtsPlus.setOnAction(e -> {
+			if ((valuesRemaining > 0) && (values4 < 5)) {
+				setPosValue(4);
+				setNegValue(10);
+				CheckContinue();
+			}
+		});
+		btnWtsMinus = new Button("-");
+		btnWtsMinus.setOnAction(e -> {
+			if ((values4 > 1)) {
+				setNegValue(4);
+				setPosValue(10);
+				CheckContinue();
+			}
+		});
+
+		// DEX
+		labelDex = new Label("Dexterity (Dex)");
+		btnDexPlus = new Button("+");
+		btnDexPlus.setOnAction(e -> {
+			if ((valuesRemaining > 0) && (values5 < 5)) {
+				setPosValue(5);
+				setNegValue(10);
+				CheckContinue();
+			}
+		});
+		btnDexMinus = new Button("-");
+		btnDexMinus.setOnAction(e -> {
+			if ((values5 > 1)) {
+				setNegValue(5);
+				setPosValue(10);
+				CheckContinue();
+			}
+		});
+
+		// MAN
+		labeMani = new Label("Manipulation (Man)");
+		btnManPlus = new Button("+");
+		btnManPlus.setOnAction(e -> {
+			if ((valuesRemaining > 0) && (values6 < 5)) {
+				setPosValue(6);
+				setNegValue(10);
+				CheckContinue();
+			}
+		});
+		btnManMinus = new Button("-");
+		btnManMinus.setOnAction(e -> {
+			if ((values6 > 1)) {
+				setNegValue(6);
+				setPosValue(10);
+				CheckContinue();
+			}
+		});
+
+		centerMenu.getChildren().addAll(lblFinesse, labelWit, btnWtsPlus, lblWtsValue, btnWtsMinus, labelDex,
+				btnDexPlus, lblDexValue, btnDexMinus, labeMani, btnManPlus, lblManValue, btnManMinus);
+		centerMenu.setAlignment(Pos.CENTER);
+	}
+
+	/**
+	 * Bottom pane - "Done"-button
+	 */
+	public void bottomPane() {
+
+		/*
+		 * Done-knappen gör inget än. Inom paranteserna på
+		 * "done.setOnAction();" skriver man in att den ska ta användaren
+		 * tillbaka till huvudscenen.
+		 * 
+		 */
+		bottomPane = new HBox();
+		done = new Button("Done");
+		done.setPrefWidth(200);
+		done.setOnAction(e -> {
+			window.close();
+			setPlayerValues();
+			try {
+				new Controller(itemChoice, stats);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			;
+
+		});
+		bottomPane.getChildren().add(done);
+		bottomPane.setAlignment(Pos.CENTER);
+		done.setVisible(false);
+	}
+
+	public void CheckContinue() {
+		if (0 == valuesRemaining) {
+			done.setVisible(true);
+		}
+		if (valuesRemaining > 0) {
+			done.setVisible(false);
+		}
+	}
+}

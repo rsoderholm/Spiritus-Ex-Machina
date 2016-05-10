@@ -175,7 +175,7 @@ public class GameGUI {
 		bounds = Screen.getPrimary().getVisualBounds();
 		widthScreen = bounds.getWidth();
 		heightScreen = bounds.getHeight();
-		pane = new BorderPane();
+	
 
 		if (widthScreen < 1600) {
 			width = 600;
@@ -203,7 +203,7 @@ public class GameGUI {
 		VBox center = new VBox();
 		center.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, buttonInv, buttonattr);
 		center.setAlignment(Pos.CENTER);
-
+		pane = new BorderPane();
 		pane.setCenter(center);
 		pane.setLeft(vbLeft);
 		pane.setRight(vbRight);

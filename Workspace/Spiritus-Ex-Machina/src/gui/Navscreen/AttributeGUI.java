@@ -11,10 +11,14 @@ package gui.Navscreen;
 
 import game.Controller;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -34,7 +39,7 @@ public class AttributeGUI {
 	private VBox leftMenu;
 	private VBox centerMenu;
 	private VBox rightMenu;
-	private BorderPane borderPane;
+
 
 	private Stage window;
 	private Scene scene;
@@ -54,18 +59,9 @@ public class AttributeGUI {
 			btnDexPlus, btnDexMinus, btnManPlus, btnManMinus, btnResPlus, btnResMinus, btnStaPlus, btnStaMinus,
 			btnComPlus, btnComMinus, done;
 
-	private Controller controller;
-	private int inte;
-	private int str;
-	private int pre;
-	private int wit;
-	private int dex;
-	private int mani;
-	private int res;
-	private int sta;
-	private int comp;
 	private int[] stats;
 	private int itemChoice;
+	private HBox mainlayout;
 
 	public AttributeGUI(int itemChoice) {
 		window = new Stage();
@@ -78,7 +74,7 @@ public class AttributeGUI {
 		bottomPane();
 		mainLayotBorderPane();
 
-		scene = new Scene(borderPane);
+		scene = new Scene(mainlayout);
 		scene.getStylesheets().add("StyleSheet2.css");
 		window.setScene(scene);
 		window.setTitle("Deus ex Machina");
@@ -210,12 +206,10 @@ public class AttributeGUI {
 	 * Sets all BordePanes
 	 */
 	public void mainLayotBorderPane() {
-		borderPane = new BorderPane();
-		borderPane.setTop(topPane);
-		borderPane.setCenter(centerMenu);
-		borderPane.setLeft(leftMenu);
-		borderPane.setRight(rightMenu);
-		borderPane.setBottom(bottomPane);
+
+		mainlayout = new HBox(40);
+		mainlayout.getChildren().addAll(topPane, centerMenu, leftMenu, rightMenu, bottomPane);
+		mainlayout.setAlignment(Pos.CENTER);
 	}
 
 	/**
@@ -277,14 +271,19 @@ public class AttributeGUI {
 		topPane = new HBox();
 		head = new Text();
 
-		head.setFont(new Font(65));
-		head.setFill(Color.WHITE);
+		head.setFont(new Font(55));
+		head.setFill(Color.CYAN);
 		head.setText("Attributes remaining: " + valueRemaining);
 		head.setTextAlignment(TextAlignment.JUSTIFY);
 		topPane.getChildren().addAll(head);
 
 		topPane.setAlignment(Pos.CENTER);
-
+	    DropShadow dropShadow = new DropShadow();
+        dropShadow.setColor(Color.DODGERBLUE);
+        dropShadow.setRadius(25);
+        dropShadow.setSpread(0.25);
+        dropShadow.setBlurType(BlurType.GAUSSIAN);
+        head.setEffect(dropShadow);
 	}
 
 	/**
@@ -295,7 +294,7 @@ public class AttributeGUI {
 		lblPower = new Label("Power attributes");
 
 		// INT
-		labelInt = new Label("Intelligence (Int)");
+		labelInt = new Label("Intelligence");
 		btnIntPlus = new Button("+");
 		btnIntPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values1 < 5)) {
@@ -314,7 +313,7 @@ public class AttributeGUI {
 		});
 
 		// STR
-		labelStr = new Label("Strength (Str)");
+		labelStr = new Label("Strength");
 
 		btnStrPlus = new Button("+");
 		btnStrPlus.setOnAction(e -> {
@@ -334,7 +333,7 @@ public class AttributeGUI {
 		});
 
 		// PRE
-		labelPrs = new Label("Presence (Prs)");
+		labelPrs = new Label("Presence ");
 		btnPrePlus = new Button("+");
 		btnPrePlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values3 < 5)) {
@@ -365,7 +364,7 @@ public class AttributeGUI {
 		lblResistance = new Label("Resistance attributes");
 
 		// RES
-		labelRes = new Label("Resolve (Res)");
+		labelRes = new Label("Resolve");
 		btnResPlus = new Button("+");
 		btnResPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values7 < 5)) {
@@ -385,7 +384,7 @@ public class AttributeGUI {
 		});
 
 		// STA
-		label9 = new Label("Stamina (Sta)");
+		label9 = new Label("Stamina");
 		btnStaPlus = new Button("+");
 		btnStaPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values8 < 5)) {
@@ -404,7 +403,7 @@ public class AttributeGUI {
 		});
 
 		// COM
-		labelCmp = new Label("Composure (Cmp)");
+		labelCmp = new Label("Composure");
 		btnComPlus = new Button("+");
 		btnComPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values9 < 5)) {
@@ -435,7 +434,7 @@ public class AttributeGUI {
 		lblFinesse = new Label("Finesse attributes");
 
 		// WTS
-		labelWit = new Label("Wits (Wts)");
+		labelWit = new Label("Wits");
 		btnWtsPlus = new Button("+");
 		btnWtsPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values4 < 5)) {
@@ -454,7 +453,7 @@ public class AttributeGUI {
 		});
 
 		// DEX
-		labelDex = new Label("Dexterity (Dex)");
+		labelDex = new Label("Dexterity");
 		btnDexPlus = new Button("+");
 		btnDexPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values5 < 5)) {
@@ -473,7 +472,7 @@ public class AttributeGUI {
 		});
 
 		// MAN
-		labeMani = new Label("Manipulation (Man)");
+		labeMani = new Label("Manipulation");
 		btnManPlus = new Button("+");
 		btnManPlus.setOnAction(e -> {
 			if ((valuesRemaining > 0) && (values6 < 5)) {
