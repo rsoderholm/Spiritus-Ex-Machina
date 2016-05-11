@@ -86,7 +86,7 @@ public class Launcher extends Application {
 	 */
 	public void playMedia() {
 
-		f = new File("files/Tales of the Future.mp3");
+		f = new File("soundtrack/Main Theme.mp3");
 		media = new Media(f.toURI().toString());
 		mplayer = new MediaPlayer(media);
 		mplayer.setAutoPlay(true);
