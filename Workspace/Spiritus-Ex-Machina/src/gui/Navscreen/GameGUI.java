@@ -66,49 +66,59 @@ public class GameGUI {
 	private Image imageMelee;
 	private Label labelInt;
 	private ImageView ivInt;
+	
 	private int inte;
 	private String attributesInt;
 	private Image imageInt;
 	private Label labelStr;
 	private ImageView ivStr;
+	
 	private int str;
 	private String attributesStr;
 	private Image imageStr;
 	private Label labelPre;
 	private ImageView ivPre;
+	
 	private int pre;
 	private String attributesPre;
 	private Image imagePre;
 	private Label labelWit;
 	private ImageView ivWit;
+	
 	private int wit;
 	private String attributesWit;
 	private Image imageWit;
 	private Label labelDex;
 	private ImageView ivDex;
+	
 	private int dex;
 	private String attributesDex;
 	private Image imageDex;
 	private Label labelMani;
 	private ImageView ivMani;
+	
 	private int mani;
 	private String attributesMani;
 	private Image imageMani;
 	private Label labelRes;
 	private ImageView ivRes;
+	
 	private int res;
 	private String attributesRes;
 	private Image imageRes;
 	private Label labelSta;
 	private ImageView ivSta;
+	
 	private int sta;
 	private String attributesSta;
 	private Image imageSta;
 	private Label labelComp;
 	private ImageView ivComp;
+	
 	private int comp;
 	private String attributesComp;
 	private Image imageComp;
+	
 	private Text Evtext;
 	private Text statusText;
 	private Animation animation;
@@ -117,6 +127,7 @@ public class GameGUI {
 	private Button button2;
 	private Button button3;
 	private Button button4;
+	private Button buttonMenu;
 	private String eventText;
 	private double width;
 	private ImageView iv1;
@@ -139,6 +150,7 @@ public class GameGUI {
 		addButton();
 		addHealth();
 		addinventoryButton();
+		addMenuButton();
 		addAttributeWindow();
 		addInventoryWindow();
 		addMainWindow();
@@ -201,7 +213,7 @@ public class GameGUI {
 		vbRight.setVisible(false);
 
 		VBox center = new VBox();
-		center.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, buttonInv, buttonattr);
+		center.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, buttonInv, buttonattr, buttonMenu);
 		center.setAlignment(Pos.CENTER);
 		pane = new BorderPane();
 		pane.setCenter(center);
@@ -220,8 +232,7 @@ public class GameGUI {
 			button4.setStyle("-fx-font: 12 arial");
 			buttonInv.setStyle("-fx-font: 12 arial");
 			buttonattr.setStyle("-fx-font: 12 arial");
-			Evtext.setFont(new Font(12));
-
+			Evtext.setFont(new Font(12));;
 			iv1.setFitHeight(200);
 		}
 		window.setResizable(false);
@@ -466,6 +477,11 @@ public class GameGUI {
 		buttonInv.setMaxHeight(600);
 		buttonInv.setMaxWidth(200);
 	}
+	public void addMenuButton() {
+		buttonMenu = new Button("Menu");
+		buttonMenu.setMaxHeight(600);
+		buttonMenu.setMaxWidth(200);
+	}
 
 	/**
 	 * AddHealth renders the health of the player to the screen.
@@ -545,7 +561,7 @@ public class GameGUI {
 		attributesSta = "Stamina: " + sta;
 		labelSta.setText(attributesMani);
 
-		attributesComp = "composure: " + comp;
+		attributesComp = "Composure: " + comp;
 		labelComp.setText(attributesComp);
 	}
 
@@ -644,7 +660,14 @@ public class GameGUI {
 		button4.setOnAction(e -> {
 			controller.navigation(altFour);
 		});
-
+		buttonMenu.setOnAction(e -> {
+			try {
+				controller.menu();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			});
+		
 		buttonattr.setOnAction(e -> {
 			if (showattr == false) {
 				showattr = true;
@@ -666,5 +689,10 @@ public class GameGUI {
 				vbRight.setVisible(showinv);
 			}
 		});
+	}
+
+	public void gainFocus() {
+		window.requestFocus();
+		window.setFullScreen(true);
 	}
 }

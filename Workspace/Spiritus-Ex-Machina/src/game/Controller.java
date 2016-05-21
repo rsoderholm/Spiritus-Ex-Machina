@@ -3,7 +3,10 @@ package game;
 import character.Npc;
 import character.Player;
 import gui.Navscreen.GameGUI;
+import gui.Navscreen.ItemGUI;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -16,15 +19,16 @@ import character.Character;
  *
  */
 public class Controller {
-	private Player player;
+	private Player player = new Player();
 	private Npc npc;
 	private CombatSituation activeCombat;
 	private GameGUI GUI;
 	private HashMap<String, Runnable> navigation = new HashMap<>();
 	private HashMap<String, String[]> navMap = new HashMap<>();
 	private FileTranslator translator;
-	private String[] currentChapter;
+	private String currentChapter;
 	private String firstConversation;
+	private String currentConversation;
 	private String victoryKey;
 
 	/**
@@ -32,40 +36,132 @@ public class Controller {
 	 * 
 	 * @throws IOException
 	 */
-	public Controller(int itemChoice, int[] playerStats) throws IOException {
-		setPlayer(new Player(itemChoice, playerStats));
-		setNpc(new Npc());
+	public Controller() {
 		translator = new FileTranslator(this);
 		GUI = new GameGUI(this);
-		setCurrentChapter(translator.readChapter("chapter1"));
-		changeChapter();
+		standardNavigation();
+
+		File f = new File("save/SeMsave");
+		if (f.exists() && !f.isDirectory()) {
+			String[] startUp = { "Welcome to Spiritus Ex Machina", "Start New Game", "startNewGame", "Load Game",
+					"loadGame", "Exit Game", "exit" };
+			setupDialog(startUp);
+		} else {
+			String[] startUp = { "Welcome to Spiritus Ex Machina", "Start New Game", "startNewGame", "Exit Game",
+			"exit" };
+			setupDialog(startUp);
+		}
+
+	}
+
+	private void standardNavigation(){
+		navigation.put("startNewGame", () -> startNewGame());
+		navigation.put("saveGame", () -> {
+			try {
+				save();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		});
+		navigation.put("loadGame", () -> loadGame());
+		navigation.put("exit", () -> System.exit(0));
+	}
+	protected void startNewGame() {
+		new ItemGUI(this);
+	}
+
+	public void newGameInitiation(int itemChoice, int[] playerStats) throws IOException {
+		GUI.gainFocus();
+		setPlayer(new Player(itemChoice, playerStats));
+		setNpc(new Npc());
+		changeChapter("chapter1");
 		startNewChapter();
 	}
 
-	private void startNewChapter() {
-		navigation.get(firstConversation).run();
-	}
-
-	private void changeChapter() {
-
-		for (int i = 0; i < currentChapter.length; i++) {
-			translator.addToNav(currentChapter[i]);
+	public void menu() {
+		if(activeCombat==null){
+		String[] startUp = new String[]{ "Menu", "Resume", currentConversation, "Save Game", "saveGame", "Load Game", "loadGame",
+				"Exit Game", "exit" };
+		setupDialog(startUp);
 		}
-		firstConversation = currentChapter[1];
+		else{
+			GUI.setEventText("Menu is disabled during Combat!");
+		}
+		
 	}
 
-	public String[] getCurrentChapter() {
+	public void loadGame() {
+		String[] loadedFromFile = translator.loadGame();
+		String[] split = loadedFromFile[2].split(",");
+		int[] stats = new int[9];
+		for (int i = 0; i < stats.length; i++) {
+			stats[i]= Integer.parseInt(split[i]);
+		}
+		setPlayer(new Player(Integer.parseInt(loadedFromFile[1]),stats));
+		player.setHealth(Integer.parseInt(loadedFromFile[3]));
+		try {
+			changeChapter(loadedFromFile[4]);
+			navigation(loadedFromFile[5]);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Method that starts a new chapter
+	 */
+	private void startNewChapter() {
+		navigation(firstConversation);
+	}
+
+	/**
+	 * Method that updates the hashMaps with new conversations.
+	 * 
+	 * @throws IOException
+	 */
+	private void changeChapter(String chapter) throws IOException {
+		navigation.clear();
+		navMap.clear();
+		String[] readChapter = translator.readChapter(chapter);
+		for (int i = 0; i < readChapter.length; i++) {
+			translator.addToNav(readChapter[i]);
+		}
+		currentChapter = chapter;
+		standardNavigation();
+		firstConversation = readChapter[1];
+	}
+
+	/**
+	 * return method with the current chapter
+	 * 
+	 * @return the current chapter
+	 */
+	public String getCurrentChapter() {
 		return currentChapter;
 	}
 
-	public void setCurrentChapter(String[] currentChapter) {
+	/*
+	 * defines the current chapter
+	 */
+	public void setCurrentChapter(String currentChapter) {
 		this.currentChapter = currentChapter;
 	}
 
+	/**
+	 * Return method with the String[] of eventtexts and button information
+	 * 
+	 * @return
+	 */
 	public HashMap<String, String[]> getConversationNavigation() {
 		return navMap;
 	}
 
+	/**
+	 * Return Method for the hashMap with navigation Runnables.
+	 * 
+	 * @return
+	 */
 	public HashMap<String, Runnable> getNavigation() {
 		return navigation;
 	}
@@ -144,8 +240,9 @@ public class Controller {
 	public void navigation(String navKey) {
 		if (activeCombat != null) {
 			activeCombat.actions.get(navKey).run();
-		} else
+		} else {
 			navigation.get(navKey).run();
+		}
 	}
 
 	public void navigationControl(String navKey, String[] navigation) {
@@ -161,13 +258,32 @@ public class Controller {
 	 *            what method to be runned
 	 */
 	public void addNavigation(String key) {
-		navigation.put(key, () -> setupDialog(navMap.get(key)));
+		navigation.put(key, () -> {
+			this.currentConversation = key;
+			setupDialog(navMap.get(key));
+		});
 	}
 
+	/**
+	 * Addition of a combat to the hashMap
+	 * 
+	 * @param key
+	 *            the keyword
+	 * @param value
+	 *            what method to be runned
+	 */
 	public void addCombat(String key) {
 		navigation.put(key, () -> startCombat(navMap.get(key)));
 	}
 
+	/**
+	 * Addition of an abilitytest to the hashMap
+	 * 
+	 * @param key
+	 *            the keyword
+	 * @param value
+	 *            what method to be runned
+	 */
 	public void addAbilityCheck(String key) {
 		navigation.put(key, () -> abilityCheck(navMap.get(key)));
 	}
@@ -196,6 +312,7 @@ public class Controller {
 	 */
 	public void victorius(String victoryKey, String event) {
 		String[] victory = { event, "End Combat", victoryKey };
+		currentConversation = victoryKey;
 		setActiveCombat(null);
 		setupDialog(victory);
 	}
@@ -215,6 +332,15 @@ public class Controller {
 	}
 
 	/**
+	 * Method for saving the character
+	 * 
+	 * @throws FileNotFoundException
+	 */
+	public void save() throws FileNotFoundException {
+		translator.save(player.getItemChoice(),player.saveStats(), player.getHealth(), currentChapter, currentConversation);
+	}
+
+	/**
 	 * Interior class for handling all combat situation.
 	 * 
 	 * @author Björn Svensson
@@ -223,7 +349,7 @@ public class Controller {
 	public class CombatSituation {
 
 		protected HashMap<String, Runnable> actions = new HashMap<>();
-		private String eventText = "Combat is initiated!!!";
+		private String eventText = null;
 
 		/**
 		 * constructor for combats with specific actions and
@@ -232,7 +358,9 @@ public class Controller {
 		 *            the key for next
 		 */
 		public CombatSituation(String[] dialogues) {
+			npc = new Npc();
 			setVictoryKey(dialogues[1]);
+			eventText = dialogues[0];
 			actions.put("h2h", () -> this.playerAction(1));
 			actions.put("ranged", () -> this.playerAction(2));
 			actions.put("heal", () -> this.playerAction(3));
@@ -305,13 +433,11 @@ public class Controller {
 			switch (choice) {
 			case 1:
 				eventText += "You attacked your opponent in hand-to-hand combat.";
-				result = StatDice
-						.rollDice(getPlayer().getStrength() + getPlayer().getDexterity() - getNpc().getStamina());
+				result = StatDice.rollDice(getPlayer().getStrength() + getPlayer().getDexterity() - getNpc().getStamina());
 				break;
 			case 2:
 				eventText += "You aimed your gun and fired a bullet at your opponent.";
-				result = StatDice
-						.rollDice(getPlayer().getComposure() + getPlayer().getDexterity() - getNpc().getStamina());
+				result = StatDice.rollDice(getPlayer().getComposure() + getPlayer().getDexterity() - getNpc().getStamina());
 				break;
 			case 3:
 				getPlayer().setMedGel(getPlayer().getMedGel() - 1);
@@ -396,4 +522,5 @@ public class Controller {
 			return false;
 		}
 	}
+
 }

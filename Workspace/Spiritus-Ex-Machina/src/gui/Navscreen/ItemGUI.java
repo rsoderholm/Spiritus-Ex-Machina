@@ -28,9 +28,11 @@ public class ItemGUI {
 
 	private TitledPane taHacker;
 	private GridPane gridHacker;
+	
+	private Controller controller;
 
-	public ItemGUI() {
-
+	public ItemGUI(Controller controller) {
+		this.controller = controller;
 		window = new Stage();
 		BorderPane root = new BorderPane();
 		
@@ -55,20 +57,20 @@ public class ItemGUI {
 	public void buttonHandler() {
 		button1.setOnAction(e -> {
 			inventoryValue = 1;
-			window.close();
-			new AttributeGUI(1);		
+			new AttributeGUI(1, controller);	
+			window.close();	
 		});
 
 		button2.setOnAction(e -> {
 			inventoryValue = 2;
-			window.close();
-			new AttributeGUI(2);	
+			new AttributeGUI(2, controller);
+			window.close();	
 		});
 
 		button3.setOnAction(e -> {
 			inventoryValue = 3;
+			new AttributeGUI(3, controller);
 			window.close();
-			new AttributeGUI(3);	
 		});
 	}
 

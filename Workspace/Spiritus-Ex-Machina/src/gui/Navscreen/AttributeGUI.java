@@ -62,8 +62,11 @@ public class AttributeGUI {
 	private int[] stats;
 	private int itemChoice;
 	private HBox mainlayout;
+	
+	private Controller controller;
 
-	public AttributeGUI(int itemChoice) {
+	public AttributeGUI(int itemChoice, Controller controller) {
+		this.controller = controller;
 		window = new Stage();
 		this.itemChoice = itemChoice;
 		initValues();
@@ -513,7 +516,7 @@ public class AttributeGUI {
 			window.close();
 			setPlayerValues();
 			try {
-				new Controller(itemChoice, stats);
+				controller.newGameInitiation(itemChoice, stats);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

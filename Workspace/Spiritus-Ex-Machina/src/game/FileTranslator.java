@@ -1,5 +1,6 @@
 package game;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class FileTranslator {
@@ -18,6 +19,10 @@ public class FileTranslator {
 		fileReader = new TextFileReader();
 	}
 
+	public String[] loadGame(){
+		return fileReader.loadFromFile();
+		
+	}
 	/**
 	 * 
 	 * @param chapter
@@ -60,5 +65,8 @@ public class FileTranslator {
 			break;
 		}
 
+	}
+	public void save(int itemChoice, String stats,int health, String currentChapter, String currentConversation) throws FileNotFoundException{
+		fileReader.saveToFile(itemChoice,stats,health, currentChapter, currentConversation);
 	}
 }

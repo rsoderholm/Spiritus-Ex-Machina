@@ -76,7 +76,7 @@ public class Launcher extends Application {
 		window.sizeToScene();
 		window.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			window.close();
-			new ItemGUI();
+			new Controller();
 		});
 
 	}
