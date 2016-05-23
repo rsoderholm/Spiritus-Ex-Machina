@@ -66,7 +66,7 @@ public class TextFileReader {
 
 	}
 
-	public void saveToFile(int itemChoice, String stats,int health, String currentChapter, String currentConversation) throws FileNotFoundException{
+	public void saveToFile(int itemChoice, String stats,int health,int medGel, String currentChapter, String currentConversation) throws FileNotFoundException{
 		File dir = new File("save");
 		if(!dir.exists()) {
 			dir.mkdir();
@@ -77,6 +77,7 @@ public class TextFileReader {
 			pw.write(itemChoice+"#");
 			pw.write(stats+"#");
 			pw.write(""+health+"#");
+			pw.write(""+medGel+"#");
 			pw.write(currentChapter+"#");
 			pw.write(currentConversation);
 			pw.flush();

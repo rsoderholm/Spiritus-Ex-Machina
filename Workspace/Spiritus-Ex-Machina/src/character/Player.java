@@ -22,6 +22,25 @@ public class Player extends Character {
 		addMapKeys();
 	}
 
+	public void applyItemEffect() {
+		switch(itemChoice){
+		case 1:
+			setPresence(getPresence()+1);
+			setManipulation(getManipulation()+1);
+			setComposure(getComposure()+1);
+			break;
+		case 2:
+			setStrength(getStrength()+1);
+			setDexterity(getDexterity()+1);
+			setStamina(getStamina()+1);
+			break;
+		case 3:
+			setIntelligence(getIntelligence()+1);
+			setWits(getWits()+1);
+			setResolve(getResolve()+1);
+		}
+		
+	}
 	private void addMapKeys() {
 		statsRef.put("int", getIntelligence());
 		statsRef.put("str", getStrength());

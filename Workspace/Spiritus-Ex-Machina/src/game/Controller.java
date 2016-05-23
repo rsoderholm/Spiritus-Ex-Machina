@@ -73,7 +73,7 @@ public class Controller {
 	public void newGameInitiation(int itemChoice, int[] playerStats) throws IOException {
 		GUI.gainFocus();
 		setPlayer(new Player(itemChoice, playerStats));
-		setNpc(new Npc());
+		player.applyItemEffect();
 		changeChapter("chapter1");
 		startNewChapter();
 	}
@@ -100,11 +100,12 @@ public class Controller {
 		setPlayer(new Player(Integer.parseInt(loadedFromFile[1]),stats));
 		player.setHealth(Integer.parseInt(loadedFromFile[3]));
 		try {
-			changeChapter(loadedFromFile[4]);
-			navigation(loadedFromFile[5]);
+			changeChapter(loadedFromFile[5]);
+			navigation(loadedFromFile[6]);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		player.setMedGel(Integer.parseInt(loadedFromFile[4]));
 
 	}
 
@@ -245,10 +246,6 @@ public class Controller {
 		}
 	}
 
-	public void navigationControl(String navKey, String[] navigation) {
-
-	}
-
 	/**
 	 * Addition to the hashMap
 	 * 
@@ -296,10 +293,9 @@ public class Controller {
 	 */
 	public void gameOver(String event) {
 		setActiveCombat(null);
-		getGUI().setEventText(event);
-		navigation.put("Exit", () -> System.exit(0));
-		getGUI().disableButtons();
-		getGUI().setDialog("End Game", 1, "Exit");
+		String[] gameOver = new String[]{ event, "Start New Game", "startNewGame", "Load Game", "loadGame",
+				"Exit Game", "exit" };
+		setupDialog(gameOver);
 	}
 
 	/**
@@ -337,7 +333,8 @@ public class Controller {
 	 * @throws FileNotFoundException
 	 */
 	public void save() throws FileNotFoundException {
-		translator.save(player.getItemChoice(),player.saveStats(), player.getHealth(), currentChapter, currentConversation);
+		translator.save(player.getItemChoice(),player.saveStats(), player.getHealth(), player.getMedGel(), currentChapter, currentConversation);
+		GUI.setEventText("Game has been successfully saved!");
 	}
 
 	/**

@@ -66,7 +66,7 @@ public class FileTranslator {
 		}
 
 	}
-	public void save(int itemChoice, String stats,int health, String currentChapter, String currentConversation) throws FileNotFoundException{
-		fileReader.saveToFile(itemChoice,stats,health, currentChapter, currentConversation);
+	public void save(int itemChoice, String stats,int health,int medGel, String currentChapter, String currentConversation) throws FileNotFoundException{
+		fileReader.saveToFile(itemChoice,stats,health,medGel, currentChapter, currentConversation);
 	}
 }

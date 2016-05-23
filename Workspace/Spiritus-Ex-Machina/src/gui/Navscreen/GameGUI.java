@@ -145,7 +145,7 @@ public class GameGUI {
 		this.controller = controller;
 		window = new Stage();
 		checkScreenBounds();
-		addImage();
+		addImage("JWET8.jpg");
 		addText();
 		addButton();
 		addHealth();
@@ -461,8 +461,8 @@ public class GameGUI {
 	/**
 	 * AddImage initiates the image for the eventImage.
 	 */
-	public void addImage() {
-		image = new Image("JWET8.jpg");
+	public void addImage(String filePath) {
+		image = new Image(filePath);
 		iv1 = new ImageView();
 		iv1.setImage(image);
 		iv1.setFitWidth(width);
