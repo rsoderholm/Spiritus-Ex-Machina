@@ -76,6 +76,7 @@ public class Controller {
 		player.applyItemEffect();
 		changeChapter("chapter3");
 		startNewChapter();
+		GUI.setItemsGui(itemChoice);
 	}
 
 	public void menu() {
@@ -106,7 +107,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 		player.setMedGel(Integer.parseInt(loadedFromFile[4]));
-
+		
 	}
 
 	/**

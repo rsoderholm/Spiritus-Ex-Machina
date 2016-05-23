@@ -6,6 +6,7 @@
  */
 package gui.Navscreen;
 
+import character.Player;
 import game.Controller;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
@@ -38,87 +39,128 @@ import javafx.scene.text.TextAlignment;
  */
 public class GameGUI {
 
-	private boolean showinv;
-	private boolean showattr;
-	private Button buttonattr;
-	private GridPane gridInventory;
-	private GridPane gridAttribute;
+
 	private VBox vbLeft;
 	private VBox vbRight;
 	private BorderPane pane;
 	private Stage window;
 	private Scene scene;
+	
+	private boolean showinv;
+	private boolean showattr;
+	private Button buttonattr;
+	private GridPane gridInventory;
+	private GridPane gridAttribute;
+	
+	private Label labelPlasmaBeam;
+	private ImageView ivPlasmaBeam;
+	private String attributesPlasmaBeam;
+	private Image imagePlasmaBeam;
+	
+	private Label labelBoot;
+	private ImageView ivBoot;
+	private String attributesBoot;
+	private Image imageBoot;
+	
+	private Label labelSheild;
+	private ImageView ivSheild;
+	private String attributesSheild;
+	private Image imageSheild;
+	
+	private Label labellaserMiniGun;
+	private ImageView ivlaserMiniGun;
+	private String attributeslaserMiniGun;
+	private Image imagelaserMiniGun;
+	
+	private Label labelIstream;
+	private ImageView ivIstream;
+	private String attributesIstream;
+	private Image imageIstream;
+	
+	private Label labelVisor;
+	private ImageView ivVisor;
+	private String attributesVisor;
+	private Image imageVisor;
+	
+	
+	
+	
+	
+	
 	private Label labelArmor;
 	private ImageView ivArmor;
 	private String attributesArmor;
 	private Image imageArmor;
+	
 	private Label labelGun;
 	private ImageView ivGun;
 	private String attributesGun;
 	private Image imageGun;
+	
 	private Label labelBioGel;
 	private ImageView ivBioGel;
 	private String attributesBioGel;
 	private Image imageBioGel;
+	
 	private Label labelMelee;
 	private ImageView ivMelee;
 	private String attributesMelee;
 	private Image imageMelee;
+	
 	private Label labelInt;
 	private ImageView ivInt;
-	
 	private int inte;
 	private String attributesInt;
 	private Image imageInt;
+	
 	private Label labelStr;
 	private ImageView ivStr;
-	
 	private int str;
 	private String attributesStr;
 	private Image imageStr;
+	
 	private Label labelPre;
 	private ImageView ivPre;
-	
 	private int pre;
 	private String attributesPre;
 	private Image imagePre;
+	
 	private Label labelWit;
 	private ImageView ivWit;
-	
 	private int wit;
 	private String attributesWit;
 	private Image imageWit;
+	
 	private Label labelDex;
 	private ImageView ivDex;
-	
 	private int dex;
 	private String attributesDex;
 	private Image imageDex;
+	
 	private Label labelMani;
 	private ImageView ivMani;
-	
 	private int mani;
 	private String attributesMani;
 	private Image imageMani;
+	
 	private Label labelRes;
 	private ImageView ivRes;
-	
 	private int res;
 	private String attributesRes;
 	private Image imageRes;
+	
 	private Label labelSta;
 	private ImageView ivSta;
-	
 	private int sta;
 	private String attributesSta;
 	private Image imageSta;
+	
 	private Label labelComp;
 	private ImageView ivComp;
-	
 	private int comp;
 	private String attributesComp;
 	private Image imageComp;
-	
+
 	private Text Evtext;
 	private Text statusText;
 	private Animation animation;
@@ -128,6 +170,7 @@ public class GameGUI {
 	private Button button3;
 	private Button button4;
 	private Button buttonMenu;
+
 	private String eventText;
 	private double width;
 	private ImageView iv1;
@@ -140,12 +183,14 @@ public class GameGUI {
 	private String altThree;
 	private String altFour;
 	private Controller controller;
+	private Player player;
+	private int itemChoice;
 
 	public GameGUI(Controller controller) {
 		this.controller = controller;
 		window = new Stage();
 		checkScreenBounds();
-		addImage("JWET8.jpg");
+		addImage();
 		addText();
 		addButton();
 		addHealth();
@@ -187,7 +232,6 @@ public class GameGUI {
 		bounds = Screen.getPrimary().getVisualBounds();
 		widthScreen = bounds.getWidth();
 		heightScreen = bounds.getHeight();
-	
 
 		if (widthScreen < 1600) {
 			width = 600;
@@ -219,7 +263,7 @@ public class GameGUI {
 		pane.setCenter(center);
 		pane.setLeft(vbLeft);
 		pane.setRight(vbRight);
-
+		
 		scene = new Scene(pane, widthScreen, heightScreen);
 		scene.getStylesheets().add("StyleSheet.css");
 
@@ -232,7 +276,8 @@ public class GameGUI {
 			button4.setStyle("-fx-font: 12 arial");
 			buttonInv.setStyle("-fx-font: 12 arial");
 			buttonattr.setStyle("-fx-font: 12 arial");
-			Evtext.setFont(new Font(12));;
+			Evtext.setFont(new Font(12));
+			;
 			iv1.setFitHeight(200);
 		}
 		window.setResizable(false);
@@ -249,6 +294,7 @@ public class GameGUI {
 
 		buttonattr = new Button("Attributes");
 		buttonattr.setMaxWidth(200);
+		
 
 		inte = controller.getPlayer().getIntelligence();
 		str = controller.getPlayer().getStrength();
@@ -368,6 +414,7 @@ public class GameGUI {
 		gridAttribute.add(labelSta, 1, 7);
 		gridAttribute.add(labelComp, 1, 8);
 		gridAttribute.add(statusText, 1, 9);
+	
 	}
 
 	/**
@@ -380,47 +427,185 @@ public class GameGUI {
 		gridInventory.setHgap(0);
 		gridInventory.setVgap(0);
 		gridInventory.setPadding(new Insets(0, 10, 0, 10));
+	
+				imagePlasmaBeam = new Image("doge.jpeg");
+				ivPlasmaBeam = new ImageView();
+				ivPlasmaBeam.setImage(imagePlasmaBeam);
+				ivPlasmaBeam.setFitWidth(50);
+				ivPlasmaBeam.setFitHeight(50);
+				attributesPlasmaBeam = "Such WoW ";
+				labelPlasmaBeam = new Label(attributesPlasmaBeam, ivPlasmaBeam);
+				labelPlasmaBeam.setMinWidth(300);
 
-		imageArmor = new Image("armor.png");
-		ivArmor = new ImageView();
-		ivArmor.setImage(imageArmor);
-		ivArmor.setFitWidth(50);
-		ivArmor.setFitHeight(50);
-		attributesArmor = "Aegis Heavy Body Armor";
-		labelArmor = new Label(attributesArmor, ivArmor);
-		labelArmor.setMinWidth(300);
+				imageBoot = new Image("doge.jpeg");
+				ivBoot = new ImageView();
+				ivBoot.setImage(imageBoot);
+				ivBoot.setFitWidth(50);
+				ivBoot.setFitHeight(50);
+				attributesBoot = "Such WoW ";
+				labelBoot = new Label(attributesBoot, ivBoot);
+				labelBoot.setMinWidth(300);
 
-		imageGun = new Image("gun.png");
-		ivGun = new ImageView();
-		ivGun.setImage(imageGun);
-		ivGun.setFitWidth(50);
-		ivGun.setFitHeight(50);
-		attributesGun = "M-5 Phalanx ";
-		labelGun = new Label(attributesGun, ivGun);
-		labelGun.setMinWidth(300);
+				imageBioGel = new Image("doge.jpeg");
+				ivBioGel = new ImageView();
+				ivBioGel.setImage(imageBioGel);
+				ivBioGel.setFitWidth(50);
+				ivBioGel.setFitHeight(50);
+				attributesBioGel = "Such WoW ";
+				labelBioGel = new Label(attributesBioGel, ivBioGel);
+				labelBioGel.setMinWidth(300);
 
-		imageBioGel = new Image("stim.png");
-		ivBioGel = new ImageView();
-		ivBioGel.setImage(imageBioGel);
-		ivBioGel.setFitWidth(50);
-		ivBioGel.setFitHeight(50);
-		attributesBioGel = "Bio-gel: " + controller.getPlayer().getMedGel();
-		labelBioGel = new Label(attributesBioGel, ivBioGel);
-		labelBioGel.setMinWidth(300);
+				imageMelee = new Image("doge.jpeg");
+				ivMelee = new ImageView();
+				ivMelee.setImage(imageMelee);
+				ivMelee.setFitWidth(50);
+				ivMelee.setFitHeight(50);
+				attributesMelee = "Such WoW ";
+				labelMelee = new Label(attributesMelee, ivMelee);
+				labelMelee.setMinWidth(300);
 
-		imageMelee = new Image("melee.png");
-		ivMelee = new ImageView();
-		ivMelee.setImage(imageMelee);
-		ivMelee.setFitWidth(50);
-		ivMelee.setFitHeight(50);
-		attributesMelee = "Titanium knife: ";
-		labelMelee = new Label(attributesMelee, ivMelee);
-		labelMelee.setMinWidth(300);
+				gridInventory.add(labelBoot, 1, 0);
+				gridInventory.add(labelPlasmaBeam, 1, 1);
+				gridInventory.add(labelBioGel, 1, 2);
+				gridInventory.add(labelMelee, 1, 3);
 
-		gridInventory.add(labelArmor, 1, 0);
-		gridInventory.add(labelGun, 1, 1);
-		gridInventory.add(labelBioGel, 1, 2);
-		gridInventory.add(labelMelee, 1, 3);
+		}
+	
+	
+	public void setItemsGui(int choice){
+
+	
+		
+		switch (choice) {
+		case 1:
+			imagePlasmaBeam = new Image("PlasmaBeam.png");
+			ivPlasmaBeam = new ImageView();
+			ivPlasmaBeam.setImage(imagePlasmaBeam);
+			ivPlasmaBeam.setFitWidth(50);
+			ivPlasmaBeam.setFitHeight(50);
+			attributesPlasmaBeam = "PlasmaBeam";
+			labelPlasmaBeam = new Label(attributesPlasmaBeam, ivPlasmaBeam);
+			labelPlasmaBeam.setMinWidth(300);
+
+			imageBoot = new Image("boot.png");
+			ivBoot = new ImageView();
+			ivBoot.setImage(imageBoot);
+			ivBoot.setFitWidth(50);
+			ivBoot.setFitHeight(50);
+			attributesBoot = "Mechanical augmentation";
+			labelBoot = new Label(attributesBoot, ivBoot);
+			labelBoot.setMinWidth(300);
+
+			imageBioGel = new Image("stim.png");
+			ivBioGel = new ImageView();
+			ivBioGel.setImage(imageBioGel);
+			ivBioGel.setFitWidth(50);
+			ivBioGel.setFitHeight(50);
+			attributesBioGel = "Bio-gel: " + controller.getPlayer().getMedGel();
+			labelBioGel = new Label(attributesBioGel, ivBioGel);
+			labelBioGel.setMinWidth(300);
+
+			imageMelee = new Image("melee.png");
+			ivMelee = new ImageView();
+			ivMelee.setImage(imageMelee);
+			ivMelee.setFitWidth(50);
+			ivMelee.setFitHeight(50);
+			attributesMelee = "Titanium knife: ";
+			labelMelee = new Label(attributesMelee, ivMelee);
+			labelMelee.setMinWidth(300);
+
+			gridInventory.add(labelBoot, 1, 0);
+			gridInventory.add(labelPlasmaBeam, 1, 1);
+			gridInventory.add(labelBioGel, 1, 2);
+			gridInventory.add(labelMelee, 1, 3);
+			break;
+		case 2:
+			imagelaserMiniGun = new Image("laserminigun.png");
+			ivlaserMiniGun = new ImageView();
+			ivlaserMiniGun.setImage(imagelaserMiniGun);
+			ivlaserMiniGun.setFitWidth(50);
+			ivlaserMiniGun.setFitHeight(50);
+			attributeslaserMiniGun = "laserMiniGun";
+			labellaserMiniGun = new Label(attributeslaserMiniGun, ivlaserMiniGun);
+			labellaserMiniGun.setMinWidth(300);
+			
+			imageSheild = new Image("sheild.png");
+			ivSheild = new ImageView();
+			ivSheild.setImage(imageSheild);
+			ivSheild.setFitWidth(50);
+			ivSheild.setFitHeight(50);
+			attributesSheild = "Sheild";
+			labelSheild = new Label(attributesSheild, ivSheild);
+			labelSheild.setMinWidth(300);
+			
+			imageArmor = new Image("armor.png");
+			ivArmor = new ImageView();
+			ivArmor.setImage(imageArmor);
+			ivArmor.setFitWidth(50);
+			ivArmor.setFitHeight(50);
+			attributesArmor = "Aegis Heavy Body Armor";
+			labelArmor = new Label(attributesArmor, ivArmor);
+			labelArmor.setMinWidth(300);
+			
+			imageBioGel = new Image("stim.png");
+			ivBioGel = new ImageView();
+			ivBioGel.setImage(imageBioGel);
+			ivBioGel.setFitWidth(50);
+			ivBioGel.setFitHeight(50);
+			attributesBioGel = "Bio-gel: " + controller.getPlayer().getMedGel();
+			labelBioGel = new Label(attributesBioGel, ivBioGel);
+			labelBioGel.setMinWidth(300);
+			
+			gridInventory.add(labelArmor, 1, 0);
+			gridInventory.add(labelSheild, 1, 1);
+			gridInventory.add(labelBioGel, 1, 2);
+			gridInventory.add(labellaserMiniGun, 1, 3);
+			break;
+		case 3:
+			
+			imageGun = new Image("gun.png");
+			ivGun = new ImageView();
+			ivGun.setImage(imageGun);
+			ivGun.setFitWidth(50);
+			ivGun.setFitHeight(50);
+			attributesGun = "M-5 Phalanx ";
+			labelGun = new Label(attributesGun, ivGun);
+			labelGun.setMinWidth(300); 
+			
+			imageBioGel = new Image("stim.png");
+			ivBioGel = new ImageView();
+			ivBioGel.setImage(imageBioGel);
+			ivBioGel.setFitWidth(50);
+			ivBioGel.setFitHeight(50);
+			attributesBioGel = "Bio-gel: " + controller.getPlayer().getMedGel();
+			labelBioGel = new Label(attributesBioGel, ivBioGel);
+			labelBioGel.setMinWidth(300);
+			
+			imageIstream = new Image("Istream.png");
+			ivIstream = new ImageView();
+			ivIstream.setImage(imageIstream);
+			ivIstream.setFitWidth(50);
+			ivIstream.setFitHeight(50);
+			attributesIstream = "Istream";
+			labelIstream = new Label(attributesIstream, ivIstream);
+			labelIstream.setMinWidth(300);
+			
+			imageVisor = new Image("visor.png");
+			ivVisor = new ImageView();
+			ivVisor.setImage(imageVisor);
+			ivVisor.setFitWidth(50);
+			ivVisor.setFitHeight(50);
+			attributesVisor = "Visor " ;
+			labelVisor = new Label(attributesVisor, ivVisor);
+			labelVisor.setMinWidth(300);
+			
+			gridInventory.add(labelVisor, 1, 0);
+			gridInventory.add(labelGun, 1, 1);
+			gridInventory.add(labelBioGel, 1, 2);
+			gridInventory.add(labelIstream, 1, 3);
+			break;
+		}
+		
 	}
 
 	/**
@@ -461,8 +646,8 @@ public class GameGUI {
 	/**
 	 * AddImage initiates the image for the eventImage.
 	 */
-	public void addImage(String filePath) {
-		image = new Image(filePath);
+	public void addImage() {
+		image = new Image("JWET8.jpg");
 		iv1 = new ImageView();
 		iv1.setImage(image);
 		iv1.setFitWidth(width);
@@ -476,11 +661,14 @@ public class GameGUI {
 		buttonInv = new Button("Inventory");
 		buttonInv.setMaxHeight(600);
 		buttonInv.setMaxWidth(200);
+		
 	}
+
 	public void addMenuButton() {
 		buttonMenu = new Button("Menu");
 		buttonMenu.setMaxHeight(600);
 		buttonMenu.setMaxWidth(200);
+		
 	}
 
 	/**
@@ -666,8 +854,8 @@ public class GameGUI {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-			});
-		
+		});
+
 		buttonattr.setOnAction(e -> {
 			if (showattr == false) {
 				showattr = true;
