@@ -62,6 +62,7 @@ public class FileTranslator {
 			controller.addNavigation(nav);
 			break;
 		default:
+			controller.addNewChapter(nav);
 			break;
 		}
 

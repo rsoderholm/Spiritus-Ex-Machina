@@ -80,14 +80,14 @@ public class Controller {
 
 	public void menu() {
 		if(activeCombat==null){
-		String[] startUp = new String[]{ "Menu", "Resume", currentConversation, "Save Game", "saveGame", "Load Game", "loadGame",
-				"Exit Game", "exit" };
-		setupDialog(startUp);
+			String[] startUp = new String[]{ "Menu", "Resume", currentConversation, "Save Game", "saveGame", "Load Game", "loadGame",
+					"Exit Game", "exit" };
+			setupDialog(startUp);
 		}
 		else{
 			GUI.setEventText("Menu is disabled during Combat!");
 		}
-		
+
 	}
 
 	public void loadGame() {
@@ -285,6 +285,15 @@ public class Controller {
 		navigation.put(key, () -> abilityCheck(navMap.get(key)));
 	}
 
+	public void addNewChapter(String key) {
+		navigation.put(key, () -> { try{
+			changeChapter(key);
+			startNewChapter();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		});
+	}
 	/**
 	 * End of the game. A player never wants to be here, ever.
 	 * 
