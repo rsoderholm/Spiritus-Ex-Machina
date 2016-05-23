@@ -107,7 +107,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 		player.setMedGel(Integer.parseInt(loadedFromFile[4]));
-		
+		GUI.setItemsGui(player.getItemChoice());
 	}
 
 	/**
