@@ -74,7 +74,7 @@ public class Controller {
 		GUI.gainFocus();
 		setPlayer(new Player(itemChoice, playerStats));
 		player.applyItemEffect();
-		changeChapter("chapter1");
+		changeChapter("chapter3");
 		startNewChapter();
 	}
 
@@ -125,8 +125,8 @@ public class Controller {
 		navigation.clear();
 		navMap.clear();
 		String[] readChapter = translator.readChapter(chapter);
-		for (int i = 0; i < readChapter.length; i++) {
-			translator.addToNav(readChapter[i]);
+		for (int i = 1; i < readChapter.length; i++) {
+			translator.addToNav(readChapter[i], chapter);
 		}
 		currentChapter = chapter;
 		standardNavigation();
@@ -294,6 +294,7 @@ public class Controller {
 		}
 		});
 	}
+	
 	/**
 	 * End of the game. A player never wants to be here, ever.
 	 * 

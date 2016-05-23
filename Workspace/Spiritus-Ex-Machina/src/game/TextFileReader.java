@@ -16,8 +16,8 @@ import java.util.Spliterator;
 
 /**
  * 
- * @author robinsoderholm
- *
+ * @author Robin Söderholm
+ * @author Björn Svensson
  */
 
 public class TextFileReader {
@@ -33,21 +33,11 @@ public class TextFileReader {
 			splitParagraph = line.split("#");
 			scanner1.close();
 			scanner1=null;
-			//			for (int i = 0; i < splitParagraph.length; i++) {
-			//				System.out.println(splitParagraph[i]);
-			//			}
 		} catch (Exception ex) {
 		}
 		return splitParagraph;
 	}
 
-	//<<<<<<< HEAD
-	//	public static void main(String[] args) throws IOException {
-	//		TextFileReader reader = new TextFileReader();
-	//		// reader.readText("files/testscript.txt");
-	//		reader.read("files/testscript.txt");
-	//	}
-	//=======
 	public String[] readChapters(String filepath) throws IOException {
 		String[] splitChapter = null;
 		try {

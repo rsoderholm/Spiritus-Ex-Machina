@@ -31,8 +31,7 @@ public class FileTranslator {
 	 * @throws IOException
 	 */
 	public String[] readChapter(String chapter) throws IOException {
-		return fileReader.readChapters("files/" + chapter + ".txt");
-		//		return currentChapter;
+		return fileReader.readChapters("files/" + chapter + "/" + chapter + ".txt");
 	}
 
 	/**
@@ -41,10 +40,10 @@ public class FileTranslator {
 	 * @param nav
 	 *            the name of the specific file.
 	 */
-	public void addToNav(String nav) {
+	public void addToNav(String nav, String chapter) {
 		String[] navigation = null;
 		try {
-			navigation = new TextFileReader().read("files/" + nav + ".txt");
+			navigation = new TextFileReader().read("files/" + chapter + "/" + nav + ".txt");
 		} catch (Exception e) {
 		}
 		char where = Character.toLowerCase(nav.charAt(nav.length()-1));

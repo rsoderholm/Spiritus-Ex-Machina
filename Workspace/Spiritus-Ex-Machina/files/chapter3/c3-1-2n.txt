@@ -1,0 +1,6 @@
+After an exaustingly long search of the apartment, you're finally able to confirm that there are no
+biosigns on any of the floors. Just as you are about to call in an 'all clear' to Captin Briggs
+personal communicator, you notice something odd. One of the robots in that workshop looks
+familiar.#
+(..I should call in the 'all clear' to Captin Briggs..)#
+c3-1-3n
