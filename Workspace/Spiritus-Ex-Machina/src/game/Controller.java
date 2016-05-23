@@ -314,16 +314,16 @@ public class Controller {
 	}
 
 	public void abilityCheck(String[] stringArray) {
-		if (StatDice.rollDice(player.retrieveStats(stringArray[3], stringArray[4])) > 3) {
+		if (StatDice.rollDice(player.retrieveStats(stringArray[4], stringArray[5])) > Integer.parseInt(stringArray[1])) {
 			// String[] success = {"Test was Successful!", "Continue",
 			// stringArray[1]};
 			// setupDialog(success);
-			navigation(stringArray[1]);
+			navigation(stringArray[2]);
 		} else {
 			// String[] failure = {"Test was unsuccessful!", "Continue",
 			// stringArray[2]};
 			// setupDialog(failure);
-			navigation(stringArray[2]);
+			navigation(stringArray[3]);
 		}
 	}
 
