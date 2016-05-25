@@ -94,7 +94,6 @@ public class Controller {
 	}
 
 	public void loadGame() {
-		GUI.setVisablity(true);
 		String[] loadedFromFile = translator.loadGame();
 		String[] split = loadedFromFile[2].split(",");
 		int[] stats = new int[9];
