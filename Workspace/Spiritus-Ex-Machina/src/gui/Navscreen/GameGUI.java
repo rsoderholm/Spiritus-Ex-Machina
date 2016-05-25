@@ -16,6 +16,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -218,8 +220,9 @@ public class GameGUI {
 				final int n = Math.round(length * (float) frac);
 				Evtext.setText(eventText.substring(0, n));
 			}
-
+			
 		};
+		
 		animation.play();
 	}
 
@@ -265,7 +268,7 @@ public class GameGUI {
 		pane.setRight(vbRight);
 		
 		scene = new Scene(pane, widthScreen, heightScreen);
-		scene.getStylesheets().add("StyleSheet.css");
+		scene.getStylesheets().add("Menustylesheet.css");
 
 		buttonHandler();
 
@@ -616,16 +619,17 @@ public class GameGUI {
 		// Knappar
 
 		button1 = new Button("");
-		button1.setMaxWidth(width);
+		button1.setMaxWidth(200);
 
 		button2 = new Button("");
-		button2.setMaxWidth(width);
+		button2.setMaxWidth(200);
 
 		button3 = new Button("");
-		button3.setMaxWidth(width);
+		button3.setMaxWidth(200);
 
 		button4 = new Button("");
-		button4.setMaxWidth(width);
+		button4.setMaxWidth(200);
+	
 	}
 
 	/**
@@ -635,12 +639,16 @@ public class GameGUI {
 
 		Evtext = new Text();
 		Evtext.setWrappingWidth(width);
-		Evtext.setFont(new Font(20));
+		Evtext.setFont(new Font(65));
 
-		Evtext.setTextAlignment(TextAlignment.JUSTIFY);
+		Evtext.setTextAlignment(TextAlignment.CENTER);
 		// Evtext.setText(eventText);
-		Evtext.setFill(Color.WHITE);
-
+	    DropShadow dropShadow = new DropShadow();
+        dropShadow.setColor(Color.DODGERBLUE);
+        dropShadow.setRadius(25);
+        dropShadow.setSpread(0.25);
+        dropShadow.setBlurType(BlurType.GAUSSIAN);
+        Evtext.setEffect(dropShadow);
 	}
 
 	/**
@@ -663,12 +671,34 @@ public class GameGUI {
 		buttonInv.setMaxWidth(200);
 		
 	}
-
+/**
+ * AddMenuButton initaites the menu.
+ */
 	public void addMenuButton() {
 		buttonMenu = new Button("Menu");
 		buttonMenu.setMaxHeight(600);
 		buttonMenu.setMaxWidth(200);
 		
+	}
+	
+	public void setVisablity( boolean visablity){
+		iv1.setVisible(visablity);
+		buttonInv.setVisible(visablity);
+		buttonMenu.setVisible(visablity);
+		buttonattr.setVisible(visablity);
+		
+		if(visablity ==true){
+			scene.getStylesheets().add("StyleSheet.css");
+		
+			button1.setMaxWidth(width);
+			button2.setMaxWidth(width);
+			button3.setMaxWidth(width);
+			button4.setMaxWidth(width);
+			Evtext.setFont(new Font(25));
+			Evtext.setTextAlignment(TextAlignment.JUSTIFY);
+			Evtext.setFill(Color.WHITE);
+			
+		}
 	}
 
 	/**
@@ -776,6 +806,7 @@ public class GameGUI {
 	 *            The next dialog text.
 	 */
 	public void setDialog(String dialog, int n, String navKey) {
+		
 		if (dialog != null)
 			switch (n) {
 			case 1:

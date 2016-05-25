@@ -39,11 +39,12 @@ public class Controller {
 	public Controller() {
 		translator = new FileTranslator(this);
 		GUI = new GameGUI(this);
+		GUI.setVisablity(false);
 		standardNavigation();
 
 		File f = new File("save/SeMsave");
 		if (f.exists() && !f.isDirectory()) {
-			String[] startUp = { "Welcome to Spiritus Ex Machina", "Start New Game", "startNewGame", "Load Game",
+			String[] startUp = { "Spiritus Ex Machina", "Start New Game", "startNewGame", "Load Game",
 					"loadGame", "Exit Game", "exit" };
 			setupDialog(startUp);
 		} else {
@@ -77,6 +78,7 @@ public class Controller {
 		changeChapter("chapter3");
 		startNewChapter();
 		GUI.setItemsGui(itemChoice);
+		GUI.setVisablity(true);
 	}
 
 	public void menu() {
@@ -223,6 +225,7 @@ public class Controller {
 	public void setupDialog(String[] dialog) {
 		getGUI().disableButtons();
 		getGUI().setEventText(dialog[0]);
+		
 		for (int i = 1; i < dialog.length; i += 2) {
 			try {
 				getGUI().setDialog(dialog[i], i, dialog[i + 1]);
@@ -231,6 +234,7 @@ public class Controller {
 			}
 			;
 		}
+		
 	}
 
 	/**

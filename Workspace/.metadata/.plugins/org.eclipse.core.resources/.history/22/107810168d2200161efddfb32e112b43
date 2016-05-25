@@ -1,0 +1,908 @@
+/*
+ * GameGui
+ * V2.0
+ * Date: 20160428 
+ * Author: Ludwig Ninn 
+ */
+package gui.Navscreen;
+
+import character.Player;
+import game.Controller;
+import javafx.animation.Animation;
+import javafx.animation.Transition;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.scene.paint.Color;
+
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+
+/**
+ * 
+ * Class GameGui is the graphical user interface. Communicates with the
+ * Controller class for graphical updates the will represent the state of the
+ * game.
+ *
+ */
+public class GameGUI {
+
+
+	private VBox vbLeft;
+	private VBox vbRight;
+	private BorderPane pane;
+	private Stage window;
+	private Scene scene;
+	
+	private boolean showinv;
+	private boolean showattr;
+	private Button buttonattr;
+	private GridPane gridInventory;
+	private GridPane gridAttribute;
+	
+	private Label labelPlasmaBeam;
+	private ImageView ivPlasmaBeam;
+	private String attributesPlasmaBeam;
+	private Image imagePlasmaBeam;
+	
+	private Label labelBoot;
+	private ImageView ivBoot;
+	private String attributesBoot;
+	private Image imageBoot;
+	
+	private Label labelSheild;
+	private ImageView ivSheild;
+	private String attributesSheild;
+	private Image imageSheild;
+	
+	private Label labellaserMiniGun;
+	private ImageView ivlaserMiniGun;
+	private String attributeslaserMiniGun;
+	private Image imagelaserMiniGun;
+	
+	private Label labelIstream;
+	private ImageView ivIstream;
+	private String attributesIstream;
+	private Image imageIstream;
+	
+	private Label labelVisor;
+	private ImageView ivVisor;
+	private String attributesVisor;
+	private Image imageVisor;
+	
+	
+	
+	
+	
+	
+	private Label labelArmor;
+	private ImageView ivArmor;
+	private String attributesArmor;
+	private Image imageArmor;
+	
+	private Label labelGun;
+	private ImageView ivGun;
+	private String attributesGun;
+	private Image imageGun;
+	
+	private Label labelBioGel;
+	private ImageView ivBioGel;
+	private String attributesBioGel;
+	private Image imageBioGel;
+	
+	private Label labelMelee;
+	private ImageView ivMelee;
+	private String attributesMelee;
+	private Image imageMelee;
+	
+	private Label labelInt;
+	private ImageView ivInt;
+	private int inte;
+	private String attributesInt;
+	private Image imageInt;
+	
+	private Label labelStr;
+	private ImageView ivStr;
+	private int str;
+	private String attributesStr;
+	private Image imageStr;
+	
+	private Label labelPre;
+	private ImageView ivPre;
+	private int pre;
+	private String attributesPre;
+	private Image imagePre;
+	
+	private Label labelWit;
+	private ImageView ivWit;
+	private int wit;
+	private String attributesWit;
+	private Image imageWit;
+	
+	private Label labelDex;
+	private ImageView ivDex;
+	private int dex;
+	private String attributesDex;
+	private Image imageDex;
+	
+	private Label labelMani;
+	private ImageView ivMani;
+	private int mani;
+	private String attributesMani;
+	private Image imageMani;
+	
+	private Label labelRes;
+	private ImageView ivRes;
+	private int res;
+	private String attributesRes;
+	private Image imageRes;
+	
+	private Label labelSta;
+	private ImageView ivSta;
+	private int sta;
+	private String attributesSta;
+	private Image imageSta;
+	
+	private Label labelComp;
+	private ImageView ivComp;
+	private int comp;
+	private String attributesComp;
+	private Image imageComp;
+
+	private Text Evtext;
+	private Text statusText;
+	private Animation animation;
+	private Button buttonInv;
+	private Button button1;
+	private Button button2;
+	private Button button3;
+	private Button button4;
+	private Button buttonMenu;
+
+	private String eventText;
+	private double width;
+	private ImageView iv1;
+	private Image image;
+	private Rectangle2D bounds;
+	private double widthScreen;
+	private double heightScreen;
+	private String altOne;
+	private String altTwo;
+	private String altThree;
+	private String altFour;
+	private Controller controller;
+	private Player player;
+	private int itemChoice;
+
+	public GameGUI(Controller controller) {
+		this.controller = controller;
+		window = new Stage();
+		checkScreenBounds();
+		addImage();
+		addText();
+		addButton();
+		addHealth();
+		addinventoryButton();
+		addMenuButton();
+		addAttributeWindow();
+		addInventoryWindow();
+		addMainWindow();
+
+	}
+
+	/**
+	 * TextAnimation pauses the text in a cycle so it seems that the text is
+	 * being typed in.
+	 */
+	public void textAnimation() {
+		animation = new Transition() {
+			{
+
+				setCycleDuration(Duration.millis(2000));
+			}
+
+			protected void interpolate(double frac) {
+				final int length = eventText.length();
+				final int n = Math.round(length * (float) frac);
+				Evtext.setText(eventText.substring(0, n));
+			}
+			
+		};
+		
+		animation.play();
+	}
+
+	/**
+	 * CheckScreenBounds checks the width och height of the screen to determine
+	 * if is under 1600 px wish if it is, the screen is decreased to fit the
+	 * size.
+	 */
+	public void checkScreenBounds() {
+		bounds = Screen.getPrimary().getVisualBounds();
+		widthScreen = bounds.getWidth();
+		heightScreen = bounds.getHeight();
+
+		if (widthScreen < 1600) {
+			width = 600;
+		} else
+			width = 1200;
+	}
+
+	/**
+	 * AddMainWindow renders the main node of the game from the other nodes.
+	 * Also reduces the size of game graphics if the screenbound is less then
+	 * 1600px.
+	 */
+	public void addMainWindow() {
+
+		vbLeft = new VBox();
+		vbLeft.getChildren().addAll(gridAttribute);
+		vbLeft.setAlignment(Pos.CENTER);
+		vbLeft.setVisible(false);
+
+		vbRight = new VBox();
+		vbRight.getChildren().addAll(gridInventory);
+		vbRight.setAlignment(Pos.CENTER);
+		vbRight.setVisible(false);
+
+		VBox center = new VBox();
+		center.getChildren().addAll(iv1, Evtext, button1, button2, button3, button4, buttonInv, buttonattr, buttonMenu);
+		center.setAlignment(Pos.CENTER);
+		pane = new BorderPane();
+		pane.setCenter(center);
+		pane.setLeft(vbLeft);
+		pane.setRight(vbRight);
+		
+		scene = new Scene(pane, widthScreen, heightScreen);
+		scene.getStylesheets().add("Menustylesheet.css");
+
+		buttonHandler();
+
+		if (widthScreen < 1600) {
+			button1.setStyle("-fx-font: 12 arial");
+			button2.setStyle("-fx-font: 12 arial");
+			button3.setStyle("-fx-font: 12 arial");
+			button4.setStyle("-fx-font: 12 arial");
+			buttonInv.setStyle("-fx-font: 12 arial");
+			buttonattr.setStyle("-fx-font: 12 arial");
+			Evtext.setFont(new Font(12));
+			;
+			iv1.setFitHeight(200);
+		}
+		window.setResizable(false);
+		window.setScene(scene);
+		window.setFullScreen(true);
+		window.show();
+	}
+
+	/**
+	 * AddAttriuteWindow renders the attributeWindow with the players currents
+	 * stats.
+	 */
+	public void addAttributeWindow() {
+
+		buttonattr = new Button("Attributes");
+		buttonattr.setMaxWidth(200);
+		
+
+		inte = controller.getPlayer().getIntelligence();
+		str = controller.getPlayer().getStrength();
+		pre = controller.getPlayer().getPresence();
+		wit = controller.getPlayer().getWits();
+		dex = controller.getPlayer().getDexterity();
+		mani = controller.getPlayer().getManipulation();
+		res = controller.getPlayer().getResolve();
+		sta = controller.getPlayer().getStamina();
+		comp = controller.getPlayer().getComposure();
+
+		gridAttribute = new GridPane();
+		gridAttribute.prefHeight(700);
+		gridAttribute.prefWidth(300);
+		gridAttribute.setHgap(0);
+		gridAttribute.setVgap(0);
+		gridAttribute.setPadding(new Insets(0, 10, 0, 10));
+
+		// Intelligence
+		imageInt = new Image("int.png");
+		ivInt = new ImageView();
+		ivInt.setImage(imageInt);
+		ivInt.setFitWidth(50);
+		ivInt.setFitHeight(50);
+		attributesInt = "Intelligence: " + inte;
+		labelInt = new Label(attributesInt, ivInt);
+		labelInt.setMinWidth(300);
+
+		// Strength
+		imageStr = new Image("str.png");
+		ivStr = new ImageView();
+		ivStr.setImage(imageStr);
+		ivStr.setFitWidth(50);
+		ivStr.setFitHeight(50);
+		attributesStr = "Strength: " + str;
+		labelStr = new Label(attributesStr, ivStr);
+		labelStr.setMinWidth(300);
+
+		// Presence
+		imagePre = new Image("pre.png");
+		ivPre = new ImageView();
+		ivPre.setImage(imagePre);
+		ivPre.setFitWidth(50);
+		ivPre.setFitHeight(50);
+		attributesPre = "Presence: " + pre;
+		labelPre = new Label(attributesPre, ivPre);
+		labelPre.setMinWidth(300);
+
+		// Wits
+		imageWit = new Image("wit.png");
+		ivWit = new ImageView();
+		ivWit.setImage(imageWit);
+		ivWit.setFitWidth(50);
+		ivWit.setFitHeight(50);
+		attributesWit = "Wits: " + wit;
+		labelWit = new Label(attributesWit, ivWit);
+		labelWit.setMinWidth(300);
+
+		// Dexterity
+		imageDex = new Image("dex.png");
+		ivDex = new ImageView();
+		ivDex.setImage(imageDex);
+		ivDex.setFitWidth(50);
+		ivDex.setFitHeight(50);
+		attributesDex = "Dexterity: " + dex;
+		labelDex = new Label(attributesDex, ivDex);
+		labelDex.setMinWidth(300);
+
+		// Manipulation
+		imageMani = new Image("mani.png");
+		ivMani = new ImageView();
+		ivMani.setImage(imageMani);
+		ivMani.setFitWidth(50);
+		ivMani.setFitHeight(50);
+		attributesMani = "Manipulation: " + mani;
+		labelMani = new Label(attributesMani, ivMani);
+		labelMani.setMinWidth(300);
+
+		// Resolve
+		imageRes = new Image("res.png");
+		ivRes = new ImageView();
+		ivRes.setImage(imageRes);
+		ivRes.setFitWidth(50);
+		ivRes.setFitHeight(50);
+		attributesRes = "Resolve: " + res;
+		labelRes = new Label(attributesRes, ivRes);
+		labelRes.setMinWidth(300);
+
+		/// Stamina
+		imageSta = new Image("sta.png");
+		ivSta = new ImageView();
+		ivSta.setImage(imageSta);
+		ivSta.setFitWidth(50);
+		ivSta.setFitHeight(50);
+		attributesSta = "Stamina: " + sta;
+		labelSta = new Label(attributesSta, ivSta);
+		labelSta.setMinWidth(300);
+		// // Composure
+		imageComp = new Image("comp.png");
+		ivComp = new ImageView();
+		ivComp.setImage(imageComp);
+		ivComp.setFitWidth(50);
+		ivComp.setFitHeight(50);
+		attributesComp = "Composure: " + comp;
+		labelComp = new Label(attributesComp, ivComp);
+		labelComp.setMinWidth(300);
+
+		// "Composure: " + comp
+
+		gridAttribute.add(labelStr, 1, 0);
+		gridAttribute.add(labelInt, 1, 1);
+		gridAttribute.add(labelPre, 1, 2);
+		gridAttribute.add(labelWit, 1, 3);
+		gridAttribute.add(labelDex, 1, 4);
+		gridAttribute.add(labelMani, 1, 5);
+		gridAttribute.add(labelRes, 1, 6);
+		gridAttribute.add(labelSta, 1, 7);
+		gridAttribute.add(labelComp, 1, 8);
+		gridAttribute.add(statusText, 1, 9);
+	
+	}
+
+	/**
+	 * AddInventoryWindow renders the current inventory choosen by the player.
+	 */
+	public void addInventoryWindow() {
+		gridInventory = new GridPane();
+		gridInventory.prefHeight(700);
+		gridInventory.prefWidth(300);
+		gridInventory.setHgap(0);
+		gridInventory.setVgap(0);
+		gridInventory.setPadding(new Insets(0, 10, 0, 10));
+	
+				imagePlasmaBeam = new Image("doge.jpeg");
+				ivPlasmaBeam = new ImageView();
+				ivPlasmaBeam.setImage(imagePlasmaBeam);
+				ivPlasmaBeam.setFitWidth(50);
+				ivPlasmaBeam.setFitHeight(50);
+				attributesPlasmaBeam = "Such WoW ";
+				labelPlasmaBeam = new Label(attributesPlasmaBeam, ivPlasmaBeam);
+				labelPlasmaBeam.setMinWidth(300);
+
+				imageBoot = new Image("doge.jpeg");
+				ivBoot = new ImageView();
+				ivBoot.setImage(imageBoot);
+				ivBoot.setFitWidth(50);
+				ivBoot.setFitHeight(50);
+				attributesBoot = "Such WoW ";
+				labelBoot = new Label(attributesBoot, ivBoot);
+				labelBoot.setMinWidth(300);
+
+				imageBioGel = new Image("doge.jpeg");
+				ivBioGel = new ImageView();
+				ivBioGel.setImage(imageBioGel);
+				ivBioGel.setFitWidth(50);
+				ivBioGel.setFitHeight(50);
+				attributesBioGel = "Such WoW ";
+				labelBioGel = new Label(attributesBioGel, ivBioGel);
+				labelBioGel.setMinWidth(300);
+
+				imageMelee = new Image("doge.jpeg");
+				ivMelee = new ImageView();
+				ivMelee.setImage(imageMelee);
+				ivMelee.setFitWidth(50);
+				ivMelee.setFitHeight(50);
+				attributesMelee = "Such WoW ";
+				labelMelee = new Label(attributesMelee, ivMelee);
+				labelMelee.setMinWidth(300);
+
+				gridInventory.add(labelBoot, 1, 0);
+				gridInventory.add(labelPlasmaBeam, 1, 1);
+				gridInventory.add(labelBioGel, 1, 2);
+				gridInventory.add(labelMelee, 1, 3);
+
+		}
+	
+	
+	public void setItemsGui(int choice){
+
+	
+		
+		switch (choice) {
+		case 1:
+			imagePlasmaBeam = new Image("PlasmaBeam.png");
+			ivPlasmaBeam = new ImageView();
+			ivPlasmaBeam.setImage(imagePlasmaBeam);
+			ivPlasmaBeam.setFitWidth(50);
+			ivPlasmaBeam.setFitHeight(50);
+			attributesPlasmaBeam = "PlasmaBeam";
+			labelPlasmaBeam = new Label(attributesPlasmaBeam, ivPlasmaBeam);
+			labelPlasmaBeam.setMinWidth(300);
+
+			imageBoot = new Image("boot.png");
+			ivBoot = new ImageView();
+			ivBoot.setImage(imageBoot);
+			ivBoot.setFitWidth(50);
+			ivBoot.setFitHeight(50);
+			attributesBoot = "Mechanical augmentation";
+			labelBoot = new Label(attributesBoot, ivBoot);
+			labelBoot.setMinWidth(300);
+
+			imageBioGel = new Image("stim.png");
+			ivBioGel = new ImageView();
+			ivBioGel.setImage(imageBioGel);
+			ivBioGel.setFitWidth(50);
+			ivBioGel.setFitHeight(50);
+			attributesBioGel = "Bio-gel: " + controller.getPlayer().getMedGel();
+			labelBioGel = new Label(attributesBioGel, ivBioGel);
+			labelBioGel.setMinWidth(300);
+
+			imageMelee = new Image("melee.png");
+			ivMelee = new ImageView();
+			ivMelee.setImage(imageMelee);
+			ivMelee.setFitWidth(50);
+			ivMelee.setFitHeight(50);
+			attributesMelee = "Titanium knife: ";
+			labelMelee = new Label(attributesMelee, ivMelee);
+			labelMelee.setMinWidth(300);
+
+			gridInventory.add(labelBoot, 1, 0);
+			gridInventory.add(labelPlasmaBeam, 1, 1);
+			gridInventory.add(labelBioGel, 1, 2);
+			gridInventory.add(labelMelee, 1, 3);
+			break;
+		case 2:
+			imagelaserMiniGun = new Image("laserminigun.png");
+			ivlaserMiniGun = new ImageView();
+			ivlaserMiniGun.setImage(imagelaserMiniGun);
+			ivlaserMiniGun.setFitWidth(50);
+			ivlaserMiniGun.setFitHeight(50);
+			attributeslaserMiniGun = "laserMiniGun";
+			labellaserMiniGun = new Label(attributeslaserMiniGun, ivlaserMiniGun);
+			labellaserMiniGun.setMinWidth(300);
+			
+			imageSheild = new Image("sheild.png");
+			ivSheild = new ImageView();
+			ivSheild.setImage(imageSheild);
+			ivSheild.setFitWidth(50);
+			ivSheild.setFitHeight(50);
+			attributesSheild = "Sheild";
+			labelSheild = new Label(attributesSheild, ivSheild);
+			labelSheild.setMinWidth(300);
+			
+			imageArmor = new Image("armor.png");
+			ivArmor = new ImageView();
+			ivArmor.setImage(imageArmor);
+			ivArmor.setFitWidth(50);
+			ivArmor.setFitHeight(50);
+			attributesArmor = "Aegis Heavy Body Armor";
+			labelArmor = new Label(attributesArmor, ivArmor);
+			labelArmor.setMinWidth(300);
+			
+			imageBioGel = new Image("stim.png");
+			ivBioGel = new ImageView();
+			ivBioGel.setImage(imageBioGel);
+			ivBioGel.setFitWidth(50);
+			ivBioGel.setFitHeight(50);
+			attributesBioGel = "Bio-gel: " + controller.getPlayer().getMedGel();
+			labelBioGel = new Label(attributesBioGel, ivBioGel);
+			labelBioGel.setMinWidth(300);
+			
+			gridInventory.add(labelArmor, 1, 0);
+			gridInventory.add(labelSheild, 1, 1);
+			gridInventory.add(labelBioGel, 1, 2);
+			gridInventory.add(labellaserMiniGun, 1, 3);
+			break;
+		case 3:
+			
+			imageGun = new Image("gun.png");
+			ivGun = new ImageView();
+			ivGun.setImage(imageGun);
+			ivGun.setFitWidth(50);
+			ivGun.setFitHeight(50);
+			attributesGun = "M-5 Phalanx ";
+			labelGun = new Label(attributesGun, ivGun);
+			labelGun.setMinWidth(300); 
+			
+			imageBioGel = new Image("stim.png");
+			ivBioGel = new ImageView();
+			ivBioGel.setImage(imageBioGel);
+			ivBioGel.setFitWidth(50);
+			ivBioGel.setFitHeight(50);
+			attributesBioGel = "Bio-gel: " + controller.getPlayer().getMedGel();
+			labelBioGel = new Label(attributesBioGel, ivBioGel);
+			labelBioGel.setMinWidth(300);
+			
+			imageIstream = new Image("Istream.png");
+			ivIstream = new ImageView();
+			ivIstream.setImage(imageIstream);
+			ivIstream.setFitWidth(50);
+			ivIstream.setFitHeight(50);
+			attributesIstream = "Istream";
+			labelIstream = new Label(attributesIstream, ivIstream);
+			labelIstream.setMinWidth(300);
+			
+			imageVisor = new Image("visor.png");
+			ivVisor = new ImageView();
+			ivVisor.setImage(imageVisor);
+			ivVisor.setFitWidth(50);
+			ivVisor.setFitHeight(50);
+			attributesVisor = "Visor " ;
+			labelVisor = new Label(attributesVisor, ivVisor);
+			labelVisor.setMinWidth(300);
+			
+			gridInventory.add(labelVisor, 1, 0);
+			gridInventory.add(labelGun, 1, 1);
+			gridInventory.add(labelBioGel, 1, 2);
+			gridInventory.add(labelIstream, 1, 3);
+			break;
+		}
+		
+	}
+
+	/**
+	 * AddButton initiates the dialogbuttons and sets there size after the
+	 * current pixel size.
+	 */
+	public void addButton() {
+		// Knappar
+
+		button1 = new Button("");
+		button1.setMaxWidth(200);
+
+		button2 = new Button("");
+		button2.setMaxWidth(200);
+
+		button3 = new Button("");
+		button3.setMaxWidth(200);
+
+		button4 = new Button("");
+		button4.setMaxWidth(200);
+	}
+
+	/**
+	 * AddText is responsible for the rendering of the eventText.
+	 */
+	public void addText() {
+
+		Evtext = new Text();
+		Evtext.setWrappingWidth(width);
+		Evtext.setFont(new Font(65));
+
+		Evtext.setTextAlignment(TextAlignment.CENTER);
+		// Evtext.setText(eventText);
+		Evtext.setFill(Color.WHITE);
+
+	}
+
+	/**
+	 * AddImage initiates the image for the eventImage.
+	 */
+	public void addImage() {
+		image = new Image("JWET8.jpg");
+		iv1 = new ImageView();
+		iv1.setImage(image);
+		iv1.setFitWidth(width);
+
+	}
+
+	/**
+	 * AddInventoryButton initiates inventory button.
+	 */
+	public void addinventoryButton() {
+		buttonInv = new Button("Inventory");
+		buttonInv.setMaxHeight(600);
+		buttonInv.setMaxWidth(200);
+		
+	}
+/**
+ * AddMenuButton initaites the menu.
+ */
+	public void addMenuButton() {
+		buttonMenu = new Button("Menu");
+		buttonMenu.setMaxHeight(600);
+		buttonMenu.setMaxWidth(200);
+		
+	}
+	
+	public void setVisablity( boolean visablity){
+		iv1.setVisible(visablity);
+		buttonInv.setVisible(visablity);
+		buttonMenu.setVisible(visablity);
+		buttonattr.setVisible(visablity);
+		
+		if(visablity ==true){
+			scene.getStylesheets().add("StyleSheet.css");
+		
+			button1.setMaxWidth(width);
+			button2.setMaxWidth(width);
+			button3.setMaxWidth(width);
+			button4.setMaxWidth(width);
+			
+			Evtext.setTextAlignment(TextAlignment.JUSTIFY);
+			
+		}
+	}
+
+	/**
+	 * AddHealth renders the health of the player to the screen.
+	 */
+	public void addHealth() {
+
+		statusText = new Text();
+		statusText.setFont(new Font(40));
+		statusText.setTextAlignment(TextAlignment.CENTER);
+		statusText.setFill(Color.GREEN);
+		statusText.setWrappingWidth(300);
+		statusText.setText(
+				"Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
+	}
+
+	/**
+	 * ChangesHealth changes the health when the player takes damage. It also
+	 * scales with colors when the player reaches lower health points.
+	 */
+	public void changeHealth() {
+		statusText.setText(
+				"Healthpoints: " + controller.getPlayer().getHealth() + "/" + controller.getPlayer().getMaxhealth());
+		statusText.setFill(Color.GREEN);
+		if ((float) 0.66 >= (float) controller.getPlayer().getHealth()
+				/ (float) controller.getPlayer().getMaxhealth()) {
+			statusText.setFill(Color.ORANGE);
+		}
+		if ((float) 0.33 >= (float) controller.getPlayer().getHealth()
+				/ (float) controller.getPlayer().getMaxhealth()) {
+			statusText.setFill(Color.RED);
+		}
+
+	}
+
+	/**
+	 * SetMedGels updates the Bio-gel count.
+	 */
+	public void setMedGels() {
+		labelBioGel.setText("Bio-gel: " + controller.getPlayer().getMedGel());
+	}
+
+	/**
+	 * SetAttributes updates the Attributes.
+	 */
+	public void setAttributes() {
+		inte = controller.getPlayer().getIntelligence();
+		str = controller.getPlayer().getStrength();
+		pre = controller.getPlayer().getPresence();
+		wit = controller.getPlayer().getWits();
+		dex = controller.getPlayer().getDexterity();
+		mani = controller.getPlayer().getManipulation();
+		res = controller.getPlayer().getResolve();
+		sta = controller.getPlayer().getStamina();
+		comp = controller.getPlayer().getComposure();
+
+		attributesInt = "Intelligence: " + inte;
+		labelInt.setText(attributesInt);
+
+		attributesStr = "Strength: " + str;
+		labelStr.setText(attributesStr);
+
+		attributesPre = "Presence: " + pre;
+		labelPre.setText(attributesPre);
+
+		attributesWit = "Wits: " + wit;
+		labelWit.setText(attributesWit);
+
+		attributesDex = "Dexterity: " + dex;
+		labelDex.setText(attributesDex);
+
+		attributesMani = "Manipulation: " + mani;
+		labelMani.setText(attributesMani);
+
+		attributesRes = "Resolve: " + res;
+		labelRes.setText(attributesRes);
+
+		attributesSta = "Stamina: " + sta;
+		labelSta.setText(attributesMani);
+
+		attributesComp = "Composure: " + comp;
+		labelComp.setText(attributesComp);
+	}
+
+	/**
+	 * SetEventText updates the eventtext and animtes it in.
+	 * 
+	 * @param txt
+	 *            Next eventText.
+	 */
+	public void setEventText(String txt) {
+		this.eventText = txt;
+		Evtext.setText(eventText);
+		textAnimation();
+	}
+
+	/**
+	 * SetDialog updates the dialog buttons.
+	 * 
+	 * @param dialog
+	 *            The text on the dialog.
+	 * @param n
+	 *            The dialog choices.
+	 * @param navKey
+	 *            The next dialog text.
+	 */
+	public void setDialog(String dialog, int n, String navKey) {
+		if (dialog != null)
+			switch (n) {
+			case 1:
+				button1.setDisable(false);
+				button1.setText(dialog);
+				altOne = navKey;
+				break;
+			case 3:
+				button2.setDisable(false);
+				button2.setText(dialog);
+				altTwo = navKey;
+				break;
+			case 5:
+				button3.setDisable(false);
+				button3.setText(dialog);
+				altThree = navKey;
+				break;
+			case 7:
+				button4.setDisable(false);
+				button4.setText(dialog);
+				altFour = navKey;
+				break;
+			}
+	}
+
+	/**
+	 * SetImage updates the current EventImage.
+	 */
+	public void setImage(String img) {
+		image = new Image(img);
+		iv1.setImage(image);
+	}
+
+	/**
+	 * DiableButtons hides the buttons.
+	 */
+	public void disableButtons() {
+		button1.setText("");
+		button2.setText("");
+		button3.setText("");
+		button4.setText("");
+		altOne = null;
+		altTwo = null;
+		altThree = null;
+		altFour = null;
+		button1.setDisable(true);
+		button2.setDisable(true);
+		button3.setDisable(true);
+		button4.setDisable(true);
+	}
+
+	/**
+	 * ButtonHandler works as the brige between the controller class and sends
+	 * the next dialog order for the controller.
+	 */
+	public void buttonHandler() {
+
+		button1.setOnAction(e -> {
+			controller.navigation(altOne);
+		});
+
+		button2.setOnAction(e -> {
+			controller.navigation(altTwo);
+		});
+
+		button3.setOnAction(e -> {
+			controller.navigation(altThree);
+		});
+
+		button4.setOnAction(e -> {
+			controller.navigation(altFour);
+		});
+		buttonMenu.setOnAction(e -> {
+			try {
+				controller.menu();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+
+		buttonattr.setOnAction(e -> {
+			if (showattr == false) {
+				showattr = true;
+				vbLeft.setVisible(showattr);
+				setAttributes();
+			} else if (showattr == true) {
+				showattr = false;
+				vbLeft.setVisible(showattr);
+				setAttributes();
+			}
+		});
+
+		buttonInv.setOnAction(e -> {
+			if (showinv == false) {
+				showinv = true;
+				vbRight.setVisible(showinv);
+			} else if (showinv == true) {
+				showinv = false;
+				vbRight.setVisible(showinv);
+			}
+		});
+	}
+
+	public void gainFocus() {
+		window.requestFocus();
+		window.setFullScreen(true);
+	}
+}

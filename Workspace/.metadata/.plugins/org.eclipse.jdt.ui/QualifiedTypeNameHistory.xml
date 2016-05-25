@@ -7,4 +7,6 @@
 <fullyQualifiedTypeName name="javafx.geometry.Insets"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="game.Controller"/>
+<fullyQualifiedTypeName name="javafx.scene.effect.DropShadow"/>
+<fullyQualifiedTypeName name="javafx.scene.effect.BlurType"/>
 </qualifiedTypeNameHistroy>

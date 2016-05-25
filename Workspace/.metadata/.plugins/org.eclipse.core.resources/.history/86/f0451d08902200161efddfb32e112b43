@@ -1,0 +1,43 @@
+.root{
+    -fx-background-image: url("BackgroS1.jpg");
+    -fx-background-size: cover;
+}
+
+.button{
+ -fx-background-color: 
+           -fx-background-color:#000000,
+        linear-gradient(#7ebcea, #2f4b8f),
+        linear-gradient(#426ab7, #263e75),
+        linear-gradient(#395cab, #223768);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+.text-area .content{
+  -fx-background-color: #686868;
+
+
+}
+
+.text-area{
+	 -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 18.0px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    
+    
+
+}
+
+.label {
+    -fx-background-color: #686868;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 18.0px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white
+    ;
+}
+
+
