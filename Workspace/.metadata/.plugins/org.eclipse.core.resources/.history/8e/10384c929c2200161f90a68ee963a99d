@@ -694,7 +694,7 @@ public class GameGUI {
 			button2.setMaxWidth(width);
 			button3.setMaxWidth(width);
 			button4.setMaxWidth(width);
-			Evtext.setFont(new Font(20));
+			Evtext.setFont(new Font(25));
 			Evtext.setTextAlignment(TextAlignment.JUSTIFY);
 			Evtext.setFill(Color.WHITE);
 			

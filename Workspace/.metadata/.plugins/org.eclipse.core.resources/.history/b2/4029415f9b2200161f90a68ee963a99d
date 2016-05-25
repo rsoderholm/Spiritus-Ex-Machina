@@ -75,7 +75,7 @@ public class Controller {
 		GUI.gainFocus();
 		setPlayer(new Player(itemChoice, playerStats));
 		player.applyItemEffect();
-		changeChapter("chapter1");
+		changeChapter("chapter0");
 		startNewChapter();
 		GUI.setItemsGui(itemChoice);
 		GUI.setVisablity(true);
