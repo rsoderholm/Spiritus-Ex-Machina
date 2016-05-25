@@ -24,9 +24,11 @@ public class TextFileReader {
 
 	public String[] read(String filepath) throws IOException {
 		String[] splitParagraph = null;
+		
 		try {
 			Scanner scanner1 = new Scanner(new File(filepath));
 			String line = "";
+			
 			while (scanner1.hasNextLine()) {
 				line += scanner1.nextLine();
 			}
@@ -40,6 +42,7 @@ public class TextFileReader {
 
 	public String[] readChapters(String filepath) throws IOException {
 		String[] splitChapter = null;
+		
 		try {
 			Scanner scanner2 = new Scanner(new File(filepath));
 			String line = "";
