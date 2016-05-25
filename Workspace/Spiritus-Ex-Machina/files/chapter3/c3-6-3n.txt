@@ -1,0 +1,4 @@
+﻿....................
+You wake up on the floor next to the workbench.#
+Continue#
+c3-6-4n
