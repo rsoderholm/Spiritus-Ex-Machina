@@ -1,0 +1,7 @@
+You stand listen to the chaos around you and trying to puzzle things together. Maybe the can reveal a clue on what is going on or where your suspect went. You overhear some officers talking about “releasing the beast and something about a hostage situation in the apartment building across.”#
+“Ask about the situation”#
+c5-3-1-1-n
+Check out the apartment building.#
+c5-3-1-2-n
+“Ignore and carry on”
+c5-3-1-3-n

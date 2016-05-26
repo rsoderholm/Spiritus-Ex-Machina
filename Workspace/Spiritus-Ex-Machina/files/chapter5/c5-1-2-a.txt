@@ -1,0 +1,6 @@
+filenamn#
+diff0-3#
+lyckas# 
+misslyckas#
+stat#
+stat

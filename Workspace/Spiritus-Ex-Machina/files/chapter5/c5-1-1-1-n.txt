@@ -1,0 +1,9 @@
+You take a step back and reach for you gun. You take it out of its safe spot in its holster. You cock the hammer. Before you enter you say to yourself:#
+"Lets see if you bleed"#
+c5-1-1-2-n
+"SUPRISE MOTHERFUCKER!"#
+c5-1-1-2-n
+"Lights out..."#
+c5-1-1-2-n
+"GET AWAY FROM THE DOOR, YOU DAMN DIRTY ANDROID!"#
+c5-1-1-2-n

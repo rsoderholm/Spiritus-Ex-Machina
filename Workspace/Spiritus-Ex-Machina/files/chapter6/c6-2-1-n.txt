@@ -1,0 +1,5 @@
+You start knocking down doors. In the first one, one is home. In the second you find a couple of junkies on the floor passed out. “Not my problem this time…” You continue towards the next door. You stop outside of it. You take a second to breathe and listen. You hear some noise on the other side of the door.#
+Use brute force#
+c6-2-1-1–n
+Sneak#
+c6-2-1-2–a

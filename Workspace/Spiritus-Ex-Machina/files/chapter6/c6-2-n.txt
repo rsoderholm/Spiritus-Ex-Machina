@@ -1,0 +1,9 @@
+You find yourself in front of a long corridor on the second floor. The corridor looks even shittier than the lobby. There are doors all the evenly spaced through the whole corridor. “He must be in here somewhere…” you whisper to yourself.#
+Knock down each door, guns blazing#
+c6-2-1-n
+Knock on each door#
+c6-2-1-n
+Sneak and listen to each door.#
+c6-2-1-n
+Wing it and hope you pick the right one.#
+c5-3-n

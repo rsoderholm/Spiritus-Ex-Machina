@@ -1,0 +1,7 @@
+You enter the building, it stinks of garbage and filth. You take a look around, you can’t find anything that will hold you attention. It looks like any other lobby, but more beaten down. There is a staircase continuing upwards.#
+Continue up towards the next level#
+c6-1-1-n
+“Compliment the place”
+c6-1-2-n
+Listen#
+c6-1-3-n

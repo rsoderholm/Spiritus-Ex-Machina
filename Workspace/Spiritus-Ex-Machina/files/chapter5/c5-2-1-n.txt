@@ -1,0 +1,5 @@
+You start running down the alley after the shadowy figure. The figure zig-zag between disposal bags and garbage cans. He knocks some of them down to try and stop you.#
+Jump over them#
+c5-2-1-1–a
+Stop and walk around them.#
+c5-2-1-2-n

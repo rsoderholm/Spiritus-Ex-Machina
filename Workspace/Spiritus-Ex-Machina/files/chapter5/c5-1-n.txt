@@ -1,0 +1,9 @@
+You walk down the dark and damp alley, the rain has finally stopped. In the other end of the ally you see a beaten down shack. It looks almost like someone tried to build a home out of a dumpster and that’s just sad… even for this part of town. You reach the door. You cast one quick look at the lock and spot that it has clearly been kicked in by force and the closed in a haste.  You take a second to breathe and listen. You hear some noise on the other side of the door.#
+Use brute force#
+c5-1-1-n
+Sneak#
+c5-1-2-n
+Use minimal force#
+c5-1-2-a
+Talk#
+c5-1-4-n

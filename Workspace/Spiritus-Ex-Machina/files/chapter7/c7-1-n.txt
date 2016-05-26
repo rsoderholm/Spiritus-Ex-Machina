@@ -1,0 +1,7 @@
+You subdue the suspect. He lies on the ground by the window inside the apartment. He looks at you. The hostage is nowhere to be seen. You walk over to the body and stand right in front of it.#
+Destroy it and call it a day.#
+c7-1-1-n
+Listen to it.#
+c7-1-2-n
+Call it in and let the officers do their thing.#
+c7-1-3-n

@@ -1,0 +1,7 @@
+You return back into the alley. You see the shadowy figure a bit further ahead.#
+Run after#
+c5-2-1-n
+Scream, aim, fire!#
+c5-2-2-n
+Shoot a quick burst#
+c5-2-3-n

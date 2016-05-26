@@ -1,0 +1,9 @@
+You ask an officer who was running by. “What is going on? Where did you all come from?” The officer look oddly at you and says: “And from witch dumpster did you crawl out? A rouge android has taken a civilian hostage…”#
+"FUCK!"#
+c5-3-1-2-n
+“Where did he take the hostage?”#
+c5-3-1-2-n
+“I have to go!”#
+c5-3-1-2-n
+Say nothing, walk away.
+c5-3-1-2-n

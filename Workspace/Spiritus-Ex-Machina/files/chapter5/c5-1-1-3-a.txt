@@ -1,0 +1,8 @@
+You swear loudly as with all your agility roll to the left and shoot towards the sound.#
+3#
+sn: You fire of three rounds towards the area you heard the sound.  A shadow lunges itself towards the door and continue out through it. You notice three bullet holes in the wall in there are where the shadow had been. You missed all three shoots. “Well that could have gone better….” You stand up, brush of the dust from your clothes and head out through the door back into the alley.#
+c5-2-n
+fn: You fire of three rounds towards the area you heard the sound.  A shadow lunges itself towards the door and continue out through it. You notice three bullet holes in the wall in there are where the shadow had been. You missed all three shoots. “Well that could have gone better….” You stand up, brush of the dust from your clothes and head out through the door back into the alley.#
+c5-2-n
+stat#
+stat

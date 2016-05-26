@@ -1,0 +1,7 @@
+You take you your radio and listen to what the officer has to say: “Sir, we have located the android, he has taken a civilians as hostage, permission to engage?”#
+“Officer, stay down. I’ll be there”#
+c6-1-1-1-3-n
+“You move, you die. Got it!”#
+c6-1-1-1-3-n
+“Knock yourself out officer.”#
+c6-1-1-1-3-n

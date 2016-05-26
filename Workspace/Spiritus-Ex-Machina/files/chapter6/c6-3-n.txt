@@ -1,0 +1,7 @@
+You open the door, you see the suspect sitting with his back turned towards the door. He looks hunched over, like he is looking at something at the floor. You can hear him mutter something to himself but not quite make out what.#
+Assess the situation#
+c6-3-1-n
+Shoot#
+c6-3-2-c
+Sneak up and take him out#
+c6-3-3-a

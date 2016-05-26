@@ -1,0 +1,9 @@
+You head out of the door to the shack. You raise you gun and scream:#
+“Stop, in the name of the law!”#
+c5-2-2-1-n
+“Let’s see you outrun these bullets!”#
+c5-2-2-1-n
+“I’m going to get you"#
+c5-2-2-1-n
+“Not even my wife makes me work this hard!”#
+c5-2-2-1-n

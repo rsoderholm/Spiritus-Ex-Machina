@@ -1,0 +1,7 @@
+You return to the crime scene. Something doesn’t look quite the same as the last time you were here, even thought it was no more than a few moments ago. You see a bunch of officers running around, some talking to the radio and others trying to get civilians to go back home. You hear drones in the background slowly approaching.#
+“Listen and try to figure out what is going on”#
+c5-3-1-n
+“Ask”#
+c5-3-1-1-n
+“Ignore all signs of chaos and carry on”#
+c5-3-3-n

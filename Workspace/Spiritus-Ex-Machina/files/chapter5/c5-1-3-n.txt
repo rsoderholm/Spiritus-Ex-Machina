@@ -1,0 +1,9 @@
+You take a step back and reach for you gun. You take it out of its safe spot in its holster and the stop yourself. Better to save it for later”. Before you enter you whisper to yourself:#
+"Lets do this!"#
+c5-1-3-2-n
+"It's showtime!"#
+c5-1-3-2-n
+"Lights out... BITCH"#
+c5-1-3-2-n
+"Time to find out who this Tin-man is..."#
+c5-1-3-2-n

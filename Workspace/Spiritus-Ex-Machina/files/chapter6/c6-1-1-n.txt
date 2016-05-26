@@ -1,0 +1,9 @@
+You continue towards the stairs. Just as you set your foot on the first step you hear you radio sparking to life. It sounds like an officer talking.#
+"SHUT UP!"#
+c6-1-1-1-n
+Ignore it#
+c6-1-1-2-n
+Listen#
+c6-1-1-3-n
+
+

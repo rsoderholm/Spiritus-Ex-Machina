@@ -1,0 +1,5 @@
+You take a moment to assess the situation, you look around the room. You see the suspect, still with his back at the door. He still hasn’t noticed you. He looks slouched over, like he is looking at something on the floor. You notice that the hostage is on the floor underneath the suspect. They seem to be wrestling over something.#
+Shoot#
+c6-3-2-c
+Sneak up and take him out#
+c6-3-3-a

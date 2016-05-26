@@ -1,0 +1,10 @@
+You kneel down and press you ear against the cold metal of the door. You hear someone muttering behind the door: “It’s not me… It’s not me! I’m innocent... They-y can’t do this…”#
+You hear the metallic sound of someone bumping around with a big piece of metal. Probably a gun. You think it’s best to proceed with caution. You take a step back and reach for you gun. You take it out of its safe spot in its holster. You cock the hammer. Before trying to enter you say loudly:#
+“Open the door! NOW!”#
+c5-1-4-2-n
+“I KNOW YOU ARE IN THERE. OPEN UP LITTLE TIN-MAN.”#
+c5-1-4-2-n
+“Okay blots-for-brains, open the door. I know you’re in there”#
+c5-1-4-2-n
+“I know you’re in there. I’m not trying to hurt you. But you have to let me in.”#
+c5-1-4-2-n
