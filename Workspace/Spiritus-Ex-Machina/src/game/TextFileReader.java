@@ -1,5 +1,13 @@
 package game;
 
+/*
+ * TextFileReader
+ * V1.0
+ * Date: 20160428
+ * Author: Robin Söderholm / Björn Svensson
+ * 
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,12 +24,21 @@ import java.util.Spliterator;
 
 /**
  * 
- * @author Robin SÃ¶derholm
- * @author BjÃ¶rn Svensson
+ * TextFileReader reads the textfiles in which we store the games dialog and chapters.
+ * It's also responsible for saving and loading the game progress.
+ *
  */
 
 public class TextFileReader {
 
+	/**
+	 * 
+	 * This method provides a way to read the textfiles in which we store the game dialog.
+	 * It splits the text at a given token and puts the text in a Stringarray
+	 * 
+	 * 
+	 */
+	
 	public String[] read(String filepath) throws IOException {
 		String[] splitParagraph = null;
 		
@@ -40,6 +57,12 @@ public class TextFileReader {
 		return splitParagraph;
 	}
 
+	/**
+	 * 
+	 * This method provides a way to read the textfiles in which 
+	 * we store the game chapters
+	  */
+	
 	public String[] readChapters(String filepath) throws IOException {
 		String[] splitChapter = null;
 		
@@ -59,6 +82,10 @@ public class TextFileReader {
 
 	}
 
+	/**
+	 * saveToFile saves the players progress in a file
+	 *
+	 */
 	public void saveToFile(int itemChoice, String stats,int health,int medGel, String currentChapter, String currentConversation) throws FileNotFoundException{
 		File dir = new File("save");
 		if(!dir.exists()) {
@@ -80,6 +107,10 @@ public class TextFileReader {
 		}
 	}
 
+	/**
+	 * loadFromFile loads the players progress from a file
+	 * 
+	 */
 	public String[] loadFromFile() {
 		String[] splitLoadFile = null;
 		try {
