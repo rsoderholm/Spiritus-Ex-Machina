@@ -1,5 +1,14 @@
+/*
+ * Character
+ * V1.0
+ * Date: 20160330
+ * Author: Bj�rn Svensson
+ */
 package character;
 
+/*
+ * Abstract class to represent a character in the game
+ */
 public abstract class Character {
 
 	protected int intelligence;
@@ -13,6 +22,9 @@ public abstract class Character {
 	protected int composure;
 	protected int health;
 
+	/**
+	 * Constructor for a basic character with 2 in every attribute
+	 */
 	public Character() {
 		setIntelligence(2);
 		setStrength(2);
@@ -26,6 +38,12 @@ public abstract class Character {
 		setHealth((strength + stamina + resolve) * 2);
 	}
 
+	/**
+	 * Constructor for character with specific stats
+	 * 
+	 * @param stats
+	 *            the specific attributes
+	 */
 	public Character(int[] stats) {
 		setIntelligence(stats[0]);
 		setStrength(stats[1]);

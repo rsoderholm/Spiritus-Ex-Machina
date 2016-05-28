@@ -1,3 +1,9 @@
+/*
+ *  StatDice
+ * V1.0
+ * Date: 20160410
+ * Author: Bj�rn Svensson
+ */
 package game;
 
 import java.util.Random;
