@@ -1,6 +1,6 @@
 blöträv#
 0#
-C2-6-1-sn#
-c2-6-a-fn#
-pres#
+c2-6-1-sn#
+c2-6-1-fn#
+pre#
 man

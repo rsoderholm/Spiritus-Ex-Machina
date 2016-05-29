@@ -1,5 +1,5 @@
 The other officer casts a quick glance around the area. As if to make sure you're really alone. When his eyes settle back on you again you can almost taste the tension in the air#
 [Comp+Pres] Remain silent#
-C2-1-1-a#
+c2-1-1-a#
 [Pres+Manip] Try talking to them#
-C2-1-2-a
+c2-1-2-a
