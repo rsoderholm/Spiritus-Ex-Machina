@@ -526,7 +526,7 @@ public class AttributeGUI {
 		done.setVisible(false);
 	}
 /**
- * Checks if all the attrtibutes has been placed out.
+ * Checks if all the attrtibutes has been placed out.s
  */
 	public void CheckContinue() {
 		if (0 == valuesRemaining) {

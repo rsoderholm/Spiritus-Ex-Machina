@@ -30,8 +30,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
- * Class AttributeGUI is the graphical representation of the attributes that is available for the player too choose.
- * Thesse attributes effects the game in major way from dialog choices to combat.
+ * This comment should contain any class-wide or interface-wide information.
  * 
  */
 public class AttributeGUI {
@@ -87,7 +86,7 @@ public class AttributeGUI {
 	}
 
 	/**
-	 * SetPosValue sets the positive value when the method is called upon with the value that was represented. 
+	 * 
 	 * @param choose
 	 */
 	public void setPosValue(int choose) {
@@ -147,7 +146,7 @@ public class AttributeGUI {
 	}
 
 	/**
-	 * SetNegValue sets the negative value when the method is called upon with the value that was represented. 
+	 * 
 	 * @param choose
 	 */
 	public void setNegValue(int choose) {
@@ -253,9 +252,6 @@ public class AttributeGUI {
 		lblCmpValue = new Label(valueCmp);
 	}
 
-/**
- * SetPlayerValues sets the players final choice for further use.
- */
 	public void setPlayerValues() {
 		stats = new int[9];
 		stats[0] = values1;
@@ -507,6 +503,12 @@ public class AttributeGUI {
 	 */
 	public void bottomPane() {
 
+		/*
+		 * Done-knappen gör inget än. Inom paranteserna på
+		 * "done.setOnAction();" skriver man in att den ska ta användaren
+		 * tillbaka till huvudscenen.
+		 * 
+		 */
 		bottomPane = new HBox();
 		done = new Button("Done");
 		done.setPrefWidth(200);
@@ -525,9 +527,7 @@ public class AttributeGUI {
 		bottomPane.setAlignment(Pos.CENTER);
 		done.setVisible(false);
 	}
-/**
- * Checks if all the attrtibutes has been placed out.
- */
+
 	public void CheckContinue() {
 		if (0 == valuesRemaining) {
 			done.setVisible(true);

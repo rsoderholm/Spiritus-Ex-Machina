@@ -525,9 +525,7 @@ public class AttributeGUI {
 		bottomPane.setAlignment(Pos.CENTER);
 		done.setVisible(false);
 	}
-/**
- * Checks if all the attrtibutes has been placed out.
- */
+
 	public void CheckContinue() {
 		if (0 == valuesRemaining) {
 			done.setVisible(true);
