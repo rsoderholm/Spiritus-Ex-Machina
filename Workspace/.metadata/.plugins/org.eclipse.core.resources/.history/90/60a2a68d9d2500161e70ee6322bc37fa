@@ -45,8 +45,6 @@ public class ItemGUI {
 	
 	private Controller controller;
 
-	//Controller, sets the windowstage, implements a menu accordion and tells witch pane is witch.
-	
 	public ItemGUI(Controller controller) {
 		this.controller = controller;
 		window = new Stage();
@@ -70,7 +68,6 @@ public class ItemGUI {
 		window.show();
 	}
 
-	//the Button handler make sures that the GUIs buttons connect and responds to their right actions	
 	public void buttonHandler() {
 		button1.setOnAction(e -> {
 			inventoryValue = 1;
@@ -90,8 +87,7 @@ public class ItemGUI {
 			window.close();
 		});
 	}
-//The first of three identical panes that is inside of the accordion menu, it has all the readable information about the
-//items items that the player can choose.
+
 	public void runnerPane() {
 		tpRunner = new TitledPane();
 		gridRunner = new GridPane();
@@ -108,9 +104,6 @@ public class ItemGUI {
 		tpRunner.setContent(gridRunner);
 	}
 
-	//The second of three identical panes that is inside of the accordion menu, it has all the readable 
-	//information about the items items that the player can choose.
-	
 	public void judgePane() {
 		tpJudge = new TitledPane();
 		gridJudge = new GridPane();
@@ -126,9 +119,7 @@ public class ItemGUI {
 		tpJudge.setText("Judge");
 		tpJudge.setContent(gridJudge);
 	}
-	//The third of three identical panes that is inside of the accordion menu, it has all the readable 
-	//information about the items items that the player can choose.
-	
+
 	public void hackerPane() {
 		taHacker = new TitledPane();
 		gridHacker = new GridPane();
@@ -146,7 +137,7 @@ public class ItemGUI {
 		taHacker.setText("Hacker");
 		taHacker.setContent(gridHacker);
 	}
-//This returns the value that each of the choices made in the panes in the menu above.
+
 	public int inventoryValue() {
 		return inventoryValue;
 	}
