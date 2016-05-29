@@ -37,7 +37,7 @@ public class Controller {
 	private String firstConversation;
 	private String currentConversation;
 	private String victoryKey;
-
+	private boolean menuActive = false;
 	/**
 	 * Startup for the controller class
 	 * 
@@ -83,9 +83,15 @@ public class Controller {
 	 */
 	public void menu() {
 		if (activeCombat == null) {
-			String[] startUp = new String[] { "Menu", "Resume", currentConversation, "Save Game", "saveGame",
-					"Load Game", "loadGame", "Exit Game", "exit" };
-			setupDialog(startUp);
+			if (!menuActive) {
+				menuActive = true;
+				String[] startUp = new String[] { "Menu", "Start New game", "startNewGame", "Save Game", "saveGame",
+						"Load Game", "loadGame", "Exit Game", "exit" };
+				setupDialog(startUp);
+			} else {
+				menuActive = false;
+				navigation(currentConversation);
+			}
 		} else {
 			GUI.setEventText("Menu is disabled during Combat!");
 		}

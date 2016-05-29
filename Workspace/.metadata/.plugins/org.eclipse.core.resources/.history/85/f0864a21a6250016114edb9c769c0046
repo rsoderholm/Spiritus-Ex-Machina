@@ -1,0 +1,594 @@
+/*
+ * Controller
+ * V2.0
+ * Date: 20160523
+ * Author: Bj�rn Svensson
+ */
+package game;
+
+import character.Npc;
+import character.Player;
+import gui.Navscreen.GameGUI;
+import gui.Navscreen.ItemGUI;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+
+import character.Character;
+
+/**
+ * Controller to handle most of the logic and is the connection between files,
+ * GUI and character classes
+ * 
+ * @author Björn Svensson
+ *
+ */
+public class Controller {
+	private Player player = new Player();
+	private Npc npc;
+	private CombatSituation activeCombat;
+	private GameGUI GUI;
+	private HashMap<String, Runnable> navigation = new HashMap<>();
+	private HashMap<String, String[]> navMap = new HashMap<>();
+	private FileTranslator translator;
+	private String currentChapter;
+	private String firstConversation;
+	private String currentConversation;
+	private String victoryKey;
+	private boolean menuActive = false;
+	/**
+	 * Startup for the controller class
+	 * 
+	 * @throws IOException
+	 */
+	public Controller() {
+		translator = new FileTranslator(this);
+		GUI = new GameGUI(this);
+		GUI.setVisablity(false);
+		standardNavigation();
+
+		File f = new File("save/SeMsave");
+		if (f.exists() && !f.isDirectory()) {
+			String[] startUp = { "Spiritus Ex Machina", "Start New Game", "startNewGame", "Load Game", "loadGame",
+					"Exit Game", "exit" };
+			setupDialog(startUp);
+		} else {
+			String[] startUp = { "Welcome to Spiritus Ex Machina", "Start New Game", "startNewGame", "Exit Game",
+					"exit" };
+			setupDialog(startUp);
+		}
+
+	}
+
+	/**
+	 * input to the hashMaps with basic commands that allways needs to exist.
+	 */
+	private void standardNavigation() {
+		navigation.put("startNewGame", () -> startNewGame());
+		navigation.put("saveGame", () -> {
+			try {
+				save();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		});
+		navigation.put("loadGame", () -> loadGame());
+		navigation.put("exit", () -> System.exit(0));
+	}
+
+	/**
+	 * Method that setups the menu
+	 */
+	public void menu() {
+		if (activeCombat == null) {
+			if (!menuActive) {
+				menuActive = true;
+				String[] startUp = new String[] { "Menu", "Start New game", "startNewGame", "Save Game", "saveGame",
+						"Load Game", "loadGame", "Exit Game", "exit" };
+				setupDialog(startUp);
+			} else {
+				menuActive = false;
+				navigation(currentConversation);
+			}
+		} else {
+			GUI.setEventText("Menu is disabled during Combat!");
+		}
+
+	}
+
+	/**
+	 * Method that starts a new game
+	 */
+	protected void startNewGame() {
+		new ItemGUI(this);
+	}
+
+	/**
+	 * Method that prepares a new game after items and attributes been set
+	 * 
+	 * @param itemChoice
+	 *            the set of items chosen
+	 * @param playerStats
+	 *            the chosen attributes for the player
+	 * @throws IOException
+	 */
+	public void newGameInitiation(int itemChoice, int[] playerStats) throws IOException {
+		GUI.gainFocus();
+		setPlayer(new Player(itemChoice, playerStats));
+		player.applyItemEffect();
+		changeChapter("chapter1");
+		startNewChapter();
+		GUI.setItemsGui(itemChoice);
+		GUI.setVisablity(true);
+	}
+
+	/**
+	 * Method that starts a new chapter
+	 */
+	private void startNewChapter() {
+		navigation(firstConversation);
+	}
+
+	/**
+	 * Method that updates the hashMaps with new conversations.
+	 * 
+	 * @throws IOException
+	 */
+	private void changeChapter(String chapter) throws IOException {
+		navigation.clear();
+		navMap.clear();
+		String[] readChapter = translator.readChapter(chapter);
+		for (int i = 1; i < readChapter.length; i++) {
+			translator.addToNav(readChapter[i], chapter);
+		}
+		currentChapter = chapter;
+		standardNavigation();
+		firstConversation = readChapter[1];
+	}
+
+	/**
+	 * Method that loads a new game an applies the correct information to the
+	 * correct variable.
+	 */
+	public void loadGame() {
+		GUI.setVisablity(true);
+		String[] loadedFromFile = translator.loadGame();
+		String[] split = loadedFromFile[2].split(",");
+		int[] stats = new int[9];
+		for (int i = 0; i < stats.length; i++) {
+			stats[i] = Integer.parseInt(split[i]);
+		}
+		setPlayer(new Player(Integer.parseInt(loadedFromFile[1]), stats));
+		player.setHealth(Integer.parseInt(loadedFromFile[3]));
+		try {
+			changeChapter(loadedFromFile[5]);
+			navigation(loadedFromFile[6]);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		player.setMedGel(Integer.parseInt(loadedFromFile[4]));
+		GUI.setItemsGui(player.getItemChoice());
+	}
+
+	/**
+	 * Method for saving the character
+	 * 
+	 * @throws FileNotFoundException
+	 */
+	public void save() throws FileNotFoundException {
+		translator.save(player.getItemChoice(), player.saveStats(), player.getHealth(), player.getMedGel(),
+				currentChapter, currentConversation);
+		GUI.setEventText("Game has been successfully saved!");
+	}
+
+	/**
+	 * Adds the dialogs to a hashMap
+	 * 
+	 * @param navKey
+	 *            the keyword in the hashMap
+	 * @param dialog
+	 *            the string[] with all information on that conversation and
+	 *            buttons
+	 */
+	public void addConversations(String navKey, String[] dialog) {
+		navMap.put(navKey, dialog);
+	}
+
+	/**
+	 * Addition to the hashMap
+	 * 
+	 * @param key
+	 *            the keyword
+	 * @param value
+	 *            what method to be runned
+	 */
+	public void addNavigation(String key) {
+		navigation.put(key, () -> {
+			this.currentConversation = key;
+			setupDialog(navMap.get(key));
+		});
+	}
+
+	/**
+	 * Addition of a combat to the hashMap
+	 * 
+	 * @param key
+	 *            the keyword
+	 * @param value
+	 *            what method to be runned
+	 */
+	public void addCombat(String key) {
+		navigation.put(key, () -> startCombat(navMap.get(key)));
+	}
+
+	/**
+	 * Addition of an abilitytest to the hashMap
+	 * 
+	 * @param key
+	 *            the keyword
+	 * @param value
+	 *            what method to be runned
+	 */
+	public void addAbilityCheck(String key) {
+		navigation.put(key, () -> abilityCheck(navMap.get(key)));
+	}
+
+	/**
+	 * Addition of a link to when a new chapter will begin.
+	 * 
+	 * @param key
+	 *            the keyword
+	 */
+	public void addNewChapter(String key) {
+		navigation.put(key, () -> {
+			try {
+				changeChapter(key);
+				startNewChapter();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	/**
+	 * End of the game. A player never wants to be here, ever.
+	 * 
+	 * @param event
+	 *            The eventText to be updated.
+	 */
+	public void gameOver(String event) {
+		setActiveCombat(null);
+		String[] gameOver = new String[] { event, "Start New Game", "startNewGame", "Load Game", "loadGame",
+				"Exit Game", "exit" };
+		setupDialog(gameOver);
+	}
+
+	/**
+	 * When the player is victorius
+	 * 
+	 * @param victoryKey
+	 *            the next conversation
+	 * @param event
+	 *            what the event text label will say
+	 */
+	public void victorius(String victoryKey, String event) {
+		String[] victory = { event, "End Combat", victoryKey };
+		currentConversation = victoryKey;
+		setActiveCombat(null);
+		setupDialog(victory);
+	}
+
+	/**
+	 * Activation of the next conversation
+	 * 
+	 * @param navKey
+	 *            the keyword for the hashMap
+	 */
+	public void navigation(String navKey) {
+		if (activeCombat != null) {
+			activeCombat.actions.get(navKey).run();
+		} else {
+			navigation.get(navKey).run();
+		}
+	}
+
+	/**
+	 * Method to test a player's abilities and navigate depending on the result
+	 * 
+	 * @param testerArray
+	 *            the information needed for the test to work
+	 */
+	public void abilityCheck(String[] testerArray) {
+		if (StatDice.rollDice(player.retrieveStats(testerArray[4], testerArray[5])) > Integer
+				.parseInt(testerArray[1])) {
+			navigation(testerArray[2]);
+		} else {
+			navigation(testerArray[3]);
+		}
+	}
+
+	/**
+	 * Initiation of a combat situation
+	 * 
+	 * @param nextConversation
+	 *            The next conversation after combat is resolved
+	 */
+	public void startCombat(String[] dialogues) {
+		setActiveCombat(new CombatSituation(dialogues));
+	}
+
+	/**
+	 * Sorts and updates the texts in the GUI class
+	 * 
+	 * @param dialog
+	 *            The array with the different texts and keywords
+	 */
+	public void setupDialog(String[] dialog) {
+		getGUI().disableButtons();
+		getGUI().setEventText(dialog[0]);
+
+		for (int i = 1; i < dialog.length; i += 2) {
+			try {
+				getGUI().setDialog(dialog[i], i, dialog[i + 1]);
+			} catch (NullPointerException e) {
+				System.out.println("Här är en nullpointer!!!");
+			}
+			;
+		}
+
+	}
+
+	/**
+	 * return method with the current chapter
+	 * 
+	 * @return the current chapter
+	 */
+	public String getCurrentChapter() {
+		return currentChapter;
+	}
+
+	/*
+	 * defines the current chapter
+	 */
+	public void setCurrentChapter(String currentChapter) {
+		this.currentChapter = currentChapter;
+	}
+
+	/**
+	 * Return method with the String[] of eventtexts and button information
+	 * 
+	 * @return
+	 */
+	public HashMap<String, String[]> getConversationNavigation() {
+		return navMap;
+	}
+
+	/**
+	 * Return Method for the hashMap with navigation Runnables.
+	 * 
+	 * @return
+	 */
+	public HashMap<String, Runnable> getNavigation() {
+		return navigation;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public Npc getNpc() {
+		return npc;
+	}
+
+	public void setNpc(Npc npc) {
+		this.npc = npc;
+	}
+
+	public GameGUI getGUI() {
+		return GUI;
+	}
+
+	public CombatSituation getActiveCombat() {
+		return activeCombat;
+	}
+
+	public void setActiveCombat(CombatSituation activeCombat) {
+		this.activeCombat = activeCombat;
+	}
+
+	public void setVictoryKey(String key) {
+		this.victoryKey = key;
+	}
+
+	/**
+	 * Interior class for handling all combat situation.
+	 * 
+	 * @author Björn Svensson
+	 *
+	 */
+	public class CombatSituation {
+
+		protected HashMap<String, Runnable> actions = new HashMap<>();
+		private String eventText = null;
+
+		/**
+		 * constructor for combats with specific actions and
+		 * 
+		 * @param victoryKey
+		 *            the key for next
+		 */
+		public CombatSituation(String[] dialogues) {
+			npc = new Npc();
+			setVictoryKey(dialogues[1]);
+			eventText = dialogues[0];
+			actions.put("h2h", () -> this.playerAction(1));
+			actions.put("ranged", () -> this.playerAction(2));
+			actions.put("heal", () -> this.playerAction(3));
+			actions.put("action4", () -> this.playerAction(4));
+			combatScreen(eventText);
+		}
+
+		/**
+		 * Method used when updating the dialogue and buttons
+		 * 
+		 * @param event
+		 *            the eventtext
+		 */
+		public void combatScreen(String event) {
+			String[] combatDialogues = new String[9];
+			combatDialogues[0] = event;
+			combatDialogues[1] = "[STR + DEX] Hand to hand";
+			combatDialogues[2] = "h2h";
+			combatDialogues[3] = "[DEX + CMP] Ranged attack";
+			combatDialogues[4] = "ranged";
+			if (getPlayer().getMedGel() > 0) {
+				combatDialogues[5] = "[Consume Med-gel] Heal your wounds. ";
+				combatDialogues[6] = "heal";
+			} else {
+				combatDialogues[5] = null;
+				combatDialogues[6] = null;
+			}
+			combatDialogues[7] = null;
+			combatDialogues[8] = null;
+			setupCombatDialog(combatDialogues);
+		}
+
+		/**
+		 * method to change the combat dialogues.
+		 * 
+		 * @param dialogues
+		 *            the array with the dialogues for combat actions
+		 */
+		public void setupCombatDialog(String[] dialogues) {
+			getGUI().disableButtons();
+			getGUI().setEventText(dialogues[0]);
+			for (int i = 1; i < dialogues.length; i += 2) {
+				try {
+					getGUI().setDialog(dialogues[i], i, dialogues[i + 1]);
+				} catch (NullPointerException e) {
+				}
+				;
+			}
+		}
+
+		/**
+		 * method to start an character action
+		 * 
+		 * @param action
+		 *            which action that is going to be performed
+		 */
+		public void performCharacterAction(String action) {
+			actions.get(action).run();
+		}
+
+		/**
+		 * method to perform which action the player chose
+		 * 
+		 * @param choice
+		 *            which action that was used
+		 */
+		public void playerAction(int choice) {
+			int result = 0;
+			eventText = "";
+			switch (choice) {
+			case 1:
+				eventText += "You attacked your opponent in hand-to-hand combat.";
+				result = StatDice
+						.rollDice(getPlayer().getStrength() + getPlayer().getDexterity() - getNpc().getStamina());
+				break;
+			case 2:
+				eventText += "You aimed your gun and fired a bullet at your opponent.";
+				result = StatDice
+						.rollDice(getPlayer().getComposure() + getPlayer().getDexterity() - getNpc().getStamina());
+				break;
+			case 3:
+				getPlayer().setMedGel(getPlayer().getMedGel() - 1);
+				eventText += "You mended your wounds";
+				getPlayer().setHealth(getPlayer().getMaxhealth());
+				getGUI().changeHealth();
+				getGUI().setMedGels();
+				result = 0;
+				break;
+			case 4:
+				eventText += "";
+				result = 0;
+				break;
+			}
+			if (result > 0) {
+				eventText += "\n\n Your opponent suffered " + result + " points of damage";
+				if (applyDamage(getNpc(), result))
+					checkVictor(getNpc());
+				else
+					npcAction();
+			} else {
+				if (choice == 3)
+					eventText += "\n\n Your health has been restored";
+				else
+					eventText += "\n\n You missed!";
+				npcAction();
+			}
+		}
+
+		/**
+		 * Whenever a player action fail to defeat the opponent, the opponent
+		 * attacks
+		 */
+		public void npcAction() {
+			eventText += "\n\n The enemy attacks you with their fists!";
+			int result = StatDice.rollDice(getNpc().getStrength() + getNpc().getDexterity() - getPlayer().getStamina());
+			getGUI().setEventText(getNpc().getClass() + " attacks!");
+			if (result > 0) {
+				eventText += "\n\n You recieved " + result + " points of damage";
+				if (applyDamage(getPlayer(), result))
+					checkVictor(getPlayer());
+				else
+					combatScreen(eventText);
+			} else {
+				eventText += "\n\n Their attack missed!";
+				combatScreen(eventText);
+			}
+		}
+
+		/**
+		 * Method to check if a character is defeated
+		 * 
+		 * @param chara
+		 *            the character that gets checked
+		 */
+		public void checkVictor(Character chara) {
+			if (chara == getPlayer()) {
+				eventText += "\n\n You Died!";
+				gameOver(eventText);
+			} else {
+				eventText += "\n\n You have defeated your opponent!";
+				victorius(victoryKey, eventText);
+			}
+		}
+
+		/**
+		 * Whenever a character is damaged (result of rolls is above 0) damage
+		 * will be applied to associated character
+		 * 
+		 * @param chara
+		 *            the character on which the damage will be applied to
+		 * @param damage
+		 *            the amount of damage to be applied
+		 * @return boolean result if a character is defeated or not
+		 */
+		public boolean applyDamage(Character chara, int damage) {
+			chara.setHealth(chara.getHealth() - damage);
+			if (chara == getPlayer())
+				getGUI().changeHealth();
+			if (chara.getHealth() <= 0)
+				return true;
+			return false;
+		}
+	}
+
+}
