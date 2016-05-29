@@ -1,13 +1,6 @@
-/*
- * GameGui
- * V2.0
- * Date: 20160430 
- * Author: Robert Bång 
- */
 package gui.Navscreen;
 
 import game.Controller;
-
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
@@ -18,13 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-/**
-* 
-* Class ItemGui is the graphical user interface that lets the player choose their starting items.
-* Communicates with the Controller class and the GameGUI for graphical updates the will represent the state of the
-* items.
-*/
 
 public class ItemGUI {
 
