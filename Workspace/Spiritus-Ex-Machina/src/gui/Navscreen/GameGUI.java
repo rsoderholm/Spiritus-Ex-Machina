@@ -41,122 +41,116 @@ import javafx.scene.text.TextAlignment;
  */
 public class GameGUI {
 
-
 	private VBox vbLeft;
 	private VBox vbRight;
 	private BorderPane pane;
 	private Stage window;
 	private Scene scene;
-	
+
 	private boolean showinv;
 	private boolean showattr;
 	private Button buttonattr;
 	private GridPane gridInventory;
 	private GridPane gridAttribute;
-	
+
 	private Label labelPlasmaBeam;
 	private ImageView ivPlasmaBeam;
 	private String attributesPlasmaBeam;
 	private Image imagePlasmaBeam;
-	
+
 	private Label labelBoot;
 	private ImageView ivBoot;
 	private String attributesBoot;
 	private Image imageBoot;
-	
+
 	private Label labelSheild;
 	private ImageView ivSheild;
 	private String attributesSheild;
 	private Image imageSheild;
-	
+
 	private Label labellaserMiniGun;
 	private ImageView ivlaserMiniGun;
 	private String attributeslaserMiniGun;
 	private Image imagelaserMiniGun;
-	
+
 	private Label labelIstream;
 	private ImageView ivIstream;
 	private String attributesIstream;
 	private Image imageIstream;
-	
+
 	private Label labelVisor;
 	private ImageView ivVisor;
 	private String attributesVisor;
 	private Image imageVisor;
-	
-	
-	
-	
-	
-	
+
 	private Label labelArmor;
 	private ImageView ivArmor;
 	private String attributesArmor;
 	private Image imageArmor;
-	
+
 	private Label labelGun;
 	private ImageView ivGun;
 	private String attributesGun;
 	private Image imageGun;
-	
+
 	private Label labelBioGel;
 	private ImageView ivBioGel;
 	private String attributesBioGel;
 	private Image imageBioGel;
-	
+
 	private Label labelMelee;
 	private ImageView ivMelee;
 	private String attributesMelee;
 	private Image imageMelee;
-	
+
 	private Label labelInt;
 	private ImageView ivInt;
 	private int inte;
 	private String attributesInt;
 	private Image imageInt;
-	
+
 	private Label labelStr;
 	private ImageView ivStr;
 	private int str;
 	private String attributesStr;
 	private Image imageStr;
-	
+
 	private Label labelPre;
 	private ImageView ivPre;
 	private int pre;
 	private String attributesPre;
 	private Image imagePre;
-	
+
 	private Label labelWit;
 	private ImageView ivWit;
 	private int wit;
 	private String attributesWit;
 	private Image imageWit;
-	
+
 	private Label labelDex;
 	private ImageView ivDex;
 	private int dex;
 	private String attributesDex;
 	private Image imageDex;
-	
+
 	private Label labelMani;
 	private ImageView ivMani;
 	private int mani;
 	private String attributesMani;
 	private Image imageMani;
-	
+
 	private Label labelRes;
 	private ImageView ivRes;
 	private int res;
 	private String attributesRes;
 	private Image imageRes;
-	
+
 	private Label labelSta;
 	private ImageView ivSta;
 	private int sta;
 	private String attributesSta;
 	private Image imageSta;
-	
+
 	private Label labelComp;
 	private ImageView ivComp;
 	private int comp;
@@ -220,9 +214,9 @@ public class GameGUI {
 				final int n = Math.round(length * (float) frac);
 				Evtext.setText(eventText.substring(0, n));
 			}
-			
+
 		};
-		
+
 		animation.play();
 	}
 
@@ -266,7 +260,7 @@ public class GameGUI {
 		pane.setCenter(center);
 		pane.setLeft(vbLeft);
 		pane.setRight(vbRight);
-		
+
 		scene = new Scene(pane, widthScreen, heightScreen);
 		scene.getStylesheets().add("Menustylesheet.css");
 
@@ -297,7 +291,6 @@ public class GameGUI {
 
 		buttonattr = new Button("Attributes");
 		buttonattr.setMaxWidth(200);
-		
 
 		inte = controller.getPlayer().getIntelligence();
 		str = controller.getPlayer().getStrength();
@@ -417,7 +410,7 @@ public class GameGUI {
 		gridAttribute.add(labelSta, 1, 7);
 		gridAttribute.add(labelComp, 1, 8);
 		gridAttribute.add(statusText, 1, 9);
-	
+
 	}
 
 	/**
@@ -430,55 +423,57 @@ public class GameGUI {
 		gridInventory.setHgap(0);
 		gridInventory.setVgap(0);
 		gridInventory.setPadding(new Insets(0, 10, 0, 10));
-	
-				imagePlasmaBeam = new Image("doge.jpeg");
-				ivPlasmaBeam = new ImageView();
-				ivPlasmaBeam.setImage(imagePlasmaBeam);
-				ivPlasmaBeam.setFitWidth(50);
-				ivPlasmaBeam.setFitHeight(50);
-				attributesPlasmaBeam = "Such WoW ";
-				labelPlasmaBeam = new Label(attributesPlasmaBeam, ivPlasmaBeam);
-				labelPlasmaBeam.setMinWidth(300);
 
-				imageBoot = new Image("doge.jpeg");
-				ivBoot = new ImageView();
-				ivBoot.setImage(imageBoot);
-				ivBoot.setFitWidth(50);
-				ivBoot.setFitHeight(50);
-				attributesBoot = "Such WoW ";
-				labelBoot = new Label(attributesBoot, ivBoot);
-				labelBoot.setMinWidth(300);
+		imagePlasmaBeam = new Image("doge.jpeg");
+		ivPlasmaBeam = new ImageView();
+		ivPlasmaBeam.setImage(imagePlasmaBeam);
+		ivPlasmaBeam.setFitWidth(50);
+		ivPlasmaBeam.setFitHeight(50);
+		attributesPlasmaBeam = "Such WoW ";
+		labelPlasmaBeam = new Label(attributesPlasmaBeam, ivPlasmaBeam);
+		labelPlasmaBeam.setMinWidth(300);
 
-				imageBioGel = new Image("doge.jpeg");
-				ivBioGel = new ImageView();
-				ivBioGel.setImage(imageBioGel);
-				ivBioGel.setFitWidth(50);
-				ivBioGel.setFitHeight(50);
-				attributesBioGel = "Such WoW ";
-				labelBioGel = new Label(attributesBioGel, ivBioGel);
-				labelBioGel.setMinWidth(300);
+		imageBoot = new Image("doge.jpeg");
+		ivBoot = new ImageView();
+		ivBoot.setImage(imageBoot);
+		ivBoot.setFitWidth(50);
+		ivBoot.setFitHeight(50);
+		attributesBoot = "Such WoW ";
+		labelBoot = new Label(attributesBoot, ivBoot);
+		labelBoot.setMinWidth(300);
 
-				imageMelee = new Image("doge.jpeg");
-				ivMelee = new ImageView();
-				ivMelee.setImage(imageMelee);
-				ivMelee.setFitWidth(50);
-				ivMelee.setFitHeight(50);
-				attributesMelee = "Such WoW ";
-				labelMelee = new Label(attributesMelee, ivMelee);
-				labelMelee.setMinWidth(300);
+		imageBioGel = new Image("doge.jpeg");
+		ivBioGel = new ImageView();
+		ivBioGel.setImage(imageBioGel);
+		ivBioGel.setFitWidth(50);
+		ivBioGel.setFitHeight(50);
+		attributesBioGel = "Such WoW ";
+		labelBioGel = new Label(attributesBioGel, ivBioGel);
+		labelBioGel.setMinWidth(300);
 
-				gridInventory.add(labelBoot, 1, 0);
-				gridInventory.add(labelPlasmaBeam, 1, 1);
-				gridInventory.add(labelBioGel, 1, 2);
-				gridInventory.add(labelMelee, 1, 3);
+		imageMelee = new Image("doge.jpeg");
+		ivMelee = new ImageView();
+		ivMelee.setImage(imageMelee);
+		ivMelee.setFitWidth(50);
+		ivMelee.setFitHeight(50);
+		attributesMelee = "Such WoW ";
+		labelMelee = new Label(attributesMelee, ivMelee);
+		labelMelee.setMinWidth(300);
 
-		}
-	
-	
-	public void setItemsGui(int choice){
+		gridInventory.add(labelBoot, 1, 0);
+		gridInventory.add(labelPlasmaBeam, 1, 1);
+		gridInventory.add(labelBioGel, 1, 2);
+		gridInventory.add(labelMelee, 1, 3);
 
-	
-		
+	}
+
+	/**
+	 * SetItemsGui sets the current choice of items that the player selected.
+	 * 
+	 * @param choice
+	 */
+	public void setItemsGui(int choice) {
+
 		switch (choice) {
 		case 1:
 			imagePlasmaBeam = new Image("PlasmaBeam.png");
@@ -531,7 +526,7 @@ public class GameGUI {
 			attributeslaserMiniGun = "laserMiniGun";
 			labellaserMiniGun = new Label(attributeslaserMiniGun, ivlaserMiniGun);
 			labellaserMiniGun.setMinWidth(300);
-			
+
 			imageSheild = new Image("sheild.png");
 			ivSheild = new ImageView();
 			ivSheild.setImage(imageSheild);
@@ -540,7 +535,7 @@ public class GameGUI {
 			attributesSheild = "Sheild";
 			labelSheild = new Label(attributesSheild, ivSheild);
 			labelSheild.setMinWidth(300);
-			
+
 			imageArmor = new Image("armor.png");
 			ivArmor = new ImageView();
 			ivArmor.setImage(imageArmor);
@@ -549,7 +544,7 @@ public class GameGUI {
 			attributesArmor = "Aegis Heavy Body Armor";
 			labelArmor = new Label(attributesArmor, ivArmor);
 			labelArmor.setMinWidth(300);
-			
+
 			imageBioGel = new Image("stim.png");
 			ivBioGel = new ImageView();
 			ivBioGel.setImage(imageBioGel);
@@ -558,14 +553,14 @@ public class GameGUI {
 			attributesBioGel = "Bio-gel: " + controller.getPlayer().getMedGel();
 			labelBioGel = new Label(attributesBioGel, ivBioGel);
 			labelBioGel.setMinWidth(300);
-			
+
 			gridInventory.add(labelArmor, 1, 0);
 			gridInventory.add(labelSheild, 1, 1);
 			gridInventory.add(labelBioGel, 1, 2);
 			gridInventory.add(labellaserMiniGun, 1, 3);
 			break;
 		case 3:
-			
+
 			imageGun = new Image("gun.png");
 			ivGun = new ImageView();
 			ivGun.setImage(imageGun);
@@ -573,8 +568,8 @@ public class GameGUI {
 			ivGun.setFitHeight(50);
 			attributesGun = "M-5 Phalanx ";
 			labelGun = new Label(attributesGun, ivGun);
-			labelGun.setMinWidth(300); 
-			
+			labelGun.setMinWidth(300);
+
 			imageBioGel = new Image("stim.png");
 			ivBioGel = new ImageView();
 			ivBioGel.setImage(imageBioGel);
@@ -583,7 +578,7 @@ public class GameGUI {
 			attributesBioGel = "Bio-gel: " + controller.getPlayer().getMedGel();
 			labelBioGel = new Label(attributesBioGel, ivBioGel);
 			labelBioGel.setMinWidth(300);
-			
+
 			imageIstream = new Image("Istream.png");
 			ivIstream = new ImageView();
 			ivIstream.setImage(imageIstream);
@@ -592,23 +587,23 @@ public class GameGUI {
 			attributesIstream = "Istream";
 			labelIstream = new Label(attributesIstream, ivIstream);
 			labelIstream.setMinWidth(300);
-			
+
 			imageVisor = new Image("visor.png");
 			ivVisor = new ImageView();
 			ivVisor.setImage(imageVisor);
 			ivVisor.setFitWidth(50);
 			ivVisor.setFitHeight(50);
-			attributesVisor = "Visor " ;
+			attributesVisor = "Visor ";
 			labelVisor = new Label(attributesVisor, ivVisor);
 			labelVisor.setMinWidth(300);
-			
+
 			gridInventory.add(labelVisor, 1, 0);
 			gridInventory.add(labelGun, 1, 1);
 			gridInventory.add(labelBioGel, 1, 2);
 			gridInventory.add(labelIstream, 1, 3);
 			break;
 		}
-		
+
 	}
 
 	/**
@@ -629,7 +624,7 @@ public class GameGUI {
 
 		button4 = new Button("");
 		button4.setMaxWidth(200);
-	
+
 	}
 
 	/**
@@ -643,12 +638,12 @@ public class GameGUI {
 
 		Evtext.setTextAlignment(TextAlignment.CENTER);
 		// Evtext.setText(eventText);
-	    DropShadow dropShadow = new DropShadow();
-        dropShadow.setColor(Color.DODGERBLUE);
-        dropShadow.setRadius(25);
-        dropShadow.setSpread(0.25);
-        dropShadow.setBlurType(BlurType.GAUSSIAN);
-        Evtext.setEffect(dropShadow);
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setColor(Color.DODGERBLUE);
+		dropShadow.setRadius(25);
+		dropShadow.setSpread(0.25);
+		dropShadow.setBlurType(BlurType.GAUSSIAN);
+		Evtext.setEffect(dropShadow);
 	}
 
 	/**
@@ -669,27 +664,34 @@ public class GameGUI {
 		buttonInv = new Button("Inventory");
 		buttonInv.setMaxHeight(600);
 		buttonInv.setMaxWidth(200);
-		
+
 	}
-/**
- * AddMenuButton initaites the menu.
- */
+
+	/**
+	 * AddMenuButton initaites the menu.
+	 */
 	public void addMenuButton() {
 		buttonMenu = new Button("Menu");
 		buttonMenu.setMaxHeight(600);
 		buttonMenu.setMaxWidth(200);
-		
+
 	}
-	
-	public void setVisablity( boolean visablity){
+
+	/**
+	 * setVisabilty hides certain features that will otherwise confuse that
+	 * player at start.
+	 * 
+	 * @param visablity
+	 */
+	public void setVisablity(boolean visablity) {
 		iv1.setVisible(visablity);
 		buttonInv.setVisible(visablity);
 		buttonMenu.setVisible(visablity);
 		buttonattr.setVisible(visablity);
-		
-		if(visablity ==true){
+
+		if (visablity == true) {
 			scene.getStylesheets().add("StyleSheet.css");
-		
+
 			button1.setMaxWidth(width);
 			button2.setMaxWidth(width);
 			button3.setMaxWidth(width);
@@ -697,7 +699,7 @@ public class GameGUI {
 			Evtext.setFont(new Font(20));
 			Evtext.setTextAlignment(TextAlignment.JUSTIFY);
 			Evtext.setFill(Color.WHITE);
-			
+
 		}
 	}
 
@@ -806,7 +808,7 @@ public class GameGUI {
 	 *            The next dialog text.
 	 */
 	public void setDialog(String dialog, int n, String navKey) {
-		
+
 		if (dialog != null)
 			switch (n) {
 			case 1:
@@ -835,6 +837,7 @@ public class GameGUI {
 	/**
 	 * SetImage updates the current EventImage.
 	 */
+	
 	public void setImage(String img) {
 		image = new Image(img);
 		iv1.setImage(image);
@@ -843,6 +846,7 @@ public class GameGUI {
 	/**
 	 * DiableButtons hides the buttons.
 	 */
+	
 	public void disableButtons() {
 		button1.setText("");
 		button2.setText("");
@@ -862,7 +866,9 @@ public class GameGUI {
 	 * ButtonHandler works as the brige between the controller class and sends
 	 * the next dialog order for the controller.
 	 */
+	
 	public void buttonHandler() {
+
 
 		button1.setOnAction(e -> {
 			controller.navigation(altOne);
@@ -910,6 +916,10 @@ public class GameGUI {
 		});
 	}
 
+	
+	/**
+	 * GainFocus is used when this class is needed to be the main focus.
+	 */
 	public void gainFocus() {
 		window.requestFocus();
 		window.setFullScreen(true);
